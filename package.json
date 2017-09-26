@@ -1,0 +1,39 @@
+{
+  "name": "picidae",
+  "version": "1.0.0",
+  "description": "![](https://avatars2.githubusercontent.com/u/32284874?v=4&s=200)",
+  "main": "lib/index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "build": "babel src --out-dir lib -D",
+    "dev": "babel src --out-dir lib -Dw"
+  },
+  "files": [
+    "lib",
+    "bin"
+  ],
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/picidaejs/picidae.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/picidaejs/picidae/issues"
+  },
+  "homepage": "https://github.com/picidaejs/picidae#readme",
+  "dependencies": {
+    "express": "^4.15.5",
+    "extract-text-webpack-plugin": "^3.0.0",
+    "friendly-errors-webpack-plugin": "^1.6.1",
+    "webpack": "^3.6.0"
+  },
+  "devDependencies": {
+    "babel-cli": "^6.26.0",
+    "babel-core": "^6.26.0",
+    "babel-preset-es2015": "^6.24.1",
+    "babel-preset-react": "^6.24.1",
+    "babel-preset-stage-0": "^6.24.1"
+  }
+}
