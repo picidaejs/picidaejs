@@ -10,3 +10,12 @@ markdown files -> picidae <- theme
                      |
                 html(spa/ssr)
 ```
+
+
+## Dev Record
+
+1. [remark](https://github.com/wooorm/remark/tree/master/packages/remark)  
+    A markdown processor
+2. [yaml-front-matter](https://github.com/dworthen/js-yaml-front-matter)  
+    Parses yaml or json at the front of a file
+    
