@@ -18,4 +18,10 @@ markdown files -> picidae <- theme
     A markdown processor
 2. [yaml-front-matter](https://github.com/dworthen/js-yaml-front-matter)  
     Parses yaml or json at the front of a file
+
     
+## Todo
+
+1. SSR Demo
+2. data-loader
+3. posts/api posts/doc ... -> multiply directory
