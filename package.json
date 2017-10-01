@@ -8,10 +8,14 @@
     "build": "babel src --out-dir lib -D",
     "dev": "babel src --out-dir lib -Dw"
   },
+  "bin": {
+    "picidae": "./bin/picidae"
+  },
   "files": [
     "lib",
     "bin"
   ],
+  "preferGlobal": true,
   "repository": {
     "type": "git",
     "url": "git+https://github.com/picidaejs/picidae.git"
