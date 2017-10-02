@@ -19,6 +19,7 @@ export default function getWebpackCommonConfig(args) {
     const commonName = args.hash ? 'common-[chunkhash].js' : 'common.js';
 
     const silent = args.silent === true;
+    const dev = 'dev' in args ? args.dev : true
     const babelOptions = getBabelCommonConfig();
 
     const postcssOptions = {
@@ -163,9 +164,19 @@ export default function getWebpackCommonConfig(args) {
                 disable: false,
                 allChunks: true,
             }),
-            new webpack.HotModuleReplacementPlugin(),
+            dev && new webpack.HotModuleReplacementPlugin(),
+            new webpack.DefinePlugin({
+                'process.env.NODE_ENV': dev ? '"development"' : '"production"',
+            }),
+            new webpack.optimize.OccurrenceOrderPlugin(),
+            !dev && new webpack.optimize.UglifyJsPlugin({
+                output: {comments: false},
+                compress: {
+                    warnings: false
+                }
+            }),
             new CaseSensitivePathsPlugin(),
-            new FriendlyErrorsWebpackPlugin({
+            dev && new FriendlyErrorsWebpackPlugin({
                 onErrors: (severity, errors) => {
                     if (silent) return;
                     if (severity !== 'error') {
@@ -187,7 +198,7 @@ export default function getWebpackCommonConfig(args) {
                     });
                 },
             }),
-        ],
+        ].filter(Boolean),
     };
 
     return config;
