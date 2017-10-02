@@ -22,6 +22,9 @@ markdown files -> picidae <- theme
     
 ## Todo
 
-1. SSR Demo
-2. data-loader
+1. [x] SSR Demo
+2. [x] data-loader Demo
 3. posts/api posts/doc ... -> multiply directory
+4. routes supports Object/Array
+5. markdown <-> json -> React -> HTML
+6. markdown-loader -> meta/content

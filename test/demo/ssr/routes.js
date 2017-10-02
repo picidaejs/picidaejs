@@ -1,5 +1,11 @@
 import NProgress from 'nprogress'
 
+if (typeof require.ensure !== 'function') {
+    require.ensure = (dependencies, callback) => {
+        return callback(require)
+    }
+}
+
 export default [
     {
         path: '/',
@@ -9,14 +15,24 @@ export default [
             }
         },
         component: void 0,
-        getComponent: () => {
-            return new Promise(resolve => {
-                require.ensure
-                ? require.ensure([], () =>
-                    resolve(require('./pages/Index').default || require('./pages/Index'))
-                )
-                : resolve(require('./pages/Index').default || require('./pages/Index'))
-            });
+        getComponent: (nextState, callback) => {
+            require.ensure([], require =>
+                callback(null, require('./pages/Index').default || require('./pages/Index'))
+            )
+        }
+    },
+    {
+        path: '/1',
+        onEnter: () => {
+            if (typeof document !== 'undefined') {
+                NProgress.start();
+            }
+        },
+        component: void 0,
+        getComponent: (nextState, callback) => {
+            require.ensure([], require =>
+                callback(null, require('./pages/Index').default || require('./pages/Index'))
+            )
         }
     },
     {
@@ -29,13 +45,9 @@ export default [
         },
         component: undefined,
         getComponent: (location, callback) => {
-            return new Promise(resolve => {
-                require.ensure
-                    ? require.ensure([], () =>
-                    resolve(require('./pages/Other').default || require('./pages/Other'))
-                )
-                    : resolve(require('./pages/Other').default || require('./pages/Other'))
-            });
+            require.ensure([], require =>
+                callback(null, require('./pages/Other').default || require('./pages/Other'))
+            )
         }
     },
     {
@@ -48,13 +60,9 @@ export default [
         },
         component: undefined,
         getComponent: (location, callback) => {
-            return new Promise(resolve => {
-                require.ensure
-                    ? require.ensure([], () =>
-                    resolve(require('./pages/NotFound').default || require('./pages/NotFound'))
-                )
-                    : resolve(require('./pages/NotFound').default || require('./pages/NotFound'))
-            });
+            require.ensure([], require =>
+                callback(null, require('./pages/NotFound').default || require('./pages/NotFound'))
+            )
         }
     }
 ]

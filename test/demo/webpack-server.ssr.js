@@ -4,10 +4,11 @@ var nunjucks = require('nunjucks')
 var fs = require('fs')
 
 var WebpackServer = require('../../lib/lib/webpack-server').default
+var build = require('../../lib/lib/webpack-server/build').default
 var fixturePath = require('../utils').fixturePath
 
 var ssrEntryPath = nps.join(__dirname, 'ssr/entry.js')
-var ssrTemplatePath = nps.join(__dirname, 'ssr/template.html')
+var ssrTemplatePath = nps.join(__dirname, 'template.html')
 
 var tpl = fs.readFileSync(ssrTemplatePath, {encoding: 'utf8'})
 
@@ -34,7 +35,7 @@ wps
             res.send(
                 nunjucks.renderString(
                     tpl,
-                    {root: '/', content: content}
+                    {root: '/', content: content, entry: 'ssr'}
                 )
             )
         })

@@ -10,13 +10,16 @@ import notifier from 'node-notifier';
 import getBabelCommonConfig from './getBabelCommonConfig';
 /* eslint quotes:0 */
 
-export default function getWebpackCommonConfig(args) {
-    const pkgPath = join(args.cwd, 'package.json');
+export default function getWebpackCommonConfig(args = {}) {
+    const pkgPath = join(args.cwd || '.', 'package.json');
     const pkg = existsSync(pkgPath) ? require(pkgPath) : {};
 
     const jsFileName = args.hash ? '[name]-[chunkhash].js' : '[name].js';
     const cssFileName = args.hash ? '[name]-[chunkhash].css' : '[name].css';
     const commonName = args.hash ? 'common-[chunkhash].js' : 'common.js';
+    const chunkFilename = args.hash ? 'posts/[name]-[chunkhash].js' : 'posts/[name].js';
+    //         chunkFilename: 'modules/[name].min.js?v=[chunkhash]'
+
 
     const silent = args.silent === true;
     const dev = 'dev' in args ? args.dev : true
@@ -61,10 +64,10 @@ export default function getWebpackCommonConfig(args) {
         output: {
             path: join(process.cwd(), './dist/'),
             filename: jsFileName,
-            chunkFilename: jsFileName,
+            chunkFilename: chunkFilename,
         },
 
-        devtool: args.devtool || 'source-map',
+        devtool: args.dev && 'source-map',
 
         resolve: {
             // modules: ['node_modules', join(__dirname, '/../../../node_modules')],
