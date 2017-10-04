@@ -1,4 +1,3 @@
-import express from 'express'
 import {EventEmitter} from 'events'
 import serverMaker from './serverMaker'
 import Error from '../utils/Error'
@@ -8,7 +7,7 @@ import console from '../utils/console'
 
 export const defaultWebpackConfig = getWebpackConfig({ cwd: process.cwd() })
 
-export default class WPServer {
+export default class WebpackServer {
     static defaultOptions = {
         port: 8989,
         webpackConfigGetter: config => config,
@@ -22,7 +21,7 @@ export default class WPServer {
      */
     constructor(opt) {
         opt = {
-            ...WPServer.defaultOptions,
+            ...WebpackServer.defaultOptions,
             ...opt,
         }
         this.opt = opt;
@@ -45,6 +44,9 @@ export default class WPServer {
     }
 
     start(callback) {
+        if (this._server) {
+            throw new Error('WebpackServer is running currently!')
+        }
         this._server = this.app.listen(this.opt.port, err => {
             let port = this._server.address().port;
             if (port && this.opt.verbose) {

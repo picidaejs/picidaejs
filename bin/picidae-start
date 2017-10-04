@@ -1,2 +1,15 @@
 #!/usr/bin/env node
+var commander = require('commander');
+var nps = require('path');
+var Picidae = require('../lib');
 
+commander
+    .option('-c --config [file]', 'set config path. (default `picidae.config.js`)')
+    .parse(process.argv);
+
+
+var configPath = nps.join(process.cwd(), commander.config || 'picidae.config.js')
+let config = require(configPath)
+config.watch = true;
+
+new Picidae(config).start();

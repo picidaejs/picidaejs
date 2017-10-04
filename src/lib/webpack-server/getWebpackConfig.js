@@ -67,7 +67,7 @@ export default function getWebpackCommonConfig(args = {}) {
             chunkFilename: chunkFilename,
         },
 
-        devtool: args.dev && 'source-map',
+        devtool: dev && 'source-map',
 
         resolve: {
             // modules: ['node_modules', join(__dirname, '/../../../node_modules')],
@@ -162,7 +162,7 @@ export default function getWebpackCommonConfig(args = {}) {
 
         plugins: [
             new webpack.optimize.CommonsChunkPlugin('common', commonName),
-            new ExtractTextPlugin(cssFileName, {
+            new ExtractTextPlugin('style.css', {
                 // filename: cssFileName,
                 disable: false,
                 allChunks: true,

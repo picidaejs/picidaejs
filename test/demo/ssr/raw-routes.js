@@ -1,11 +1,12 @@
 import NProgress from 'nprogress'
 
-const config = {
-    root: '.',
-
+if (typeof require.ensure !== 'function') {
+    require.ensure = (dependencies, callback) => {
+        return callback(require)
+    }
 }
 
-let layout = './pages/Layout'
+// let layout = '/Users/yaozhiqiu/self/picidajs/picidae/test/demo/ssr/pages/Layout.js'
 
 export default {
     path: '/',

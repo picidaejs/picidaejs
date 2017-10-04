@@ -1,5 +1,5 @@
 import {join, basename} from 'path'
-import Error from './Error'
+import Error from '../utils/Error'
 import NProgress from 'nprogress'
 
 if (typeof require.ensure !== 'function') {
@@ -10,14 +10,12 @@ if (typeof require.ensure !== 'function') {
     require('babel-core/register')
 }
 
-function wrapGetComponent(template, path) {
-    const Comp = require(template).default || require(template);
+function wrapGetComponent(template, opt = {}) {
+    let Comp = require('{{root}}/' + template.replace(/^[\/\.]+/, ''))
+    Comp = Comp.default || Comp;
 
     return function getComponent(nextState, callback) {
-        require.ensure([], require =>
-            callback(null, Comp),
-            basename(template)
-        )
+        callback(null, Comp)
     }
 }
 export default function routesGenerator({routes, root, notFound}) {
@@ -41,12 +39,12 @@ export default function routesGenerator({routes, root, notFound}) {
                     NProgress.start();
                 }
             },
-            component: require(join(root, routes.component)).default,//void 0,
-            // getComponent: wrapGetComponent(join(root, routes.component), routes.dataPath || routes.path),
+            component: void 0,
+            getComponent: wrapGetComponent(routes.component, routes.dataPath || routes.path),
             indexRoute: routes.indexRoute && {
                 ...routes.indexRoute,
                 component: void 0,
-                getComponent: wrapGetComponent(join(root, routes.indexRoute.component), routes.indexRoute.dataPath || routes.indexRoute.path)
+                getComponent: wrapGetComponent(routes.indexRoute.component, routes.indexRoute.dataPath || routes.indexRoute.path)
             },
             childRoutes: routes.childRoutes && routes.childRoutes.map(processRoutes)
         }
@@ -56,7 +54,7 @@ export default function routesGenerator({routes, root, notFound}) {
     let customizedRoutes = routes.map(processRoutes);
     customizedRoutes.push({
         path: '*',
-        getComponent: wrapGetComponent(notFound ? join(root, notFound) : '../template/NotFound')
+        getComponent: wrapGetComponent(notFound)
     })
 
     return customizedRoutes;

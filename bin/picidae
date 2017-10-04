@@ -1,2 +1,15 @@
 #!/usr/bin/env node
 
+var commander = require('commander');
+var pkg = require('../package.json')
+
+commander
+    .version(pkg.version)
+    .usage('[command] [options]')
+    .command('start [options]', 'start a webpack server for development')
+    .parse(process.argv)
+
+process.on('SIGINT', function () {
+    commander.runningCommand && commander.runningCommand.kill('SIGKILL');
+    process.exit(0);
+});

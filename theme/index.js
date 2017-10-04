@@ -1,5 +1,5 @@
 
-export default {
+module.exports = {
 
     routes: {
         path: '/',
@@ -10,20 +10,22 @@ export default {
         },
         childRoutes: [
             {
-                path: '/post/:title',
+                path: 'post/:title',
                 component: './Post'
             },
             {
-                path: '/tags',
+                path: 'tags',
                 component: './TagsCloud'
             },
             {
-                path: '/tags/:tag',
+                path: 'tags/:tag',
                 component: './Tag'
             }
         ]
     },
-    404: './NotFound',
+    notFound: './NotFound',
 
     root: './template',
+
+
 }

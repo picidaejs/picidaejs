@@ -4,5 +4,6 @@ import './css.css'
 import './html.html'
 import './img.jpg'
 import './json.json'
+import './markdown.md'
 
 console.log(querystring, global)

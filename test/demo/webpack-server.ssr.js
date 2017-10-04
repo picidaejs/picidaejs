@@ -18,6 +18,13 @@ var opt = {
             app: require.resolve(fixturePath('webpack-server/entry-1.js')),
             ssr: ssrEntryPath
         }
+        config.module.loaders.push({
+            test: /\.md$/,
+            loader: require.resolve('../../lib/lib/loaders/markdown-loader'),
+            options: {
+                a: 'nnn'
+            }
+        })
         return config;
     }
 };
