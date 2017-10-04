@@ -16,7 +16,7 @@ function filesToTree(root, file, filter) {
     }
     else {
         let files = fs.readdirSync(file)
-        files = files.map(f => filesToTree(root, nps.join(file, f), filter)).filter(Boolean)
+        files = files.map(f => filesToTree(file, nps.join(file, f), filter)).filter(Boolean)
 
         return {
             type: 'dir',

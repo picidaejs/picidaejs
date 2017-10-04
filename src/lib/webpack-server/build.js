@@ -2,12 +2,7 @@ import webpack from 'webpack'
 import getWebpackConfig from './getWebpackConfig'
 
 
-export default function build(opt = {}, callback = () => {}) {
-    const {webpackConfigUpdater, ...rest} = opt
-    let config = getWebpackConfig({dev: false, ...rest})
-    if (webpackConfigUpdater) {
-        config = webpackConfigUpdater(config)
-    }
+export default function build(config, callback = () => {}) {
     webpack(config, (err, stats) => {
         if (err !== null) {
             callback(err)

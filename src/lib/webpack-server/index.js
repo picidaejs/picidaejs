@@ -5,13 +5,12 @@ import getWebpackConfig from './getWebpackConfig'
 import webpackConfigUpdater from './webpackConfigUpdater'
 import console from '../utils/console'
 
-export const defaultWebpackConfig = getWebpackConfig({ cwd: process.cwd() })
-
 export default class WebpackServer {
     static defaultOptions = {
         port: 8989,
         webpackConfigGetter: config => config,
         verbose: true,
+        dev: true
     }
 
 
@@ -25,19 +24,41 @@ export default class WebpackServer {
             ...opt,
         }
         this.opt = opt;
+        const defaultWebpackConfig = getWebpackConfig({ cwd: process.cwd(), dev: this.opt.dev })
 
-        this.app = serverMaker({
-            verbose: this.opt.verbose,
-            webpackConfig: webpackConfigUpdater(this.opt.webpackConfigGetter(defaultWebpackConfig))
-        })
+        this.webpackConfig = webpackConfigUpdater(this.opt.webpackConfigGetter(defaultWebpackConfig), this.opt.dev)
+
+    }
+
+    getWebpackConfig() {
+        return this.webpackConfig;
+    }
+
+
+    injectList = []
+
+    setInjected() {
+        if (this.app && this.injectList.length) {
+            this.injectList.forEach(args => this.app.use.apply(this.app, args));
+            this.injectList = []
+        }
     }
 
     inject(routerPatternOrRequestHandler, requestHandler) {
+        this.setInjected();
+
         if (typeof routerPatternOrRequestHandler === 'string') {
-            this.app.use(routerPatternOrRequestHandler, requestHandler);
+            if (!this.app) {
+                this.injectList.push([routerPatternOrRequestHandler, requestHandler])
+            }
+
+            this.app && this.app.use(routerPatternOrRequestHandler, requestHandler);
         }
         else if (typeof routerPatternOrRequestHandler === 'function') {
-            this.app.use(routerPatternOrRequestHandler);
+            if (!this.app) {
+                this.injectList.push([routerPatternOrRequestHandler])
+            }
+            this.app && this.app.use(routerPatternOrRequestHandler);
         }
 
         return this;
@@ -47,6 +68,12 @@ export default class WebpackServer {
         if (this._server) {
             throw new Error('WebpackServer is running currently!')
         }
+        this.app = serverMaker({
+            verbose: this.opt.verbose,
+            webpackConfig: this.webpackConfig
+        });
+        this.setInjected();
+
         this._server = this.app.listen(this.opt.port, err => {
             let port = this._server.address().port;
             if (port && this.opt.verbose) {
@@ -61,6 +88,7 @@ export default class WebpackServer {
         if (this._server) {
             this._server.close(callback)
             this._server = void 0
+            this.app = void 0;
         }
         else {
             callback(new Error('WebpackServer isn\'t running'))

@@ -1,5 +1,7 @@
 import {join, basename} from 'path'
 import Error from '../utils/Error'
+import hoc from '../utils/hoc'
+
 import NProgress from 'nprogress'
 
 if (typeof require.ensure !== 'function') {
@@ -12,7 +14,7 @@ if (typeof require.ensure !== 'function') {
 
 function wrapGetComponent(template, opt = {}) {
     let Comp = require('{{root}}/' + template.replace(/^[\/\.]+/, ''))
-    Comp = Comp.default || Comp;
+    Comp = hoc(Comp.default || Comp);
 
     return function getComponent(nextState, callback) {
         callback(null, Comp)
@@ -54,6 +56,11 @@ export default function routesGenerator({routes, root, notFound}) {
     let customizedRoutes = routes.map(processRoutes);
     customizedRoutes.push({
         path: '*',
+        onEnter() {
+            if (typeof document !== 'undefined') {
+                NProgress.start();
+            }
+        },
         getComponent: wrapGetComponent(notFound)
     })
 

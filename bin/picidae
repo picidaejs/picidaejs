@@ -6,7 +6,8 @@ var pkg = require('../package.json')
 commander
     .version(pkg.version)
     .usage('[command] [options]')
-    .command('start [options]', 'start a webpack server for development')
+    .command('start [options]', 'start a webpack server for development.')
+    .command('build [options]', 'build static pages for production.')
     .parse(process.argv)
 
 process.on('SIGINT', function () {

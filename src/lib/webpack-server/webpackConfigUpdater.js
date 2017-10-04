@@ -1,6 +1,6 @@
 
-function preAppendEntry(entry) {
-    let preset = ['babel-polyfill', 'webpack-hot-middleware/client?reload=true']
+function preAppendEntry(entry, dev) {
+    let preset = ['babel-polyfill', dev && 'webpack-hot-middleware/client?reload=true'].filter(Boolean)
     if (typeof entry === 'string') {
         entry = preset.concat(entry)
     }
@@ -15,10 +15,10 @@ function preAppendEntry(entry) {
     return entry;
 }
 
-export default function webpackConfigUpdater(config = {}) {
+export default function webpackConfigUpdater(config = {}, dev = true) {
     let {entry = {}} = config;
 
-    entry = preAppendEntry(entry)
+    entry = preAppendEntry(entry, dev)
 
     return {
         ...config,

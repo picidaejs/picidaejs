@@ -2,6 +2,7 @@ import { EventEmitter } from 'events'
 import {sync} from 'mkdirp'
 import nps from 'path'
 import WebpackServer from './lib/webpack-server'
+import build from './lib/webpack-server/build'
 import fs from './lib/utils/fs'
 import Error from './lib/utils/Error'
 import defaultConfig from './lib/default-config'
@@ -33,15 +34,16 @@ function generateEntry(fileTree) {
     function generateEntryInner(root, fileTree, container = {}) {
         if (fileTree.files) {
             fileTree.files.forEach(ent => {
-                generateEntryInner(root, ent, container);
+                generateEntryInner(nps.join(root, ent.file), ent, container);
             })
         }
         else {
-            container[fileTree.file] = nps.join(root, fileTree.file)
+            container[root.substring(outRoot.length + 1)] = root
         }
         return container;
     }
 
+    let outRoot = fileTree.file;
     return generateEntryInner(fileTree.file, fileTree);
 }
 
@@ -133,8 +135,18 @@ class Picidae extends EventEmitter {
         // initial webpackServer
         this.wpServer = new WebpackServer({
             ...this.opts,
+            dev: this.opts.watch,
             webpackConfigGetter: this.webpackConfigGetter
         });
+    }
+
+    build() {
+        // let routes = routesGenerator(require(this.themeDataPath))
+        // ssr(routes)()
+
+        build(this.wpServer.getWebpackConfig(), function () {
+            console.log('Build successfully.')
+        })
     }
 
     initialThemeConfig() {
@@ -160,7 +172,6 @@ class Picidae extends EventEmitter {
         } = require(themePath) || require(themePath).default;
 
         try {
-            console.log(themeConfigFile)
             themeConfig = require(themeConfigFile)
         } catch (ex) {
             themeConfigFile = themePath;
