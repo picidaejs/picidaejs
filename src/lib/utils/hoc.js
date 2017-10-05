@@ -1,8 +1,9 @@
 import React from 'react'
 import NProgress from 'nprogress'
+import hoistNonReactStatic from 'hoist-non-react-statics';
 
 
-export default function hoc(Component) {
+function wrap(Component, extra) {
     return class HOC extends React.Component {
         componentDidMount(...args) {
             NProgress.done();
@@ -10,7 +11,29 @@ export default function hoc(Component) {
 
         render() {
             const {children, ...props} = this.props;
-            return <Component {...props}>{children}</Component>
+            return <Component {...extra} {...props}>{children}</Component>
         }
+    }
+}
+
+function inverseExtend(Component) {
+    return class HOC extends Component {
+        componentDidMount(...args) {
+            super.componentDidMount && super.componentDidMount.apply(this, args);
+            NProgress.done();
+        }
+    }
+}
+
+
+export default function hoc({nextState, ...data}) {
+    return Component => {
+        console.log(nextState)
+        // nextState.location.pathname
+
+
+        let Comp = wrap(Component, data);
+        hoistNonReactStatic(Comp, Component);
+        return Comp;
     }
 }

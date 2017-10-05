@@ -1,4 +1,8 @@
 import nps from 'path'
 
-export const tmpPath = nps.join(__dirname, '../tmp');
-export const templatePath = nps.join(__dirname, '../templates');
+exports.tmpPath = nps.join(__dirname, '../tmp');
+exports.templatePath = nps.join(__dirname, '../templates');
+
+exports.assign = function (data) {
+    Object.assign(exports, data);
+}

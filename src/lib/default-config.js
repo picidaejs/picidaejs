@@ -9,6 +9,10 @@ module.exports = {
     templateRoot: './templates',
     themeConfigsRoot: './theme-configs',
 
+    picker(metaData, content, filename) {
+        return metaData;
+    },
+
     excludes: [/\.ignore\./],
 
     transformers: [],

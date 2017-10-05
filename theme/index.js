@@ -10,7 +10,7 @@ module.exports = {
         },
         childRoutes: [
             {
-                path: 'post/:title',
+                path: 'post/*',
                 component: './Post'
             },
             {

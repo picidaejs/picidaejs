@@ -13,6 +13,8 @@ import console from './lib/utils/console'
 import resolve from './lib/utils/resolve-path'
 import file2Tree from './lib/utils/files-to-tree'
 import match from './lib/utils/rule-match'
+import summary from './lib/loaders/data-loader/summary-generator'
+import boss from './lib/loaders/common/boss'
 
 import ssr from './lib/utils/ssr'
 import routesGenerator from './lib/utils/routesGenerator'
@@ -66,55 +68,19 @@ class Picidae extends EventEmitter {
         this.themeDataPath = tmpThemeDataPath;
         this.docPath = nps.resolve(this.opts.docRoot);
 
-        let tree = file2Tree(this.docPath, filename => {
-            return fileIsMarkdown(filename) && !match(this.opts.excludes, filename)
-        });
-
-        const watchTheme = () => {
-            const {
-                themeConfigFiles,
-                root,
-                notFound,
-                routes,
-                themeConfig
-            } = this.initialThemeConfig();
-
-            try {
-                delete require.cache[require.resolve(tmpThemeDataPath)]
-            } catch (ex) {}
-
-            // initial Watcher
-            if (this.opts.watch && themeConfigFiles.length) {
-                this.watchTheme = chokidar.watch(themeConfigFiles, {persistent: true, ignoreInitial: true})
-                this.watchTheme.on('all', (event, path, stat) => {
-                    console.log(path, ':', event);
-                    this.watchTheme.close();
-                    this.watchTheme = null;
-                    watchTheme();
-                })
-            }
-
-            // Write Routes/ThemeConfig to file
-            renderTemplate(
-                nps.join(templatePath, 'commonjs.template.js'),
-                {body: JSON.stringify({root, notFound, routes, themeConfig})},
-                tmpThemeDataPath
-            );
-
-            renderTemplate(
-                nps.join(templatePath, 'routes-generator.template.js'),
-                {root},
-                nps.join(tmpPath, 'routes-generator.js'),
-            );
+        if (this.opts.watch) {
+            this.watchTheme();
+            this.watchSummary();
         }
-        watchTheme();
+        this.generateSummary();
+
 
         this.webpackConfigGetter = config => {
             config = webpackConfigGetter(config);
             config.entry = {
                 ...config.entry,
                 app: entryFile,
-                ...generateEntry(tree)
+                // ...generateEntry(tree)
             }
             config.output.publicPath = this.opts.publicPath || config.output.publicPath;
             config.output.path = nps.resolve(this.opts.distRoot);
@@ -140,12 +106,81 @@ class Picidae extends EventEmitter {
         });
     }
 
+    generateSummary(callback) {
+        this.summaryPath = nps.join(tmpPath, 'data.js');
+        let tree = file2Tree(this.docPath, filename => {
+            return fileIsMarkdown(filename) && !match(this.opts.excludes, filename)
+        });
+        // console.log(this.opts.picker && this.opts.picker.toString());
+        boss.queue({
+            type: 'summary',
+            args: [generateEntry(tree), this.opts.picker && this.opts.picker.toString()],
+            callback: (err, result) => {
+                console.log(`\`${this.summaryPath}\` Updated.`)
+                fs.writeFileSync(this.summaryPath, 'module.exports = ' + result);
+
+                callback && callback()
+            }
+        });
+    }
+
+    watchSummary = () => {
+        this.summaryLock = false
+        this.summaryWatcher = chokidar.watch(this.docPath, {ignoreInitial: true});
+        this.summaryWatcher.on('all', (event, path) => {
+            if (fileIsMarkdown(path) && !this.summaryLock) {
+                this.generateSummary(() => {
+                    this.summaryLock = true;
+                })
+            }
+        });
+    }
+
+    watchTheme = () => {
+        const {
+            themeConfigFiles,
+            root,
+            notFound,
+            routes,
+            themeConfig
+        } = this.initialThemeConfig();
+
+        try {
+            delete require.cache[require.resolve(this.themeDataPath)]
+        } catch (ex) {}
+
+        // initial Watcher
+        if (this.opts.watch && themeConfigFiles.length) {
+            this.themeWatcher = chokidar.watch(themeConfigFiles, {persistent: true, ignoreInitial: true})
+            this.themeWatcher.on('all', (event, path, stat) => {
+                console.log(path, ':', event);
+                this.themeWatcher.close();
+                this.themeWatcher = null;
+                this.watchTheme();
+            })
+        }
+
+        // Write Routes/ThemeConfig to file
+        renderTemplate(
+            nps.join(templatePath, 'commonjs.template.js'),
+            {body: JSON.stringify({root, notFound, routes, themeConfig})},
+            this.themeDataPath
+        );
+
+        renderTemplate(
+            nps.join(templatePath, 'routes-generator.template.js'),
+            {root},
+            nps.join(tmpPath, 'routes-generator.js'),
+        );
+    }
+
     build() {
         // let routes = routesGenerator(require(this.themeDataPath))
         // ssr(routes)()
 
         build(this.wpServer.getWebpackConfig(), function () {
-            console.log('Build successfully.')
+            console.log('Build successfully.');
+            boss.jobDone();
         })
     }
 
@@ -203,14 +238,12 @@ class Picidae extends EventEmitter {
 
     start(callback) {
         this.wpServer.inject((req, res) => {
-            let routes = routesGenerator(require(this.themeDataPath))
-            ssr(routes)(req.url, content => {
-                res.type('html');
-                res.send(renderTemplate(this.htmlTempate, {
-                    content,
-                    root: this.opts.publicPath
-                }))
-            })
+            // let routes = routesGenerator(require(this.themeDataPath))
+            res.type('html');
+            res.send(renderTemplate(this.htmlTempate, {
+                content: '',
+                root: this.opts.publicPath
+            }))
         })
         this.wpServer.start(callback);
     }
@@ -219,7 +252,7 @@ class Picidae extends EventEmitter {
         if (!this.wpServer) {
             throw new Error('WebpackServer is NOT running currently!')
         }
-        this.watchTheme.close()
+        this.themeWatcher.close()
         this.wpServer.stop(callback)
         this.wpServer = null;
     }

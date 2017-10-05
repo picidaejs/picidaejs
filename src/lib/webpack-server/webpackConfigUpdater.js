@@ -9,7 +9,7 @@ function preAppendEntry(entry, dev) {
     }
     else {
         for (let k in entry) {
-            entry[k] = preAppendEntry(entry[k])
+            entry[k] = preAppendEntry(entry[k], dev)
         }
     }
     return entry;

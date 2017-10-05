@@ -14,12 +14,19 @@ module.exports = {
     distRoot: './public',
     templateRoot: './templates',
 
-    excludes: [/\.ignore\./],
+    excludes: [/guide/],
+
+    picker(metaData, content, filename) {
+        return Object.assign(metaData, {desc: content.substr(0, 50)});
+    },
 
     transformers: [
         // 'picidae-transformer-react-render'
     ],
 
+    plugins: [
+        // 'picidae-plugin-utils'
+    ],
 
     commanders: [
         'picidae-commander-new?title=',
