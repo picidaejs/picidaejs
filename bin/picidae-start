@@ -5,11 +5,23 @@ var Picidae = require('../lib');
 
 commander
     .option('-c --config [file]', 'set config path. (default `picidae.config.js`)')
+    .option('--ssr', 'turn on ssr')
     .parse(process.argv);
 
 
 var configPath = nps.join(process.cwd(), commander.config || 'picidae.config.js')
-let config = require(configPath)
+var config = require(configPath)
 config.watch = true;
 
-new Picidae(config).start();
+if (commander.ssr) {
+    config.ssr = true;
+}
+var picidae = new Picidae(config)
+picidae.start();
+process.on('SIGINT', function () {
+    picidae.clearTmp();
+    picidae.stop(function () {
+        process.exit(1);
+    });
+});
+

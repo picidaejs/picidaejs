@@ -8,7 +8,12 @@ commander
     .parse(process.argv);
 
 var configPath = nps.join(process.cwd(), commander.config || 'picidae.config.js')
-let config = require(configPath)
+var config = require(configPath)
 config.watch = false;
 
-new Picidae(config).build();
+var picidae = new Picidae(config)
+picidae.build();
+process.on('SIGINT', function () {
+    picidae.clearTmp();
+    process.exit(1);
+});

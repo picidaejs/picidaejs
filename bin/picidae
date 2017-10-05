@@ -11,6 +11,6 @@ commander
     .parse(process.argv)
 
 process.on('SIGINT', function () {
-    commander.runningCommand && commander.runningCommand.kill('SIGKILL');
-    process.exit(0);
+    commander.runningCommand && commander.runningCommand.kill('SIGINT');
+    process.exit(1);
 });

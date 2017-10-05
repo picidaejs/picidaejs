@@ -20,10 +20,6 @@ module.exports = {
         // 'picidae-transformer-react-render'
     ],
 
-    plugins: [
-        // 'picidae-plugin-utils'
-    ],
-
     commanders: [
         'picidae-commander-new?title=',
         // 'gh-pages?repo=',

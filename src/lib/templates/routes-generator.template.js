@@ -1,20 +1,18 @@
 import {join, basename} from 'path'
 import Error from '../utils/Error'
 import hoc from '../utils/hoc'
-import data from './data'
 import NProgress from 'nprogress'
 
-if (typeof require.ensure !== 'function') {
-    require.ensure = (dependencies, callback) => {
-        return callback(require)
-    }
-
+if (typeof document === 'undefined') {
     require('babel-core/register')
 }
+
+const data = require('./data{{dataSuffix}}')
 
 function wrapData(data) {
     let lazy = data.lazyload;
     let meta = data.meta;
+    // let plugins = data.plugins || [];
 
     for (let path in lazy) {
         lazy[path] = (function (callable, path) {
@@ -29,14 +27,19 @@ function wrapData(data) {
         })(lazy[path], path)
     }
 }
+wrapData(data);
 
 let map = JSON.parse('{{ routesMap | safe }}');
 Object.keys(map).forEach(key => {
     map[key.replace(/^\/+/, '').replace(/\/+$/, '')] = map[key]
 })
 
-function replacePathname(pathname) {
-    let matched = false
+function replacePathname(pathname, path) {
+    if (!path.includes(':') && !path.includes('*')) {
+        return pathname;
+    }
+
+    let matched = false;
     return pathname
         .split('/')
         .map((chunk) => {
@@ -50,16 +53,37 @@ function replacePathname(pathname) {
                 return chunk;
             }
         })
-        .join('/')
+        .join('/');
 }
 
 async function defaultCollector(next) {
     return next;
 }
 
-export default function routesGenerator({routes, root, notFound, themeConfig}) {
+function generateUtils({pathname, data}) {
 
-    wrapData(data);
+
+    return {
+        group(name, opt = {}) {
+            const {
+                isDesc = true
+            } = opt;
+            name = map[name] || name;
+            let group = []
+            for (let k in data.meta) {
+                if (new RegExp('^' + name + (name.endsWith('/') ? '' : '\/')).test(k)) {
+                    group.push(data.meta[k])
+                }
+            }
+            return group.sort((a, b) =>
+                isDesc ? new Date(a.datetime) < new Date(b.datetime)
+                    : new Date(a.datetime) > new Date(b.datetime)
+            )
+        }
+    }
+}
+
+module.exports = function routesGenerator({routes, root, notFound, themeConfig}) {
 
     function getComp(template) {
         if (typeof template === 'string') {
@@ -69,35 +93,67 @@ export default function routesGenerator({routes, root, notFound, themeConfig}) {
         return template
     }
 
-    function wrapGetComponent(template, path) {
+    function wrapGetComponent(template, path = '') {
+        let Component = getComp(template);
 
         return function getComponent(nextState, callback) {
-            let Component = getComp(template);
-
             let pathname = nextState.location.pathname
                         .replace(/^\/+/, '')
                         .replace(/\/+$/, '')
-            pathname = replacePathname(pathname);
+            pathname = replacePathname(pathname, path);
+
+            let utils = generateUtils({pathname, data});
 
             let nextProps = {
                 ...nextState,
                 data,
                 pageData: data.lazyload[pathname],
                 themeConfig,
+                utils
             };
 
-            let boundDataHoc = hoc(nextProps)
             let collector = Component.collector || defaultCollector;
+            let promiseList = data.plugins.map(plugin => {
+                let p = plugin(nextProps);
+                return p && p.then ? p : Promise.resolve(p)
+            });
+
+            function then(data) {
+                return Promise.all(promiseList)
+                    .then(collectedList => {
+                        return collectedList.reduce((props, inject) => {
+                            return {
+                                ...props,
+                                pluginData: {
+                                    ...props.extra,
+                                    ...inject
+                                }
+                            }
+                        }, data)
+                    });
+            }
+
+
             collector(nextProps)
                 .then(collected => {
                     if (collected === false) {
-                        throw new Error();
+                        throw 'NOT_FOUND_PAGE'
                     }
-                    callback(null, hoc({...nextProps, ...collected})(Component))
+                    return {...nextProps, ...collected}
                 })
-                .catch(err => {
-                    callback(null, hoc(nextProps)(getComp(notFound)))
-                })
+                .then(data => then(data))
+                .then(
+                    data => callback(null, hoc(data)(Component)),
+                    err => {
+                        console.error(err);
+                        if (err === 'NOT_FOUND_PAGE') {
+                            callback(null, hoc(nextProps)(getComp(notFound)))
+                        }
+                        else {
+                            callback(err, null)
+                        }
+                    }
+                )
         }
     }
 
@@ -123,11 +179,11 @@ export default function routesGenerator({routes, root, notFound, themeConfig}) {
                 }
             },
             component: void 0,
-            getComponent: wrapGetComponent(routes.component, routes.dataPath || routes.path),
+            getComponent: wrapGetComponent(routes.component, routes.path),
             indexRoute: routes.indexRoute && {
                 ...routes.indexRoute,
                 component: void 0,
-                getComponent: wrapGetComponent(routes.indexRoute.component, routes.indexRoute.dataPath || routes.indexRoute.path)
+                getComponent: wrapGetComponent(routes.indexRoute.component, routes.indexRoute.path)
             },
             childRoutes: routes.childRoutes && routes.childRoutes.map(processRoutes)
         }

@@ -22,7 +22,7 @@ process.on('message', (task) => {
         marked.apply(null, args);
     }
     else if (type === 'summary') {
-        args[1] = args[1] && eval('args[1] = ' + args[1]);
+        args[2] = args[2] && eval('args[2] = ' + args[2]);
         data = summary.apply(null, args);
         process.send(data);
     }

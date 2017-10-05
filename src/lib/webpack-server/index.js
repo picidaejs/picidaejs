@@ -4,6 +4,7 @@ import Error from '../utils/Error'
 import getWebpackConfig from './getWebpackConfig'
 import webpackConfigUpdater from './webpackConfigUpdater'
 import console from '../utils/console'
+import chalk from 'chalk'
 
 export default class WebpackServer {
     static defaultOptions = {
@@ -77,7 +78,7 @@ export default class WebpackServer {
         this._server = this.app.listen(this.opt.port, err => {
             let port = this._server.address().port;
             if (port && this.opt.verbose) {
-                console.log(' WebpackServer run on http://localhost:' + port + '/');
+                console.log(' WebpackServer run on', chalk.underline.red(`${'http://localhost:' + port + '/'}`) );
             }
             callback && callback(err, port);
         })

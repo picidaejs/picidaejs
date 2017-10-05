@@ -27,6 +27,10 @@ module.exports = {
 
     root: './template',
 
+    plugins: [
+        'toc?depth=3'
+    ],
+
     picker(metaData, content, filename) {
         return Object.assign(metaData, {desc: content});
     },
