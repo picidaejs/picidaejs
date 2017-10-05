@@ -21,7 +21,7 @@ module.exports = {
     ],
 
     commanders: [
-        'picidae-commander-new?title=',
+        '../new?title=abc',
         // 'gh-pages?repo=',
         // 'deploy'
     ]
