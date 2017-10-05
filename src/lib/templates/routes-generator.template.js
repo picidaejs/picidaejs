@@ -29,58 +29,9 @@ function wrapData(data) {
 }
 wrapData(data);
 
-let map = JSON.parse('{{ routesMap | safe }}');
-Object.keys(map).forEach(key => {
-    map[key.replace(/^\/+/, '').replace(/\/+$/, '')] = map[key]
-})
-
-function replacePathname(pathname, path) {
-    if (!path.includes(':') && !path.includes('*')) {
-        return pathname;
-    }
-
-    let matched = false;
-    return pathname
-        .split('/')
-        .map((chunk) => {
-            if (!matched) {
-                if (map[chunk]) {
-                    matched = true;
-                }
-                return map[chunk] || chunk;
-            }
-            else {
-                return chunk;
-            }
-        })
-        .join('/');
-}
 
 async function defaultCollector(next) {
     return next;
-}
-
-function generateUtils({pathname, data}) {
-
-
-    return {
-        group(name, opt = {}) {
-            const {
-                isDesc = true
-            } = opt;
-            name = map[name] || name;
-            let group = []
-            for (let k in data.meta) {
-                if (new RegExp('^' + name + (name.endsWith('/') ? '' : '\/')).test(k)) {
-                    group.push(data.meta[k])
-                }
-            }
-            return group.sort((a, b) =>
-                isDesc ? new Date(a.datetime) < new Date(b.datetime)
-                    : new Date(a.datetime) > new Date(b.datetime)
-            )
-        }
-    }
 }
 
 module.exports = function routesGenerator({routes, root, notFound, themeConfig}) {
@@ -100,21 +51,19 @@ module.exports = function routesGenerator({routes, root, notFound, themeConfig})
             let pathname = nextState.location.pathname
                         .replace(/^\/+/, '')
                         .replace(/\/+$/, '')
-            pathname = replacePathname(pathname, path);
-
-            let utils = generateUtils({pathname, data});
+            // pathname = replacePathname(pathname, path);
 
             let nextProps = {
                 ...nextState,
                 data,
                 pageData: data.lazyload[pathname],
                 themeConfig,
-                utils
+                // utils
             };
 
             let collector = Component.collector || defaultCollector;
             let promiseList = data.plugins.map(plugin => {
-                let p = plugin(nextProps);
+                let p = plugin({...nextProps});
                 return p && p.then ? p : Promise.resolve(p)
             });
 
@@ -125,7 +74,7 @@ module.exports = function routesGenerator({routes, root, notFound, themeConfig})
                             return {
                                 ...props,
                                 pluginData: {
-                                    ...props.extra,
+                                    ...props.pluginData,
                                     ...inject
                                 }
                             }
@@ -145,11 +94,11 @@ module.exports = function routesGenerator({routes, root, notFound, themeConfig})
                 .then(
                     data => callback(null, hoc(data)(Component)),
                     err => {
-                        console.error(err);
                         if (err === 'NOT_FOUND_PAGE') {
                             callback(null, hoc(nextProps)(getComp(notFound)))
                         }
                         else {
+                            console.error(err);
                             callback(err, null)
                         }
                     }

@@ -21,7 +21,7 @@ module.exports = {
     ],
 
     commanders: [
-        '../new?title=abc',
+        '../commanders/new?title=abc',
         // 'gh-pages?repo=',
         // 'deploy'
     ]

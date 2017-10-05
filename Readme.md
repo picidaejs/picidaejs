@@ -39,4 +39,5 @@ use remark convert markdown to html with:
 5. [ ] markdown <-> json -> React -> HTML
 6. [ ] markdown-loader -> meta/content
 7. [ ] ssr build
-7. [ ] utils / tools
+8. [ ] utils / tools
+9. [ ] transformers -> react render + file link 

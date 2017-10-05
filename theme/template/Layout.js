@@ -4,7 +4,7 @@ import React from 'react'
 class Layout extends React.Component {
 
     render() {
-        const {utils} = this.props;
+        const {pluginData: {utils}} = this.props;
         console.log(utils.group('post'))
         return (
             <div>

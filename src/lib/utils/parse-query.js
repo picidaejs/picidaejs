@@ -2,7 +2,16 @@
 const loaderUtils = require('loader-utils')
 const resolve = require('./resolve-path')
 
-module.exports = function (path, prefix = '') {
+function autoPrefix (path, prefix) {
+    prefix = prefix.trim()
+    path = path.trim()
+    if (resolve.isNodeModule(path)) {
+        path = !path.startsWith(prefix) ? prefix + path : path;
+    }
+    return path
+}
+
+const parser = function (path, prefix = '') {
     let index = path.lastIndexOf('?');
     let opt = {}
     if (index >= 0) {
@@ -10,14 +19,17 @@ module.exports = function (path, prefix = '') {
         path = path.substring(0, index);
     }
 
-    prefix = prefix.trim()
-    path = path.trim()
-    if (resolve.isNodeModule(path)) {
-        path = !path.startsWith(prefix) ? prefix + path : path;
-    }
+    path = autoPrefix(path, prefix)
 
     return {
         opt,
         path: resolve(path)
     }
 }
+
+parser.autoPrefix = autoPrefix
+
+module.exports = parser
+
+
+

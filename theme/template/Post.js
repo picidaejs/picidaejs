@@ -13,7 +13,7 @@ async function collector(nextProps) {
 const View = ({pageData}) =>
     <div>
         <p>Post</p>
-        <pre>{JSON.stringify(pageData)}</pre>
+        <pre>{JSON.stringify(pageData, null, 4)}</pre>
     </div>
 
 export default collect(collector)(View)

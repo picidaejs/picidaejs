@@ -1,8 +1,5 @@
 ---
-title: hello
-tags: [a, b, c]
+title: posts/a.md
 ---
 
-absds
-
-## sds
+hello, im `posts/a.md`!

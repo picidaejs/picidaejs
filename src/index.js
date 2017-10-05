@@ -1,4 +1,4 @@
-import { EventEmitter } from 'events'
+import {EventEmitter} from 'events'
 import {sync} from 'mkdirp'
 import nps from 'path'
 import WebpackServer from './lib/webpack-server'
@@ -7,8 +7,8 @@ import fs from './lib/utils/fs'
 import Error from './lib/utils/Error'
 import defaultConfig from './lib/default-config'
 import assign from './lib/utils/array-append-assign'
-import { fileIsMarkdown, renderTemplate } from './lib/utils'
-import { tmpPath, templatePath } from './lib/utils/context'
+import {fileIsMarkdown, renderTemplate} from './lib/utils'
+import {tmpPath, templatePath} from './lib/utils/context'
 import console from './lib/utils/console'
 import resolve from './lib/utils/resolve-path'
 import file2Tree from './lib/utils/files-to-tree'
@@ -35,7 +35,34 @@ function webpackConfigGetter(config = {}) {
     return config;
 }
 
-function generateEntry(fileTree) {
+function looseRoutesMap(map = {}) {
+    Object.keys(map).forEach(key => {
+        map[key.replace(/^\/+/, '').replace(/\/+$/, '')] = map[key]
+    })
+    return map;
+}
+
+function generateEntry(fileTree, routesMap = {}) {
+    routesMap = looseRoutesMap(routesMap);
+
+    function replace(pathname) {
+        let matched = false;
+        return pathname
+            .split('/')
+            .map((chunk) => {
+                if (!matched) {
+                    if (routesMap[chunk]) {
+                        matched = true;
+                    }
+                    return routesMap[chunk] || chunk;
+                }
+                else {
+                    return chunk;
+                }
+            })
+            .join('/');
+    }
+
     function generateEntryInner(root, fileTree, container = {}) {
         if (fileTree.files) {
             fileTree.files.forEach(ent => {
@@ -43,12 +70,15 @@ function generateEntry(fileTree) {
             })
         }
         else {
-            container[root/*.replace(/\..*$/, '')*/.substring(outRoot.length + 1)] = root
+            container[
+                replace(root/*.replace(/\..*$/, '')*/.substring(outRoot.length + 1))
+            ] = root
         }
         return container;
     }
 
-    let outRoot = fileTree.file/*.replace(/\..*$/, '');*/
+    let outRoot = fileTree.file
+    /*.replace(/\..*$/, '');*/
     return generateEntryInner(fileTree.file, fileTree);
 }
 
@@ -117,7 +147,7 @@ class Picidae extends EventEmitter {
         // console.log(this.opts.picker && this.opts.picker.toString());
         boss.queue({
             type: 'summary',
-            args: [generateEntry(tree), plugins, this.opts.picker && this.opts.picker.toString(), true],
+            args: [generateEntry(tree, this.routesMap), plugins, this.opts.picker && this.opts.picker.toString(), true],
             callback: (err, result) => {
                 console.log(`\`${this.summaryPath}\` Updated.`)
                 fs.writeFileSync(this.summaryPath, 'module.exports = ' + result);
@@ -157,7 +187,8 @@ class Picidae extends EventEmitter {
 
         try {
             delete require.cache[require.resolve(this.themeDataPath)]
-        } catch (ex) {}
+        } catch (ex) {
+        }
 
         // initial Watcher
         if (this.opts.watch && themeConfigFiles.length) {
@@ -170,11 +201,9 @@ class Picidae extends EventEmitter {
             })
         }
 
-        this.generateSummary(plugins, () => {
-        });
-
         // Write Routes/ThemeConfig to file
-        const {routesMap = {}, ...config} = themeConfig
+        const {routesMap = {}, ...config} = themeConfig;
+        this.routesMap = routesMap;
         renderTemplate(
             nps.join(templatePath, 'commonjs.template.js'),
             {body: JSON.stringify({root, notFound, routes, themeConfig: config})},
@@ -183,16 +212,20 @@ class Picidae extends EventEmitter {
 
         renderTemplate(
             nps.join(templatePath, 'routes-generator.template.js'),
-            {root, routesMap: JSON.stringify(routesMap), dataSuffix: ''},
+            {root, /*routesMap: JSON.stringify(routesMap), */dataSuffix: ''},
             nps.join(this.tmpPath, 'routes-generator.js'),
         );
 
         this.opts.ssr
         && renderTemplate(
             nps.join(templatePath, 'routes-generator.template.js'),
-            {root, routesMap: JSON.stringify(routesMap), dataSuffix: '.ssr'},
+            {root, /*routesMap: JSON.stringify(routesMap), */dataSuffix: '.ssr'},
             nps.join(this.tmpPath, 'routes-generator.ssr.js'),
         );
+
+
+        this.generateSummary(plugins, () => {
+        });
     }
 
     clearTmp() {
@@ -200,6 +233,8 @@ class Picidae extends EventEmitter {
     }
 
     build(callback) {
+
+
         console.log(chalk.green('Building.'));
         build(this.wpServer.getWebpackConfig(), () => {
             console.log(chalk.green('Build successfully.'));
@@ -210,8 +245,10 @@ class Picidae extends EventEmitter {
     }
 
     initialThemeConfig() {
-        let themeKey = resolve.isNodeModule(this.opts.theme) ? this.opts.theme : 'default';
-        let themePath = resolve.isNodeModule(this.opts.theme) ? resolve(this.opts.theme) : nps.join(resolve(this.opts.theme), 'index.js');
+        let themeKey = resolve.isNodeModule(this.opts.theme)
+            ? parseQuery.autoPrefix(this.opts.theme, 'picidae-theme-') : 'default';
+        let themePath = resolve.isNodeModule(this.opts.theme)
+            ? resolve(this.opts.theme) : nps.join(resolve(this.opts.theme), 'index.js');
 
         let themeConfigsRoot = nps.resolve(this.opts.themeConfigsRoot);
         let themeConfigFile = nps.join(themeConfigsRoot, themeKey);
@@ -221,7 +258,8 @@ class Picidae extends EventEmitter {
             try {
                 delete require.cache[require.resolve(themePath)];
                 delete require.cache[require.resolve(themeConfigFile)];
-            } catch (ex) {}
+            } catch (ex) {
+            }
         }
 
         let {
@@ -231,7 +269,7 @@ class Picidae extends EventEmitter {
             config: themeConfig = {},
             plugins = []
         } = require(themePath) || require(themePath).default;
-
+        plugins = ['utils'].concat(plugins);
         plugins = plugins.map(f =>
             parseQuery(f, 'picidae-plugin-')
         )
