@@ -120,7 +120,6 @@ class Picidae extends EventEmitter {
             args: [generateEntry(tree), plugins, this.opts.picker && this.opts.picker.toString(), true],
             callback: (err, result) => {
                 console.log(`\`${this.summaryPath}\` Updated.`)
-
                 fs.writeFileSync(this.summaryPath, 'module.exports = ' + result);
 
                 if (this.opts.ssr) {
@@ -171,7 +170,8 @@ class Picidae extends EventEmitter {
             })
         }
 
-        this.generateSummary(plugins);
+        this.generateSummary(plugins, () => {
+        });
 
         // Write Routes/ThemeConfig to file
         const {routesMap = {}, ...config} = themeConfig
@@ -272,12 +272,11 @@ class Picidae extends EventEmitter {
             console.log(chalk.underline.blue('Server Side Render Model is OPEN.'))
         }
 
-        let gen = require(nps.join(this.tmpPath, 'routes-generator.ssr.js'));
-        let routes = gen(require(this.themeDataPath));
-
         this.wpServer.inject((req, res) => {
             res.type('html');
             if (this.opts.ssr) {
+                let gen = require(nps.join(this.tmpPath, 'routes-generator.ssr.js'));
+                let routes = gen(require(this.themeDataPath));
                 ssr(routes)(req.url, content => {
                     res.send(renderTemplate(this.htmlTempate, {
                         content,
