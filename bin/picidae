@@ -1,16 +1,46 @@
 #!/usr/bin/env node
 
 var commander = require('commander');
+var nps = require('path')
+
 var pkg = require('../package.json')
+var parsePkg = require('../lib/lib/utils/parse-query');
 
 commander
     .version(pkg.version)
-    .usage('[command] [options]')
-    .command('start [options]', 'start a webpack server for development.')
-    .command('build [options]', 'build static pages for production.')
-    .parse(process.argv)
 
-process.on('SIGINT', function () {
-    commander.runningCommand && commander.runningCommand.kill('SIGINT');
-    process.exit(1);
-});
+commander
+    .command('start')
+    .description('start a webpack server for development.')
+    .option('-c --config [file]', 'set config path. (default `./picidae.config.js`)')
+    .option('--ssr', 'turn on ssr')
+    .action(function (opts) {
+        require('./picidae-start')(opts)
+    })
+
+
+commander
+    .command('build')
+    .description('build static pages for production.')
+    .option('-c --config [file]', 'set config path. (default `./picidae.config.js`)')
+    .action(function (opts) {
+        require('./picidae-build')(opts)
+    });
+
+
+var defaultConfigPath = nps.resolve('./picidae.config.js')
+
+try {
+    var config = require(defaultConfigPath)
+    var commanders = config.commanders || []
+    commanders = commanders.map(function (path) {
+        return parsePkg(path);
+    });
+
+    commanders.forEach(function (ent) {
+        require(ent.path)(commander, ent.opt, config);
+    })
+} catch (ex) {}
+
+commander.parse(process.argv);
+

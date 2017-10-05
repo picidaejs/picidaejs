@@ -14,11 +14,12 @@ module.exports = function (commander) {
     }
     var picidae = new Picidae(config)
     picidae.start();
+
     process.on('SIGINT', function () {
         picidae.clearTmp();
         picidae.stop(function () {
-            process.exit(1);
         });
+        process.exit(1);
     });
 }
 

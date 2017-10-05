@@ -93,7 +93,10 @@ export default function getWebpackCommonConfig(args = {}) {
                     test: /\.jsx?$/,
                     loader: 'babel-loader',
                     exclude: [
-                        /(node_modules|bower_components)/,
+                        function (name) {
+                            return !/(node_modules|bower_components)\/picida/.test(name)
+                                && /(node_modules|bower_components)/.test(name)
+                        },
                     ],
                     options: babelOptions,
                 },
