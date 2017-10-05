@@ -68,11 +68,9 @@ class Picidae extends EventEmitter {
         this.themeDataPath = tmpThemeDataPath;
         this.docPath = nps.resolve(this.opts.docRoot);
 
-        if (this.opts.watch) {
-            this.watchTheme();
-            this.watchSummary();
-        }
-        this.generateSummary();
+
+        this.watchTheme();
+        this.watchSummary();
 
 
         this.webpackConfigGetter = config => {
@@ -125,15 +123,20 @@ class Picidae extends EventEmitter {
     }
 
     watchSummary = () => {
-        this.summaryLock = false
-        this.summaryWatcher = chokidar.watch(this.docPath, {ignoreInitial: true});
-        this.summaryWatcher.on('all', (event, path) => {
-            if (fileIsMarkdown(path) && !this.summaryLock) {
-                this.generateSummary(() => {
-                    this.summaryLock = true;
-                })
-            }
-        });
+        if (this.opts.watch) {
+            this.summaryLock = false
+            this.summaryWatcher = chokidar.watch(this.docPath, {ignoreInitial: true});
+            this.summaryWatcher.on('all', (event, path) => {
+                if (fileIsMarkdown(path) && !this.summaryLock) {
+                    this.generateSummary(() => {
+                        this.summaryLock = true;
+                    })
+                }
+            });
+        }
+        else {
+            this.generateSummary();
+        }
     }
 
     watchTheme = () => {
@@ -161,15 +164,16 @@ class Picidae extends EventEmitter {
         }
 
         // Write Routes/ThemeConfig to file
+        const {routesMap = {}, ...config} = themeConfig
         renderTemplate(
             nps.join(templatePath, 'commonjs.template.js'),
-            {body: JSON.stringify({root, notFound, routes, themeConfig})},
+            {body: JSON.stringify({root, notFound, routes, themeConfig: config})},
             this.themeDataPath
         );
 
         renderTemplate(
             nps.join(templatePath, 'routes-generator.template.js'),
-            {root},
+            {root, routesMap: JSON.stringify(routesMap)},
             nps.join(tmpPath, 'routes-generator.js'),
         );
     }

@@ -1,3 +1,7 @@
 module.exports = {
-    hello: 'world -> default'
+    hello: 'world -> default',
+
+    routesMap: {
+        'post': 'posts',
+    }
 }

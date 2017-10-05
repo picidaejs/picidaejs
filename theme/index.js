@@ -27,5 +27,7 @@ module.exports = {
 
     root: './template',
 
-
+    picker(metaData, content, filename) {
+        return Object.assign(metaData, {desc: content});
+    },
 }

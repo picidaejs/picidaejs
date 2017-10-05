@@ -16,10 +16,6 @@ module.exports = {
 
     excludes: [/guide/],
 
-    picker(metaData, content, filename) {
-        return Object.assign(metaData, {desc: content.substr(0, 50)});
-    },
-
     transformers: [
         // 'picidae-transformer-react-render'
     ],

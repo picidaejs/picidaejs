@@ -28,9 +28,12 @@ function inverseExtend(Component) {
 
 export default function hoc({nextState, ...data}) {
     return Component => {
-        console.log(nextState)
-        // nextState.location.pathname
-
+        // let matcher = Component['PICIDAE_MATCH_PATH']
+        // if (nextState && matcher) {
+        //     if (!matcher(nextState, data)) {
+        //         return 'NOT_FOUND';
+        //     }
+        // }
 
         let Comp = wrap(Component, data);
         hoistNonReactStatic(Comp, Component);
