@@ -13,7 +13,7 @@ commander
     .command('start')
     .description('start a webpack server for development.')
     .option('-c --config [file]', 'set config path. (default `./picidae.config.js`)')
-    .option('--ssr', 'turn on ssr')
+    // .option('--ssr', 'turn on ssr')
     .action(function (opts) {
         require('./picidae-start')(opts)
     })

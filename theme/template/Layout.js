@@ -1,16 +1,19 @@
 import React from 'react'
 
+import '../assets/style.css'
+
+import Header from './Comps/Header'
+import Footer from './Comps/Footer'
 
 class Layout extends React.Component {
 
     render() {
         const {pluginData: {utils}} = this.props;
-        console.log(utils.group('post'))
         return (
             <div>
-                <h2>Header</h2>
-                {this.props.children}
-                <h4>Footer</h4>
+                <Header/>
+                <main>{this.props.children}</main>
+                <Footer/>
             </div>
         )
     }

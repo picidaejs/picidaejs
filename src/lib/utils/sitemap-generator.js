@@ -34,6 +34,10 @@ function wrap(route, filesEntry = {}) {
     let ret = [];
     let map = {};
 
+    sites = sites
+        .filter(x => !x.includes('*') && !x.includes(':'))
+        .concat(Object.keys(filesEntry).map(path => '/' + path.replace(/^\/+/, '')))
+
     sites.forEach(x => {
         if (map[x]) {}
         else {
@@ -54,14 +58,14 @@ function wrap(route, filesEntry = {}) {
         return {path, html}
     }
 
+
     return ret
-        .filter(x => !x.includes('*') && !x.includes(':'))
-        .concat(Object.keys(filesEntry).map(path => '/' + path.replace(/^\/+/, '')))
         .map(transform)
         .concat({
             path: 'NOT_FOUND_PAGE',
             html: '/404.html'
         })
+
 }
 
 module.exports = wrap;

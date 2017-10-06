@@ -13,13 +13,21 @@ module.exports = {
                 path: 'post/*',
                 component: './Post'
             },
+            // {
+            //     path: 'tags',
+            //     component: './TagsCloud'
+            // },
+            // {
+            //     path: 'tags/:tag',
+            //     component: './Tag'
+            // },
             {
-                path: 'tags',
-                component: './TagsCloud'
+                path: 'posts/:page',
+                component: './Archive'
             },
             {
-                path: 'tags/:tag',
-                component: './Tag'
+                path: 'about',
+                component: './About'
             }
         ]
     },
@@ -32,6 +40,6 @@ module.exports = {
     ],
 
     picker(metaData, content, filename) {
-        return Object.assign(metaData, {desc: content});
+        return Object.assign(metaData, {desc: content.substring(0, 50)});
     },
 }

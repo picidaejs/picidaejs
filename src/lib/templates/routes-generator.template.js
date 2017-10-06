@@ -7,7 +7,7 @@ if (typeof document === 'undefined') {
     require('babel-core/register')
 }
 
-const data = require('./data{{dataSuffix}}')
+const data = require('./data.{{dataSuffix}}')
 
 function wrapData(data) {
     let lazy = data.lazyload;

@@ -1,3 +1,4 @@
+/*
 if (typeof document === 'undefined') {
     var mdGenerate = require('../loaders/markdown-loader/generate')
     var origin = require;
@@ -21,3 +22,4 @@ require.ensure = require.ensure || function (dependences, callback) {
         return callback(require);
     }
 
+*/

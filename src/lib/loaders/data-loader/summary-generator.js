@@ -59,7 +59,7 @@ function pluginsStr (plugins = []) {
     return plugins.map(({path, opt}) => `require('${path}')(${JSON.stringify(opt)})`).join(',')
 }
 
-function generate(filesMap, plugins = [], picker, lazyload = true) {
+function generate(filesMap, {plugins = [], picker}, lazyload = true) {
     return '{' +
         '\n  lazyload: {' + generateLazyLoad(filesMap, lazyload) +
         '  },' +

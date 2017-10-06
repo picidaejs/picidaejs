@@ -21,11 +21,13 @@ process.on('message', (task) => {
         });
         marked.apply(null, args);
     }
-    else if (type === 'summary') {
-        args[2] = args[2] && eval('args[2] = ' + args[2]);
-        data = summary.apply(null, args);
-        process.send(data);
-    }
+    // else if (type === 'summary') {
+    //     if (args[1] && args[1].picker) {
+    //         eval('args[1].picker = ' + args[1].picker);
+    //     }
+    //     data = summary.apply(null, args);
+    //     process.send(data);
+    // }
     else if (type === 'renderHtml') {
         let fs = require('fs');
 
