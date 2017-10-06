@@ -46,19 +46,6 @@ function wrap(route, filesEntry = {}) {
         }
     });
 
-    function transform(path) {
-        let html = '';
-        if (path === '/') {
-            html = '/index.html'
-        }
-        else {
-            html = path.replace(/\.html?$/, '') + '.html'
-        }
-
-        return {path, html}
-    }
-
-
     return ret
         .map(transform)
         .concat({
@@ -68,4 +55,17 @@ function wrap(route, filesEntry = {}) {
 
 }
 
+function transform(path) {
+    let html = '';
+    if (path === '/') {
+        html = '/index.html'
+    }
+    else {
+        html = path.replace(/\.html?$/, '') + '.html'
+    }
+
+    return {path, html}
+}
+
+wrap.transform = transform
 module.exports = wrap;

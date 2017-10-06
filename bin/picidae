@@ -23,6 +23,7 @@ commander
     .command('build')
     .description('build static pages for production.')
     .option('-c --config [file]', 'set config path. (default `./picidae.config.js`)')
+    .option('-f --force', 'force build Mode: will EMPTY previous build files.')
     .action(function (opts) {
         require('./picidae-build')(opts)
     });

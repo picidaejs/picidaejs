@@ -253,11 +253,16 @@ class Picidae extends EventEmitter {
     }
 
     clearTmp() {
-        require('empty-dir').sync(this.tmpPath);
+        require('del').sync([nps.join(this.tmpPath, `*${this.id}*`)], {force: true});
     }
 
     build(callback) {
         console.log(chalk.green('Building...'));
+        if (this.opts.force) {
+            console.log(chalk.red(' FORCE Mode is OPEN'));
+            require('del').sync([this.distRoot]);
+        }
+
         let webpackConfig = this.wpServer.getWebpackConfig();
         build(webpackConfig, () => {
             console.log(chalk.green('\n Webpack Build successfully.') + '\n');
@@ -280,48 +285,87 @@ class Picidae extends EventEmitter {
 
             build(ssrWebpackConfig, () => {
                 let gen = require(nps.join(this.tmpPath, ssrEntryName)).ssr;
-
+                let sitemap = require('./lib/utils/sitemap-generator')
                 // let gen = require(nps.join(this.tmpPath, `routes-generator.${this.id}.ssr.js`));
                 let routes = gen(require(this.themeDataPath));
-                let sites = require('./lib/utils/sitemap-generator')(routes, this.docsEntry)
+                let sites = sitemap(routes, this.docsEntry)
                 let method = ssr(routes, false);
                 let tpl = fs.readFileSync(this.htmlTempate).toString();
 
-                let promise = Promise.all(
-                    sites.map(({path, html}) => {
-                        let absoluteHtml = nps.join(this.distRoot, html.replace(/^\/+/, ''));
-                        sync(nps.dirname(absoluteHtml));
+                let pool = [];
+                pool.push(...sites);
+                const createProm = function (sites, {publicPath, dirRoot}, fromPath) {
+                    function logPath(path) {
+                        console.log(chalk.green('`'+ nps.relative(process.cwd(), path) +'`'), 'File Created successfully.')
+                    }
+                    if (fromPath) logPath(fromPath)
 
-                        return new Promise(resolve => {
-                            method(path, content => {
-                                if (!content) {
-                                    resolve()
+                    return Promise.all(
+                        sites.map(({path, html}) => {
+                            let absoluteHtml = nps.join(dirRoot, html.replace(/^\/+/, ''));
+                            sync(nps.dirname(absoluteHtml));
+
+                            return new Promise(resolve => {
+                                method(path, content => {
+                                    if (!content) {
+                                        resolve()
+                                    }
+                                    else {
+                                        let opts = {path: absoluteHtml, pathname: path, spider: true};
+                                        boss.queue({
+                                            type: 'renderHtml',
+                                            args: [tpl, {content, root: publicPath}, opts],
+                                            callback(err, obj) {
+                                                if (err || !obj) resolve()
+                                                else {
+                                                    let newSites = obj.hrefList.filter(href => !pool.find(x => x.path === href));
+                                                    newSites = newSites.map(sitemap.transform);
+                                                    if (newSites && newSites.length) {
+                                                        console.log(path, '->', newSites);
+                                                        pool = pool.concat(newSites);
+                                                        resolve(createProm(newSites, {publicPath, dirRoot}, obj.path))
+                                                        return;
+                                                    }
+                                                    resolve(obj.path);
+                                                }
+                                            }
+                                        });
+                                    }
+                                })
+                            }).then(path => {
+                                if (path) {
+                                    if (Array.isArray(path)) {
+                                        path = require('arr-flatten')(path)
+                                    } else {
+                                        path = [path];
+                                    }
+                                    path.forEach(path =>
+                                        logPath(path)
+                                    );
                                 }
-                                else {
-                                    boss.queue({
-                                        type: 'renderHtml',
-                                        args: [tpl, {content, root: this.opts.publicPath}, absoluteHtml],
-                                        callback(err, html) {
-                                            if (err) resolve()
-                                            else resolve(html);
-                                        }
-                                    });
-                                }
+                                return path;
                             })
-                        }).then(path => {
-                            if (path) {
-                                console.log(chalk.green('`'+ nps.relative(process.cwd(), path) +'`'), 'File Created successfully.');
-                            }
-                            return path;
+                            .catch(console.error)
                         })
-                    })
-                );
+                    );
+                };
 
-                promise.then(paths => {
-                    boss.jobDone();
-                    this.clearTmp();
-                    callback && callback();
-                });
+                createProm(sites, {dirRoot: this.distRoot, publicPath: this.opts.publicPath})
+                    .then(paths => {
+                        let src = nps.resolve(this.opts.extraRoot);
+                        let target = nps.join(this.distRoot, 'extra')
+                        if (fs.existsSync(src) && fs.statSync(src).isDirectory()) {
+                            console.log(chalk.green(' Copying Extra Directory'));
+                            sync(target);
+                            require('copy-dir').sync(src, target);
+                        }
+
+                        console.log(chalk.green(' Done!  :P'));
+
+                        boss.jobDone();
+                        callback && callback();
+                    })
+                    .catch(console.error);
 
             });
         })
@@ -418,10 +462,10 @@ class Picidae extends EventEmitter {
     }
 
     stop(callback) {
-        this.clearTmp()
         if (!this.wpServer) {
             // throw new Error('WebpackServer is NOT running currently!')
         }
+        this.clearTmp();
         this.themeWatcher.close();
         this.wpServer && this.wpServer.stop(callback)
         this.wpServer = null;

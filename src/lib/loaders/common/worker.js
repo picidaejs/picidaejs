@@ -33,14 +33,36 @@ process.on('message', (task) => {
 
         let tpl = args[0];
         let ctx = args[1];
-        let path = args[2];
+        let opt = args[2] || {};
+        let {path, spider, pathname = ''} = opt
+
         let htmlString = require('nunjucks').renderString(tpl, ctx);
+        let hrefList = [];
+
+        if (spider) {
+            let $ = require('cheerio').load(htmlString);
+            let links = $('a');
+            links.map(function () {
+                let href = $(this).attr('href') || '';
+                href = href.trim()
+                if (href && !href.startsWith('#')) {
+                    href = require('url').resolve(pathname, href).trim();
+                    if (!/^(\/\/|https?:)/.test(href)) {
+                        hrefList.push(href)
+                    }
+                }
+            })
+        }
+
         fs.writeFile(path, htmlString, (err) => {
             if (err) {
                 process.send('');
             }
             else {
-                process.send(path);
+                process.send({
+                    path,
+                    hrefList
+                });
             }
         })
     }

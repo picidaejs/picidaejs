@@ -40,4 +40,5 @@ use remark convert markdown to html with:
 6. [ ] markdown-loader -> meta/content
 7. [ ] ssr build
 8. [ ] utils / tools
-9. [ ] transformers -> react render + file link 
+9. [ ] transformers -> react render + file link
+10. [x] spider for better seo.

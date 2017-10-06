@@ -7,6 +7,8 @@ module.exports = {
     docRoot: './docs',
     distRoot: './public',
     templateRoot: './templates',
+    extraRoot: './extra',
+
     themeConfigsRoot: './theme-configs',
 
     excludes: [/\.ignore\./],

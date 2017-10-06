@@ -13,6 +13,7 @@ module.exports = {
     docRoot: './docs',
     distRoot: './public',
     templateRoot: './templates',
+    extraRoot: './extra',
 
     excludes: [/guide/],
 

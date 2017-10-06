@@ -5,12 +5,16 @@ var Picidae = require('../lib');
 module.exports = function (commander) {
     var configPath = nps.join(process.cwd(), commander.config || 'picidae.config.js')
     var config = require(configPath)
+
+    config.force = commander.force;
     config.id = require('md5')(configPath).substr(0, 8)
     config.watch = false;
     config.ssr = true;
 
     var picidae = new Picidae(config)
-    picidae.build();
+    picidae.build(function () {
+        picidae.clearTmp();
+    });
     process.on('SIGINT', function () {
         picidae.clearTmp();
         process.exit(1);
