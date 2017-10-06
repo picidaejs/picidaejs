@@ -19,7 +19,14 @@ import boss from './lib/loaders/common/boss'
 import ssr from './lib/utils/ssr'
 import chokidar from 'chokidar'
 
-const chalk = require('chalk')
+const chalk = require('chalk');
+
+
+function ensureFile(filename) {
+    if (!fs.existsSync(filename)) {
+        fs.writeFileSync(filename, 'module.exports = {}');
+    }
+}
 
 function webpackConfigGetter(config = {}) {
 
@@ -63,6 +70,15 @@ function generateEntry(fileTree, routesMap = {}) {
             .join('/');
     }
 
+    function generateKey(container = {}, key) {
+        let id = 1;
+        let newKey = key;
+        while (newKey in container) {
+            newKey = key + '-' + id++;
+        }
+        return newKey;
+    }
+
     function generateEntryInner(root, fileTree, container = {}) {
         if (fileTree.files) {
             fileTree.files.forEach(ent => {
@@ -70,9 +86,8 @@ function generateEntry(fileTree, routesMap = {}) {
             })
         }
         else {
-            container[
-                replace(root/*.replace(/\..*$/, '')*/.substring(outRoot.length + 1))
-            ] = root
+            let key = replace(root/*.replace(/\..*$/, '')*/.substring(outRoot.length + 1)).replace(/\.(md|markdown)$/, '')
+            container[generateKey(container, key)] = root
         }
         return container;
     }
@@ -101,6 +116,7 @@ class Picidae extends EventEmitter {
         this.htmlTempate = customTplHtmlPath;
         this.themeDataPath = tmpThemeDataPath;
         this.docPath = nps.resolve(this.opts.docRoot);
+        this.distRoot = nps.resolve(this.opts.distRoot);
 
 
         this.watchTheme();
@@ -115,7 +131,7 @@ class Picidae extends EventEmitter {
                 // ...generateEntry(tree)
             }
             config.output.publicPath = this.opts.publicPath || config.output.publicPath;
-            config.output.path = nps.resolve(this.opts.distRoot);
+            config.output.path = this.distRoot;
 
             if (this.opts.webpackConfigUpdater) {
                 return this.opts.webpackConfigUpdater(config, require('webpack'))
@@ -144,10 +160,11 @@ class Picidae extends EventEmitter {
         let tree = file2Tree(this.docPath, filename => {
             return fileIsMarkdown(filename) && !match(this.opts.excludes, filename)
         });
+        this.docsEntry = generateEntry(tree, this.routesMap);
         // console.log(this.opts.picker && this.opts.picker.toString());
         boss.queue({
             type: 'summary',
-            args: [generateEntry(tree, this.routesMap), plugins, this.opts.picker && this.opts.picker.toString(), true],
+            args: [this.docsEntry, plugins, this.opts.picker && this.opts.picker.toString(), true],
             callback: (err, result) => {
                 console.log(`\`${this.summaryPath}\` Updated.`)
                 fs.writeFileSync(this.summaryPath, 'module.exports = ' + result);
@@ -210,18 +227,24 @@ class Picidae extends EventEmitter {
             this.themeDataPath
         );
 
-        renderTemplate(
-            nps.join(templatePath, 'routes-generator.template.js'),
-            {root, /*routesMap: JSON.stringify(routesMap), */dataSuffix: ''},
-            nps.join(this.tmpPath, 'routes-generator.js'),
-        );
 
         this.opts.ssr
-        && renderTemplate(
-            nps.join(templatePath, 'routes-generator.template.js'),
-            {root, /*routesMap: JSON.stringify(routesMap), */dataSuffix: '.ssr'},
-            nps.join(this.tmpPath, 'routes-generator.ssr.js'),
-        );
+        ? (
+            ensureFile(nps.join(this.tmpPath, 'data.ssr.js')),
+            renderTemplate(
+                nps.join(templatePath, 'routes-generator.template.js'),
+                {root, /*routesMap: JSON.stringify(routesMap), */dataSuffix: '.ssr'},
+                nps.join(this.tmpPath, 'routes-generator.ssr.js'),
+            )
+        )
+        : (
+            ensureFile(nps.join(this.tmpPath, 'data.js')),
+            renderTemplate(
+                nps.join(templatePath, 'routes-generator.template.js'),
+                {root, /*routesMap: JSON.stringify(routesMap), */dataSuffix: ''},
+                nps.join(this.tmpPath, 'routes-generator.js'),
+            )
+        )
 
 
         this.generateSummary(plugins, () => {
@@ -233,14 +256,53 @@ class Picidae extends EventEmitter {
     }
 
     build(callback) {
+        let gen = require(nps.join(this.tmpPath, 'routes-generator.ssr.js'));
+        let routes = gen(require(this.themeDataPath));
+        let sites = require('./lib/utils/sitemap-generator')(routes, this.docsEntry)
+        let method = ssr(routes, false);
+        let tpl = fs.readFileSync(this.htmlTempate).toString();
+
+        let promise = Promise.all(
+            sites.map(({path, html}) => {
+                let absoluteHtml = nps.join(this.distRoot, html.replace(/^\/+/, ''));
+                sync(nps.dirname(absoluteHtml));
+
+                return new Promise(resolve => {
+                    method(path, content => {
+                        if (!content) {
+                            resolve()
+                        }
+                        else {
+                            boss.queue({
+                                type: 'renderHtml',
+                                args: [tpl, {content, root: this.opts.publicPath}, absoluteHtml],
+                                callback(err, html) {
+                                    if (err) resolve()
+                                    else resolve(html);
+                                }
+                            });
+                        }
+                    })
+                }).then(path => {
+                    if (path) {
+                        console.log(chalk.green('`'+ path +'`'), 'File Created successfully.');
+                    }
+                    return path;
+                })
+            })
+        );
+
 
 
         console.log(chalk.green('Building.'));
         build(this.wpServer.getWebpackConfig(), () => {
-            console.log(chalk.green('Build successfully.'));
-            boss.jobDone();
-            this.clearTmp()
-            callback && callback();
+            console.log(chalk.green('\n Webpack Build successfully.') + '\n');
+
+            promise.then(paths => {
+                boss.jobDone();
+                this.clearTmp();
+                callback && callback();
+            });
         })
     }
 
@@ -272,7 +334,7 @@ class Picidae extends EventEmitter {
         plugins = ['utils'].concat(plugins);
         plugins = plugins.map(f =>
             parseQuery(f, 'picidae-plugin-')
-        )
+        );
 
         try {
             themeConfig = require(themeConfigFile)

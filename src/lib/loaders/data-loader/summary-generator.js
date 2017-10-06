@@ -55,7 +55,7 @@ function generatePickedMeta(filesMap, picker) {
     return picked;
 }
 
-function pluginsStr (plugins) {
+function pluginsStr (plugins = []) {
     return plugins.map(({path, opt}) => `require('${path}')(${JSON.stringify(opt)})`).join(',')
 }
 

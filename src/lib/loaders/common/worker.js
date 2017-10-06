@@ -26,5 +26,20 @@ process.on('message', (task) => {
         data = summary.apply(null, args);
         process.send(data);
     }
+    else if (type === 'renderHtml') {
+        let fs = require('fs');
 
+        let tpl = args[0];
+        let ctx = args[1];
+        let path = args[2];
+        let htmlString = require('nunjucks').renderString(tpl, ctx);
+        fs.writeFile(path, htmlString, (err) => {
+            if (err) {
+                process.send('');
+            }
+            else {
+                process.send(path);
+            }
+        })
+    }
 });

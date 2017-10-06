@@ -60,7 +60,7 @@
     "nprogress": "^0.2.0",
     "nunjucks": "^3.0.1",
     "picidae-plugin-toc": "0.0.0",
-    "picidae-plugin-utils": "0.0.0",
+    "picidae-plugin-utils": "0.0.1",
     "picidae-tools": "0.0.0",
     "postcss-loader": "^1.3.3",
     "react": "^15.0.2",

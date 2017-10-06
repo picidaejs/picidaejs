@@ -17,7 +17,7 @@ export default function getWebpackCommonConfig(args = {}) {
     const jsFileName = args.hash ? '[name]-[chunkhash].js' : '[name].js';
     const cssFileName = args.hash ? '[name]-[chunkhash].css' : '[name].css';
     const commonName = args.hash ? 'common-[chunkhash].js' : 'common.js';
-    const chunkFilename = args.hash ? 'docs/[name]-[chunkhash].js' : 'docs/[name].js';
+    const chunkFilename = args.hash ? '[name]-[chunkhash].js' : '[name].js';
     //         chunkFilename: 'modules/[name].min.js?v=[chunkhash]'
 
 
