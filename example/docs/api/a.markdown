@@ -4,10 +4,9 @@ title: React-Render!
 
 hello, im `api/a.markdown`!
 
-```render-jsx
-// export default 
-@../../src/Demo.js@
-```
+`````render-jsx 
+@../../src/refs@
+`````
 
 ```render-jsx
 const hoc = Comp => (Comp.title = 'new Title', Comp)
@@ -26,4 +25,8 @@ export default class Comp extends React.Component {
     )
   }
 }
+```
+
+```jsx
+@../../src/PureText@
 ```
