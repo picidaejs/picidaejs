@@ -1,5 +1,6 @@
 const summary = require('../data-loader/summary-generator');
 const marked = require('../markdown-loader/generate');
+const {chain, split} = require('../../utils/transformerUtils');
 const YFM = require('yaml-front-matter');
 
 
@@ -29,30 +30,10 @@ process.on('message', (task) => {
 
     if (type === 'markdown') {
 
-        let markdownTransformers = []
-        let htmlTransformers = []
-        transformers.forEach(({path, opt}) => {
-            let transformer = require(path);
-            if (typeof transformer.markdownTransfomer === 'function') {
-                markdownTransformers.push(transformer.markdownTransfomer.bind(null, opt));
-            }
-            if (typeof transformer.htmlTransfomer === 'function') {
-                htmlTransformers.push(transformer.htmlTransfomer.bind(null, opt));
-            }
-            if (typeof transformer === 'function') {
-                htmlTransformers.push(transformer.bind(null, opt));
-            }
-        })
-
+        let {markdownTransformers, htmlTransformers} = split(transformers)
         let {__content, ...meta} = YFM.loadFront(content);
 
-        let promise = markdownTransformers.reduce(
-            (promise, transformer) =>
-                promise.then(data =>
-                    transformer({meta, data, filename}, require)
-                ),
-            Promise.resolve(content)
-        );
+        let promise = chain(markdownTransformers, content, {meta, filename});
 
         promise
             .then(md => {
@@ -68,13 +49,7 @@ process.on('message', (task) => {
                 });
             })
             .then(({meta, data}) => {
-                return htmlTransformers.reduce(
-                    (promise, transformer) =>
-                        promise.then(data =>
-                            transformer({meta, data, filename}, require)
-                        ),
-                    Promise.resolve(data)
-                );
+                return chain(htmlTransformers, data, {meta, filename});
             })
             .then(data => {
                 process.send(stringify(data, null, 2));

@@ -8,7 +8,8 @@ import console from '../utils/console'
 
 export default function maker({webpackConfig, verbose, log = console.log}) {
     const app = express();
-    const compiler = webpack(webpackConfig)
+    const compiler = webpack(webpackConfig);
+
     app.use(webpackDevMiddleware(compiler, {
         noInfo: !verbose,
         stats: {

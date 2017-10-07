@@ -137,8 +137,9 @@ class Picidae extends EventEmitter {
             .filter(Boolean)
 
 
-        this.watchTheme();
-        this.watchSummary();
+        this.watchTheme()
+            .then(() => this.watchSummary())
+
 
         this.webpackConfigGetter = config => {
             config = webpackConfigGetter(config, this.nodeTransformers);
@@ -171,7 +172,7 @@ class Picidae extends EventEmitter {
         });
     }
 
-    generateSummary(plugins = this.initialThemeConfig().plugins) {
+    async generateSummary(plugins = this.initialThemeConfig().plugins) {
         this.summaryPath = nps.join(this.tmpPath, `data.${this.id}.js`);
         this.summarySSrPath = nps.join(this.tmpPath, `data.${this.id}.ssr.js`);
         let tree = file2Tree(this.docPath, filename => {
@@ -182,36 +183,38 @@ class Picidae extends EventEmitter {
         let opt = {
             plugins,
             transformers: this.browserTransformers,
+            nodeTransformers: this.nodeTransformers,
             picker: this.opts.picker || (a => a),
             docRoot: this.docPath
         };
 
         if (this.opts.ssr) {
-            let result = summary(this.docsEntry, opt, false);
+            let result = await summary(this.docsEntry, opt, false);
             let str = fs.readFileSync(nps.join(templatePath, 'data-ssr.template.js')).toString();
             fs.writeFileSync(this.summarySSrPath, str + '\nmodule.exports = ' + result);
         }
 
-        let lazyresult = summary(this.docsEntry, opt, true);
+        let lazyresult = await summary(this.docsEntry, opt, true);
 
         // console.log(`\`${nps.resolve(process.cwd(), this.summaryPath)}\` Updated.`)
         fs.writeFileSync(this.summaryPath, 'module.exports = ' + lazyresult);
     }
 
-    watchSummary = () => {
+    watchSummary() {
         if (this.opts.watch) {
             this.summaryLock = false
             this.summaryWatcher = chokidar.watch(this.docPath, {ignoreInitial: true});
-            this.summaryWatcher.on('all', (event, path) => {
-                if (fileIsMarkdown(path) && !this.summaryLock) {
-                    this.generateSummary();
+            this.summaryWatcher.on('all', async (event, path) => {
+                console.log(path);
+                if (fileIsMarkdown(path)/* && !this.summaryLock*/) {
+                    await this.generateSummary();
                     this.summaryLock = true;
                 }
             });
         }
     }
 
-    watchTheme = () => {
+    async watchTheme() {
         const {
             themeConfigFiles,
             root,
@@ -260,7 +263,7 @@ class Picidae extends EventEmitter {
             nps.join(this.tmpPath, `routes-generator.${this.id}.js`),
         )
 
-        this.generateSummary(plugins);
+        await this.generateSummary(plugins);
     }
 
     clearTmp() {
@@ -487,7 +490,10 @@ class Picidae extends EventEmitter {
             // throw new Error('WebpackServer is NOT running currently!')
         }
         this.clearTmp();
-        this.themeWatcher.close();
+        this.themeWatcher && this.themeWatcher.close();
+        this.themeWatcher = null;
+        this.summaryWatcher && this.summaryWatcher.close();
+        this.summaryWatcher = null
         this.wpServer && this.wpServer.stop(callback)
         this.wpServer = null;
     }

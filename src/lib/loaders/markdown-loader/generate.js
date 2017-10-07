@@ -6,7 +6,6 @@ import slug from 'remark-slug'
 import highlight from 'remark-highlight.js'
 import yamlFront from 'yaml-front-matter'
 
-
 export const alignClass = {
     left: 'align-left',
     center: 'align-center',

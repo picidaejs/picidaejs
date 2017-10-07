@@ -7,6 +7,8 @@ const fs = require('fs')
 const nps = require('path')
 const moment = require('moment')
 
+const {chain, split} = require('../../utils/transformerUtils');
+
 /**
  * @param filesMap
  *   posts/a.md: 'absolute path'
@@ -37,18 +39,20 @@ function generateLazyLoad(filesMap, lazy) {
     return lazyload;
 }
 
-function generatePickedMeta(filesMap, {picker, fromPath = process.cwd()}) {
+async function generatePickedMeta(filesMap, {picker, fromPath = process.cwd(), transformers = []}) {
     picker = picker || (meta => meta);
 
     let picked = {}
     for (let path in filesMap) {
         let meta = yamlFront.loadFront(fs.readFileSync(filesMap[path]).toString());
         let content = meta.__content;
-        meta.datetime = moment(meta.datetime || fs.statSync(filesMap[path]).mtime).format();
-        meta.filename = nps.relative(fromPath, filesMap[path]);
         delete meta.__content;
 
-        meta = picker(meta, content, filesMap[path]);
+        content = await chain(transformers, content, {meta: {...meta}, filename: filesMap[path]});
+
+        meta.datetime = moment(meta.datetime || fs.statSync(filesMap[path]).mtime).format();
+        meta.filename = nps.relative(fromPath, filesMap[path]);
+        meta = await picker(meta, {content, filename: filesMap[path]}, require);
         if (meta) {
             picked[path] = meta;
         }
@@ -61,15 +65,18 @@ function pluginsStr (plugins = []) {
     return plugins.map(({path, opt}) => `require('${path}')(${JSON.stringify(opt)})`).join(',')
 }
 
-function generate(filesMap, {plugins = [], transformers = [], picker, docRoot}, lazyload = true) {
-    return '{' +
+async function generate(filesMap, {plugins = [], nodeTransformers, transformers = [], picker, docRoot}, lazyload = true) {
+    let meta = await generatePickedMeta(filesMap, {
+        picker, fromPath: docRoot, transformers: split(nodeTransformers).markdownTransformers
+    });
+    return Promise.resolve('{' +
         '\n  lazyload: {' + generateLazyLoad(filesMap, lazyload) +
         '  },' +
-        '\n  meta: ' + JSON.stringify(generatePickedMeta(filesMap, {picker, fromPath: docRoot}), null, 2) +
+        '\n  meta: ' + JSON.stringify(meta, null, 2) +
         '\n,' +
         '\n  plugins: [' + pluginsStr(plugins) + '],' +
         '\n  transformers: [' + pluginsStr(transformers) + ']' +
-        '\n};'
+        '\n};')
 }
 
 module.exports = generate;

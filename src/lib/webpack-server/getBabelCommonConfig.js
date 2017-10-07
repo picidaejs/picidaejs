@@ -10,7 +10,7 @@ export default function babel() {
         ],
         plugins: [
             require.resolve('babel-plugin-add-module-exports'),
-            require.resolve('babel-plugin-transform-decorators-legacy'),
+            require.resolve('babel-plugin-transform-decorators-legacy')
         ],
     };
 }

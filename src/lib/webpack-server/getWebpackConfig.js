@@ -60,7 +60,6 @@ export default function getWebpackCommonConfig(args = {}) {
         // babel: babelOptions,
         cache: true,
         postcss: postcssOptions,
-
         output: {
             path: join(process.cwd(), './dist/'),
             filename: jsFileName,
@@ -69,7 +68,7 @@ export default function getWebpackCommonConfig(args = {}) {
 
         devtool: dev && 'source-map',
 
-        context: join(__dirname, '/../../../node_modules'),
+        // context: join(__dirname, '/../../../node_modules'),
 
         resolve: {
             modules: ['node_modules', join(__dirname, '/../../../node_modules')],
@@ -167,6 +166,17 @@ export default function getWebpackCommonConfig(args = {}) {
         },
 
         plugins: [
+            new webpack.ProgressPlugin(function(percentage, msg) {
+                var stream = process.stderr;
+                if (stream.isTTY && percentage < 0.71) {
+                    stream.cursorTo(0);
+                    stream.write('  ' + require('chalk').cyan(msg));
+                    stream.clearLine(1);
+                } else if (percentage === 1) {
+                    console.log('');
+                    console.log(require('chalk').cyan('webpack: bundle build is now finished.'));
+                }
+            }),
             new webpack.optimize.CommonsChunkPlugin('common', commonName),
             new ExtractTextPlugin('style.css', {
                 // filename: cssFileName,

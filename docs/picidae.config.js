@@ -18,7 +18,7 @@ module.exports = {
     excludes: [/guide/],
 
     transformers: [
-        'react-render?lang=render-jsx', 'file-syntax'
+        'picidae-transformer-react-render?lang=render-jsx', 'file-syntax'
     ],
 
     commanders: [

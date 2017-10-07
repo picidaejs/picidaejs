@@ -1,3 +1,5 @@
+var getUtilsByRequire = require('picidae-tools/node/getUtilsByRequire');
+
 
 module.exports = {
 
@@ -39,7 +41,11 @@ module.exports = {
         'toc?depth=3'
     ],
 
-    picker(metaData, content, filename) {
-        return Object.assign(metaData, {desc: content.substring(0, 50)});
+    picker(metaData, {content, filename}, require) {
+        var utils = getUtilsByRequire(require);
+        return utils.md2Toc(content)
+            .then(function (toc) {
+                return Object.assign(metaData, {desc: content.substring(0, 50), toc: toc});
+            })
     },
 }

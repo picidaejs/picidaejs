@@ -3,7 +3,7 @@ import getWebpackConfig from './getWebpackConfig'
 
 
 export default function build(config, callback = () => {}) {
-    webpack(config, (err, stats) => {
+    let compiler = webpack(config, (err, stats) => {
         if (err !== null) {
             callback(err)
             return console.error(err);
@@ -16,6 +16,6 @@ export default function build(config, callback = () => {}) {
         }
 
         callback();
-    })
+    });
 
 }
