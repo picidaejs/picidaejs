@@ -183,6 +183,7 @@ class Picidae extends EventEmitter {
             plugins,
             transformers: this.browserTransformers,
             picker: this.opts.picker || (a => a),
+            docRoot: this.docPath
         };
 
         if (this.opts.ssr) {

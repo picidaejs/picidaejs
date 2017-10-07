@@ -18,7 +18,7 @@ module.exports = {
     excludes: [/guide/],
 
     transformers: [
-        'react-render?lang=render-jsx'
+        'react-render?lang=render-jsx', 'file-syntax'
     ],
 
     commanders: [

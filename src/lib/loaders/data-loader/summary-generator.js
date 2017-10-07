@@ -37,7 +37,7 @@ function generateLazyLoad(filesMap, lazy) {
     return lazyload;
 }
 
-function generatePickedMeta(filesMap, picker) {
+function generatePickedMeta(filesMap, {picker, fromPath = process.cwd()}) {
     picker = picker || (meta => meta);
 
     let picked = {}
@@ -45,7 +45,7 @@ function generatePickedMeta(filesMap, picker) {
         let meta = yamlFront.loadFront(fs.readFileSync(filesMap[path]).toString());
         let content = meta.__content;
         meta.datetime = moment(meta.datetime || fs.statSync(filesMap[path]).mtime).format();
-        meta.filename = nps.relative(process.cwd(), filesMap[path]);
+        meta.filename = nps.relative(fromPath, filesMap[path]);
         delete meta.__content;
 
         meta = picker(meta, content, filesMap[path]);
@@ -61,11 +61,11 @@ function pluginsStr (plugins = []) {
     return plugins.map(({path, opt}) => `require('${path}')(${JSON.stringify(opt)})`).join(',')
 }
 
-function generate(filesMap, {plugins = [], transformers = [], picker}, lazyload = true) {
+function generate(filesMap, {plugins = [], transformers = [], picker, docRoot}, lazyload = true) {
     return '{' +
         '\n  lazyload: {' + generateLazyLoad(filesMap, lazyload) +
         '  },' +
-        '\n  meta: ' + JSON.stringify(generatePickedMeta(filesMap, picker), null, 2) +
+        '\n  meta: ' + JSON.stringify(generatePickedMeta(filesMap, {picker, fromPath: docRoot}), null, 2) +
         '\n,' +
         '\n  plugins: [' + pluginsStr(plugins) + '],' +
         '\n  transformers: [' + pluginsStr(transformers) + ']' +

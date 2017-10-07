@@ -1,7 +1,20 @@
 const summary = require('../data-loader/summary-generator');
 const marked = require('../markdown-loader/generate');
-require('babel-core/register')
+const YFM = require('yaml-front-matter');
 
+
+function stringify(obj) {
+    let str = JSON.stringify(obj, function (key, value) {
+        if (value && value.PICIDAE_EVAL_CODE === true) {
+            if (typeof value.value === 'string' && value.value) {
+                return 'PICIDAE_EVAL_CODE' + value.value + 'PICIDAE_EVAL_CODE'
+            }
+        }
+        return value;
+    }, 2);
+
+    return str.replace(/(['"])PICIDAE_EVAL_CODE([^]+?)PICIDAE_EVAL_CODE\1/g, '$2')
+}
 
 process.on('message', (task) => {
     let {
@@ -13,31 +26,62 @@ process.on('message', (task) => {
         args
     } = task;
 
-    let data;
-    if (type === 'markdown') {
-        args = [content];
-        args.push((err, meta, data) => {
-            if (err) {
-                console.error(err);
-                process.send(JSON.stringify(data, null, 2));
-                return
-            }
-            let promise = transformers.reduce(
-                (promise, {path, opt}) =>
-                    promise.then(data =>
-                        require(path)(opt, {meta, data, markdown: content, filename}, require)
-                    ),
-                Promise.resolve(data)
-            );
 
-            return promise.then(data => {
-                process.send(JSON.stringify(data, null, 2));
+    if (type === 'markdown') {
+
+        let markdownTransformers = []
+        let htmlTransformers = []
+        transformers.forEach(({path, opt}) => {
+            let transformer = require(path);
+            if (typeof transformer.markdownTransfomer === 'function') {
+                markdownTransformers.push(transformer.markdownTransfomer.bind(null, opt));
+            }
+            if (typeof transformer.htmlTransfomer === 'function') {
+                htmlTransformers.push(transformer.htmlTransfomer.bind(null, opt));
+            }
+            if (typeof transformer === 'function') {
+                htmlTransformers.push(transformer.bind(null, opt));
+            }
+        })
+
+        let {__content, ...meta} = YFM.loadFront(content);
+
+        let promise = markdownTransformers.reduce(
+            (promise, transformer) =>
+                promise.then(data =>
+                    transformer({meta, data, filename}, require)
+                ),
+            Promise.resolve(content)
+        );
+
+        promise
+            .then(md => {
+                return new Promise(resolve => {
+                    marked(md, (err, _meta, data) => {
+                        if (err) {
+                            console.error(err);
+                            process.send(JSON.stringify(data, null, 2));
+                            return
+                        }
+                        resolve({meta: _meta, data});
+                    })
+                });
+            })
+            .then(({meta, data}) => {
+                return htmlTransformers.reduce(
+                    (promise, transformer) =>
+                        promise.then(data =>
+                            transformer({meta, data, filename}, require)
+                        ),
+                    Promise.resolve(data)
+                );
+            })
+            .then(data => {
+                process.send(stringify(data, null, 2));
             }).catch(err => {
                 console.error(err);
-                process.send(JSON.stringify(data, null, 2));
+                process.send(stringify(data, null, 2));
             });
-        });
-        marked.apply(null, args);
     }
     // else if (type === 'summary') {
     //     if (args[1] && args[1].picker) {

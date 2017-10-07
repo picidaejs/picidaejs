@@ -1,16 +1,29 @@
 ---
-title: api/a.markdown
+title: React-Render!
 ---
 
 hello, im `api/a.markdown`!
 
 ```render-jsx
-export default class Demo extends React.Component {
+// export default 
+@../../src/Demo.js@
+```
+
+```render-jsx
+const hoc = Comp => (Comp.title = 'new Title', Comp)
+
+@hoc
+export default class Comp extends React.Component {
+  static title = 'title'
   componentDidMount() {
-    setInterval(() => this.forceUpdate(), 500)
+    
   }
   render() {
-    return <h1>This is cool times {Date.now()}</h1>
+    return (
+        <h3 onClick={() => alert(Date.now())}>
+          {Comp.title}
+        </h3>
+    )
   }
 }
 ```
