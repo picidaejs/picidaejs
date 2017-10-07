@@ -1,0 +1,1 @@
+webpackJsonp([0,9],{439:function(o,e){o.exports={content:"<html><head></head><body><p>hello, im <code>posts/b.markdown</code>!</p>\n</body></html>"}}});
