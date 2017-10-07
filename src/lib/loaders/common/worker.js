@@ -1,6 +1,6 @@
 const summary = require('../data-loader/summary-generator');
 const marked = require('../markdown-loader/generate');
-
+require('babel-core/register')
 
 
 process.on('message', (task) => {
@@ -16,8 +16,26 @@ process.on('message', (task) => {
     let data;
     if (type === 'markdown') {
         args = [content];
-        args.push((err, data) => {
-            process.send(JSON.stringify(data, null, 2));
+        args.push((err, meta, data) => {
+            if (err) {
+                console.error(err);
+                process.send(JSON.stringify(data, null, 2));
+                return
+            }
+            let promise = transformers.reduce(
+                (promise, {path, opt}) =>
+                    promise.then(data =>
+                        require(path)(opt, {meta, data, markdown: content, filename}, require)
+                    ),
+                Promise.resolve(data)
+            );
+
+            return promise.then(data => {
+                process.send(JSON.stringify(data, null, 2));
+            }).catch(err => {
+                console.error(err);
+                process.send(JSON.stringify(data, null, 2));
+            });
         });
         marked.apply(null, args);
     }

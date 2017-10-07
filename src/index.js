@@ -29,7 +29,7 @@ function ensureFile(filename) {
     }
 }
 
-function webpackConfigGetter(config = {}) {
+function webpackConfigGetter(config = {}, transformers = []) {
 
     if (config.module && config.module.loaders) {
         config.module.loaders.push({
@@ -37,7 +37,8 @@ function webpackConfigGetter(config = {}) {
                 return /\.(md|markdown)\.js/.test(filename) || fileIsMarkdown(filename)
             },
             excludes: [/(node_modules|bower_components)/],
-            loader: require.resolve('./lib/loaders/markdown-loader')
+            loader: require.resolve('./lib/loaders/markdown-loader'),
+            query: JSON.stringify({transformers})
         })
     }
     return config;
@@ -119,13 +120,28 @@ class Picidae extends EventEmitter {
         this.docPath = nps.resolve(this.opts.docRoot);
         this.distRoot = nps.resolve(this.opts.distRoot);
 
+        this.opts.transformers = this.opts.transformers || [];
+        this.nodeTransformers = this.opts.transformers
+            .map(str =>
+                parseQuery(
+                    parseQuery.injectJoin(str, 'node.js'), 'picidae-transformer-', {allowNotExists: true}
+                )
+            )
+            .filter(Boolean)
+        this.browserTransformers = this.opts.transformers
+            .map(str =>
+                parseQuery(
+                    parseQuery.injectJoin(str, 'browser.js'), 'picidae-transformer-', {allowNotExists: true}
+                )
+            )
+            .filter(Boolean)
+
 
         this.watchTheme();
         this.watchSummary();
 
-
         this.webpackConfigGetter = config => {
-            config = webpackConfigGetter(config);
+            config = webpackConfigGetter(config, this.nodeTransformers);
             config.entry = {
                 ...config.entry,
                 app: entryFile,
@@ -163,25 +179,19 @@ class Picidae extends EventEmitter {
         });
         this.docsEntry = generateEntry(tree, this.routesMap);
 
+        let opt = {
+            plugins,
+            transformers: this.browserTransformers,
+            picker: this.opts.picker || (a => a),
+        };
+
         if (this.opts.ssr) {
-            let result = summary(
-                this.docsEntry, {
-                    plugins,
-                    picker: this.opts.picker || (a => a),
-                },
-                false
-            );
+            let result = summary(this.docsEntry, opt, false);
             let str = fs.readFileSync(nps.join(templatePath, 'data-ssr.template.js')).toString();
             fs.writeFileSync(this.summarySSrPath, str + '\nmodule.exports = ' + result);
         }
 
-        let lazyresult = summary(
-            this.docsEntry, {
-                plugins,
-                picker: this.opts.picker || (a => a),
-            },
-            true
-        );
+        let lazyresult = summary(this.docsEntry, opt, true);
 
         // console.log(`\`${nps.resolve(process.cwd(), this.summaryPath)}\` Updated.`)
         fs.writeFileSync(this.summaryPath, 'module.exports = ' + lazyresult);
@@ -262,8 +272,14 @@ class Picidae extends EventEmitter {
             console.log(chalk.red(' FORCE Mode is OPEN'));
             require('del').sync([this.distRoot]);
         }
+        if (!this.opts.noSpider) {
+            console.log(chalk.green(' Spider Mode is OPEN'));
+        }
 
         let webpackConfig = this.wpServer.getWebpackConfig();
+        if (this.opts.sourceMap) {
+            webpackConfig.devtool = 'source-map'
+        }
         build(webpackConfig, () => {
             console.log(chalk.green('\n Webpack Build successfully.') + '\n');
 
@@ -271,6 +287,7 @@ class Picidae extends EventEmitter {
             let ssrWebpackConfig = webpackConfig;
             let ssrEntryName = `node-routes-generator.${this.id}`;
 
+            ssrWebpackConfig.devtool = null;
             ssrWebpackConfig.entry = {
                 [ssrEntryName]: nps.join(this.tmpPath, `routes-generator.${this.id}.ssr.js`)
             };
@@ -294,7 +311,8 @@ class Picidae extends EventEmitter {
 
                 let pool = [];
                 pool.push(...sites);
-                const createProm = function (sites, {publicPath, dirRoot}, fromPath) {
+                const createProm = function (sites, {publicPath, dirRoot}, opt = {}) {
+                    let {fromPath, noSpider = false} = opt
                     function logPath(path) {
                         console.log(chalk.green('`'+ nps.relative(process.cwd(), path) +'`'), 'File Created successfully.')
                     }
@@ -318,13 +336,15 @@ class Picidae extends EventEmitter {
                                             callback(err, obj) {
                                                 if (err || !obj) resolve()
                                                 else {
-                                                    let newSites = obj.hrefList.filter(href => !pool.find(x => x.path === href));
-                                                    newSites = newSites.map(sitemap.transform);
-                                                    if (newSites && newSites.length) {
-                                                        console.log(path, '->', newSites);
-                                                        pool = pool.concat(newSites);
-                                                        resolve(createProm(newSites, {publicPath, dirRoot}, obj.path))
-                                                        return;
+                                                    if (!noSpider) {
+                                                        let newSites = obj.hrefList.filter(href => !pool.find(x => x.path === href));
+                                                        newSites = newSites.map(sitemap.transform);
+                                                        if (newSites && newSites.length) {
+                                                            console.log(path, '->', newSites);
+                                                            pool = pool.concat(newSites);
+                                                            resolve(createProm(newSites, {publicPath, dirRoot}, obj.path))
+                                                            return;
+                                                        }
                                                     }
                                                     resolve(obj.path);
                                                 }
@@ -350,7 +370,7 @@ class Picidae extends EventEmitter {
                     );
                 };
 
-                createProm(sites, {dirRoot: this.distRoot, publicPath: this.opts.publicPath})
+                createProm(sites, {dirRoot: this.distRoot, publicPath: this.opts.publicPath}, {noSpider: this.opts.noSpider})
                     .then(paths => {
                         let src = nps.resolve(this.opts.extraRoot);
                         let target = nps.join(this.distRoot, 'extra')

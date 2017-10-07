@@ -6,6 +6,7 @@ import routesGenerator from './routes-generator.{{dataSuffix}}'
 import themeData from '{{ themeDataPath }}'
 // import createElement from '../utils/createElement'
 
+import '../browser-tools/highlight-default.css'
 import 'nprogress/nprogress.css'
 
 const routes = routesGenerator(themeData);

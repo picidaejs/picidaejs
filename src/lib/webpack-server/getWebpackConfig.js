@@ -69,8 +69,10 @@ export default function getWebpackCommonConfig(args = {}) {
 
         devtool: dev && 'source-map',
 
+        context: join(__dirname, '/../../../node_modules'),
+
         resolve: {
-            // modules: ['node_modules', join(__dirname, '/../../../node_modules')],
+            modules: ['node_modules', join(__dirname, '/../../../node_modules')],
             // root: ['node_modules', join(__dirname, '/../../../node_modules')],
         },
 
@@ -94,7 +96,8 @@ export default function getWebpackCommonConfig(args = {}) {
                     loader: 'babel-loader',
                     exclude: [
                         function (name) {
-                            return !/(node_modules|bower_components)\/picida/.test(name)
+                            return !/\/picidae-(plugin|transformer|theme|commander)/.test(name)
+                                && !/(node_modules|bower_components)\/picidae/.test(name)
                                 && /(node_modules|bower_components)/.test(name)
                         },
                     ],

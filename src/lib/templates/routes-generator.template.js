@@ -1,11 +1,8 @@
 import {join, basename} from 'path'
 import Error from '../utils/Error'
-import hoc from '../utils/hoc'
+import hoc from '../browser-tools/hoc'
+import renderUtil from '../browser-tools/renderUtil'
 import NProgress from 'nprogress'
-
-if (typeof document === 'undefined') {
-    require('babel-core/register')
-}
 
 const data = require('./data.{{dataSuffix}}')
 
@@ -28,7 +25,6 @@ function wrapData(data) {
     }
 }
 wrapData(data);
-
 
 async function defaultCollector(next) {
     return next;
@@ -58,13 +54,14 @@ module.exports = function routesGenerator({routes, root, notFound, themeConfig})
                 data,
                 pageData: data.lazyload[pathname],
                 themeConfig,
+                // render
                 // utils
             };
 
             let collector = Component.collector || defaultCollector;
             let promiseList = data.plugins.map(plugin => {
                 let p = plugin({...nextProps});
-                return p && p.then ? p : Promise.resolve(p)
+                return p && typeof p.then === 'function' ? p : Promise.resolve(p)
             });
 
             function then(data) {
@@ -88,7 +85,12 @@ module.exports = function routesGenerator({routes, root, notFound, themeConfig})
                     if (collected === false) {
                         throw 'NOT_FOUND_PAGE'
                     }
-                    return {...nextProps, ...collected}
+                    return {
+                        ...nextProps, ...collected,
+                        render(pageData = collected.pageData) {
+                            return renderUtil(pageData, data.transformers);
+                        }
+                    }
                 })
                 .then(data => then(data))
                 .then(

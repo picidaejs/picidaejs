@@ -4,6 +4,7 @@ import moment from 'moment'
 import {Link} from 'react-router'
 
 const View = (props) => {
+    let render = props.render;
     let utils = props.pluginData.utils;
     let pagination = utils.pagination('post')
 
@@ -19,8 +20,7 @@ const View = (props) => {
             </div>
             <h1 className="post-title">{props.pageData.meta.title}</h1>
             <div className="post-line"></div>
-            <article dangerouslySetInnerHTML={{__html: props.pageData.markdown.content}}></article>
-
+            {render()}
             <div className="pagination">
                 {pagination.prev && <Link to={'/' + pagination.prev._key} title={pagination.prev.title} className="left arrow">←</Link>}
                 {pagination.next && <Link to={'/' + pagination.next._key} title={pagination.next.title} className="right arrow">→</Link>}

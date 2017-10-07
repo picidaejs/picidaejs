@@ -1,5 +1,6 @@
 
 const loaderUtils = require('loader-utils')
+const nps = require('path')
 const resolve = require('./resolve-path')
 
 function autoPrefix (path, prefix) {
@@ -11,7 +12,8 @@ function autoPrefix (path, prefix) {
     return path
 }
 
-const parser = function (path, prefix = '') {
+const parser = function (path, prefix = '', opts = {}) {
+    const {allowNotExists = false} = opts;
     let index = path.lastIndexOf('?');
     let opt = {}
     if (index >= 0) {
@@ -20,12 +22,32 @@ const parser = function (path, prefix = '') {
     }
 
     path = autoPrefix(path, prefix)
-
+    try {
+        path = resolve(path)
+    } catch (ex) {
+        if (allowNotExists) {
+            return null;
+        }
+        throw ex;
+    }
     return {
         opt,
-        path: resolve(path)
+        path
     }
 }
+
+parser.injectJoin = function (target, ...tails) {
+    let tail = nps.join.apply(null, tails);
+    let index = target.lastIndexOf('?');
+    if (index >= 0) {
+        return nps.join(target.substring(0, index), tail) + target.substring(index);
+    }
+    return nps.join(target, tail);
+}
+
+// console.error(injectJoin('render-react?a=22', 'index.js'));
+
+// console.log(parser(injectJoin('dom?a=22', 'index.js'), 'react-'))
 
 parser.autoPrefix = autoPrefix
 

@@ -5,7 +5,7 @@ const childProcess = require('child_process');
 function createWorkers(count) {
     const workers = [];
     while (workers.length < count) {
-        const worker = childProcess.fork(path.join(__dirname, './worker.js'), {stdio: 'inherit'});
+        const worker = childProcess.fork(path.join(__dirname, './worker.js'), {stdio: 'inherit', cwd: process.cwd()});
         worker.setMaxListeners(1);
         workers.push(worker);
     }

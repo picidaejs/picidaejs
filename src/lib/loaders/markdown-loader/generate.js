@@ -26,8 +26,7 @@ function generate(content, callback) {
                 callback(err);
             }
             else {
-                callback(null, {
-                    // meta,
+                callback(null, meta, {
                     // todo -> transformers
                     content: file.contents
                 })

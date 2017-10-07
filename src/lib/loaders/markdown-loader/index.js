@@ -10,10 +10,13 @@ module.exports = function mdLoader(content, sourceMap) {
 
     const webpackRemainingChain = loaderUtils.getRemainingRequest(this).split('!');
     const filename = webpackRemainingChain[webpackRemainingChain.length - 1];
-    // const filename = nps.relative(process.cwd(), fullPath);
+    const options = loaderUtils.getOptions(this) || {}
+    const {transformers = []} = options;
 
     boss.queue({
         content,
+        transformers,
+        filename,
         callback(err, result) {
             callback(err,
                 [
