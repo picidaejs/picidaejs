@@ -1,1 +1,0 @@
-module.exports = JSON.parse('{{ body | safe }}')
