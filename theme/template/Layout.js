@@ -1,6 +1,6 @@
 import React from 'react'
 
-import '../assets/style.css'
+import '../assets/style.less'
 
 import Header from './Comps/Header'
 import Footer from './Comps/Footer'

@@ -4,7 +4,7 @@ import {Link} from 'react-router'
 import CatalogueItem from './Comps/CatalogueItem'
 
 export default ({data, publicPath, pluginData: {utils}, themeConfig: {pageSize = 2}, params: {page = 1}}) => {
-    let posts = utils.group('post');
+    let posts = utils.group('doc');
     let pagination = {};
 
     page = Number(page)
@@ -28,8 +28,8 @@ export default ({data, publicPath, pluginData: {utils}, themeConfig: {pageSize =
                 )
             }
             <div className="pagination">
-                {pagination.prev && <Link to={'/posts/' + pagination.prev} className="left arrow">←</Link>}
-                {pagination.next && <Link to={'/posts/' + pagination.next} className="right arrow">→</Link>}
+                {pagination.prev && <Link to={'/docs/' + pagination.prev} className="left arrow">←</Link>}
+                {pagination.next && <Link to={'/docs/' + pagination.next} className="right arrow">→</Link>}
                 <a href="#" className="top">Top</a>
             </div>
         </div>

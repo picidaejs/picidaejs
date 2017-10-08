@@ -20,6 +20,9 @@ function stringify(obj) {
 process.on('message', (task) => {
     let {
         filename,
+        filesMap = {},
+        path,
+        publicPath,
         content,
         plugins,
         transformers,
@@ -33,7 +36,7 @@ process.on('message', (task) => {
         let {markdownTransformers, htmlTransformers} = split(transformers)
         let {__content, ...meta} = YFM.loadFront(content);
 
-        let promise = chain(markdownTransformers, content, {meta: {...meta}, filename});
+        let promise = chain(markdownTransformers, content, {meta: {...meta}, publicPath, filesMap: {...filesMap}, path});
 
         promise
             .then(md => {
@@ -49,7 +52,7 @@ process.on('message', (task) => {
                 });
             })
             .then(({meta, data}) => {
-                return chain(htmlTransformers, data, {meta: {...meta}, filename});
+                return chain(htmlTransformers, data, {meta: {...meta}, filesMap: {...filesMap}, path});
             })
             .then(data => {
                 process.send(stringify(data, null, 2));

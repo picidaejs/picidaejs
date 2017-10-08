@@ -18,18 +18,14 @@ import match from './lib/utils/rule-match'
 import boss from './lib/loaders/common/boss'
 import summary from './lib/loaders/data-loader/summary-generator'
 import ssr from './lib/utils/ssr'
+import context from './lib/context'
+
 import chokidar from 'chokidar'
 
 const chalk = require('chalk');
 
 
-function ensureFile(filename) {
-    if (!fs.existsSync(filename)) {
-        fs.writeFileSync(filename, 'module.exports = {}');
-    }
-}
-
-function webpackConfigGetter(config = {}, transformers = []) {
+function webpackConfigGetter(config = {}, transformers = [], filesMap) {
 
     if (config.module && config.module.loaders) {
         config.module.loaders.push({
@@ -38,7 +34,7 @@ function webpackConfigGetter(config = {}, transformers = []) {
             },
             excludes: [/(node_modules|bower_components)/],
             loader: require.resolve('./lib/loaders/markdown-loader'),
-            query: JSON.stringify({transformers})
+            query: JSON.stringify({transformers, filesMap})
         })
     }
     return config;
@@ -53,23 +49,25 @@ function looseRoutesMap(map = {}) {
 
 function generateEntry(fileTree, routesMap = {}) {
     routesMap = looseRoutesMap(routesMap);
-
+    // console.log(routesMap);
     function replace(pathname) {
         let matched = false;
         return pathname
             .split('/')
-            .map((chunk) => {
+            .map(chunk => {
+                // console.log(chunk);
                 if (!matched) {
                     if (routesMap[chunk]) {
                         matched = true;
                     }
-                    return routesMap[chunk] || chunk;
+                    return typeof routesMap[chunk] === 'string' ? routesMap[chunk] : chunk;
                 }
                 else {
                     return chunk;
                 }
             })
-            .join('/');
+            .join('/')
+            .replace(/\/\//, '/');
     }
 
     function generateKey(container = {}, key) {
@@ -106,6 +104,9 @@ class Picidae extends EventEmitter {
 
     constructor(opts) {
         super();
+
+        context.__init({picidae: this});
+
         this.opts = Picidae.assignOption(opts);
         this.id = this.opts.id || 'ID';
         this.tmpPath = nps.join(tmpPath) //, '..', require('md5')(Date.now()).substr(0, 15))
@@ -264,7 +265,7 @@ class Picidae extends EventEmitter {
             nps.join(templatePath, 'routes-generator.template.js'),
             {root, /*routesMap: JSON.stringify(routesMap), */dataSuffix: this.id},
             nps.join(this.tmpPath, `routes-generator.${this.id}.js`),
-        )
+        );
 
         await this.generateSummary(plugins);
     }
@@ -332,7 +333,8 @@ class Picidae extends EventEmitter {
                             let absoluteHtml = nps.join(dirRoot, html.replace(/^\/+/, ''));
                             sync(nps.dirname(absoluteHtml));
                             return new Promise(resolve => {
-                                method(publicPath.replace(/\/+$/, '') + '/' + path.replace(/^\/+/, ''), content => {
+                                // publicPath.replace(/\/+$/, '') +
+                                method('/' + path.replace(/^\/+/, ''), content => {
                                     if (!content) {
                                         resolve()
                                     }

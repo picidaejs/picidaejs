@@ -7,30 +7,29 @@ module.exports = {
         path: '/',
         component: './Layout',
         indexRoute: {
-            component: './Archive',
-            path: '',
+            component: './PureMD',
         },
         childRoutes: [
             {
-                path: 'post/*',
+                path: 'doc/*',
                 component: './Post'
             },
-            // {
-            //     path: 'tags',
-            //     component: './TagsCloud'
-            // },
-            // {
-            //     path: 'tags/:tag',
-            //     component: './Tag'
-            // },
             {
-                path: 'posts/:page',
+                path: 'docs/:page',
                 component: './Archive'
             },
             {
+                path: 'changelog',
+                component: './PureMD'
+            },
+            {
                 path: 'about',
-                component: './About'
-            }
+                component: './PureMD'
+            },
+            {
+                path: 'guide',
+                component: './PureMD'
+            },
         ]
     },
     notFound: './NotFound',

@@ -3,13 +3,6 @@ import collect from 'picidae-tools/browser/collect'
 import moment from 'moment'
 import {Link} from 'react-router'
 
-async function collector(nextProps) {
-    if (nextProps.pageData) {
-        let data = await nextProps.pageData()
-        return {pageData: data};
-    }
-    return false;
-}
 
 const View = (props) =>
     <div className="post">
@@ -29,5 +22,5 @@ const View = (props) =>
         </div>
     </div>
 
-export default collect(collector)(View)
+export default collect()(View)
 

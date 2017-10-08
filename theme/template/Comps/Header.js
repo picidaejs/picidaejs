@@ -5,11 +5,13 @@ export default ({}) =>
     <nav className="nav">
         <div className="nav-container">
             <Link to={'/'}>
-                <h2 className="nav-title">Me</h2>
+                <h2 className="nav-title">Picidae</h2>
             </Link>
             <ul>
-                <li><Link to={'/' + "about"}>About</Link></li>
-                {/*<li><Link to="/tags">Tags</Link></li>*/}
+                <li><Link activeClassName={"active-header"} to={'/guide'}>Guide</Link></li>
+                <li><Link activeClassName={"active-header"} to={'/docs/1'}>Document</Link></li>
+                <li><Link activeClassName={"active-header"} to={'/changelog'}>ChangeLog</Link></li>
+                <li><Link activeClassName={"active-header"} to={'/about'}>About Me</Link></li>
             </ul>
         </div>
     </nav>

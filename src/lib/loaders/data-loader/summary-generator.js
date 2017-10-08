@@ -8,6 +8,7 @@ const nps = require('path')
 const moment = require('moment')
 
 const generate = require('../markdown-loader/generate')
+const context = require('../../context')
 const {chain, split} = require('../../utils/transformerUtils');
 
 /**
@@ -43,14 +44,15 @@ function generateLazyLoad(filesMap, lazy) {
 async function generatePickedMeta(filesMap, {picker, fromPath = process.cwd(), htmlTransformers = [], markdownTransformers = []}) {
     picker = picker || (meta => meta);
 
-    let picked = {}
+    let picked = {};
+    const {opts: {publicPath}} = context.picidae;
     for (let path in filesMap) {
         let meta = yamlFront.loadFront(fs.readFileSync(filesMap[path]).toString());
         let content = meta.__content;
         let filename = filesMap[path]
         delete meta.__content;
 
-        content = await chain(markdownTransformers, content, {meta: {...meta}, filename});
+        content = await chain(markdownTransformers, content, {meta: {...meta}, publicPath, path, filesMap: {...filesMap}});
 
         function getHTML(md = content) {
             return new Promise((resolve, reject)=> {
@@ -60,7 +62,7 @@ async function generatePickedMeta(filesMap, {picker, fromPath = process.cwd(), h
                     }
                     else {
                         resolve(
-                            chain(htmlTransformers, data, {meta: {...meta}, filename})
+                            chain(htmlTransformers, data, {meta: {...meta}, publicPath, path, filesMap: {...filesMap}})
                                 .then(data => data.content)
                         )
                     }
