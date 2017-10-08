@@ -4,7 +4,7 @@ import {Link} from 'react-router'
 export default ({}) =>
     <nav className="nav">
         <div className="nav-container">
-            <Link href={'/'}>
+            <Link to={'/'}>
                 <h2 className="nav-title">Me</h2>
             </Link>
             <ul>
