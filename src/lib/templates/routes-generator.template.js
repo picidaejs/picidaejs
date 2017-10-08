@@ -30,7 +30,7 @@ async function defaultCollector(next) {
     return next;
 }
 
-module.exports = function routesGenerator({routes, root, notFound, themeConfig}) {
+module.exports = function routesGenerator({routes, root, notFound, themeConfig, publicPath = '/'}) {
 
     function getComp(template) {
         if (typeof template === 'string') {
@@ -86,7 +86,7 @@ module.exports = function routesGenerator({routes, root, notFound, themeConfig})
                         throw 'NOT_FOUND_PAGE'
                     }
                     return {
-                        ...nextProps, ...collected,
+                        ...nextProps, ...collected, publicPath,
                         render(pageData = collected.pageData) {
                             return renderUtil(pageData, data.transformers);
                         }

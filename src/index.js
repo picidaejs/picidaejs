@@ -248,7 +248,7 @@ class Picidae extends EventEmitter {
         this.routesMap = routesMap;
         renderTemplate(
             nps.join(templatePath, 'commonjs.template.js'),
-            {body: JSON.stringify({root, notFound, routes, themeConfig: config})},
+            {body: JSON.stringify({root, notFound, routes, publicPath: this.opts.publicPath, themeConfig: config})},
             this.themeDataPath
         );
 
@@ -277,7 +277,7 @@ class Picidae extends EventEmitter {
         console.log(chalk.green('Building...'));
         if (this.opts.force) {
             console.log(chalk.red(' FORCE Mode is OPEN'));
-            require('del').sync([this.distRoot]);
+            require('del').sync([nps.join(this.distRoot, '*'), '!' + nps.join(this.distRoot, '.git')]);
         }
         if (!this.opts.noSpider) {
             console.log(chalk.green(' Spider Mode is OPEN'));
