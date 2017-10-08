@@ -6,7 +6,7 @@ module.exports = {
     port: 9999,
     verbose: true,
 
-    publicPath: '/',
+    publicPath: '/picidaejs/public/',
 
     theme: '../theme',
 
