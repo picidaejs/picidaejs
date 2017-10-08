@@ -100,10 +100,13 @@ function generateEntry(fileTree, routesMap = {}) {
 }
 
 class Picidae extends EventEmitter {
+    static assignOption(opts) {
+        return assign({}, defaultConfig, opts);
+    }
 
     constructor(opts) {
         super();
-        this.opts = assign({}, defaultConfig, opts);
+        this.opts = Picidae.assignOption(opts);
         this.id = this.opts.id || 'ID';
         this.tmpPath = nps.join(tmpPath) //, '..', require('md5')(Date.now()).substr(0, 15))
         sync(this.tmpPath);
