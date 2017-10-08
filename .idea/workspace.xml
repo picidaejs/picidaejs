@@ -2,39 +2,27 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="4fe84ef1-9d43-4c9a-91a2-2774d54920bd" name="Default" comment="">
-      <change type="DELETED" beforePath="$PROJECT_DIR$/docs/public/posts/1/index.html" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/docs/public/posts/2/index.html" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/docs/public/posts/3/index.html" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/docs/public/picidaejs/public/about/index.html" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/docs/public/picidaejs/public/index.html" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/docs/public/picidaejs/public/post/a-2/index.html" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/docs/public/picidaejs/public/post/a/index.html" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/docs/public/picidaejs/public/posts/2/index.html" afterPath="" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/docs/picidae.config.js" afterPath="$PROJECT_DIR$/docs/picidae.config.js" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/docs/public/404.html" afterPath="$PROJECT_DIR$/docs/public/404.html" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/docs/public/about.js" afterPath="$PROJECT_DIR$/docs/public/about.js" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/docs/public/about/index.html" afterPath="$PROJECT_DIR$/docs/public/about/index.html" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/docs/public/app.js" afterPath="$PROJECT_DIR$/docs/public/app.js" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/docs/public/common.js" afterPath="$PROJECT_DIR$/docs/public/common.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/docs/public/example/a.js" afterPath="$PROJECT_DIR$/docs/public/example/a.js" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/docs/public/example/a/index.html" afterPath="$PROJECT_DIR$/docs/public/example/a/index.html" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/docs/public/example/b.js" afterPath="$PROJECT_DIR$/docs/public/example/b.js" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/docs/public/example/b/index.html" afterPath="$PROJECT_DIR$/docs/public/example/b/index.html" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/docs/public/index.html" afterPath="$PROJECT_DIR$/docs/public/index.html" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/docs/public/post/a-1.js" afterPath="$PROJECT_DIR$/docs/public/post/a-1.js" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/docs/public/post/a-1/index.html" afterPath="$PROJECT_DIR$/docs/public/post/a-1/index.html" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/docs/public/post/a-2.js" afterPath="$PROJECT_DIR$/docs/public/post/a-2.js" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/docs/public/post/a-2/index.html" afterPath="$PROJECT_DIR$/docs/public/post/a-2/index.html" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/docs/public/post/a-3.js" afterPath="$PROJECT_DIR$/docs/public/post/a-3.js" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/docs/public/post/a-3/index.html" afterPath="$PROJECT_DIR$/docs/public/post/a-3/index.html" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/docs/public/post/a.js" afterPath="$PROJECT_DIR$/docs/public/post/a.js" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/docs/public/post/a/index.html" afterPath="$PROJECT_DIR$/docs/public/post/a/index.html" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/docs/public/post/b-1.js" afterPath="$PROJECT_DIR$/docs/public/post/b-1.js" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/docs/public/post/b-1/index.html" afterPath="$PROJECT_DIR$/docs/public/post/b-1/index.html" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/docs/public/post/b.js" afterPath="$PROJECT_DIR$/docs/public/post/b.js" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/docs/public/post/b/index.html" afterPath="$PROJECT_DIR$/docs/public/post/b/index.html" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/index.js" afterPath="$PROJECT_DIR$/src/index.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/lib/templates/routes-generator.template.js" afterPath="$PROJECT_DIR$/src/lib/templates/routes-generator.template.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/theme/template/Archive.js" afterPath="$PROJECT_DIR$/theme/template/Archive.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/theme/template/Comps/Header.js" afterPath="$PROJECT_DIR$/theme/template/Comps/Header.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/theme/template/Layout.js" afterPath="$PROJECT_DIR$/theme/template/Layout.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/theme/template/Post.js" afterPath="$PROJECT_DIR$/theme/template/Post.js" />
     </list>
     <ignored path="$PROJECT_DIR$/.tmp/" />
     <ignored path="$PROJECT_DIR$/temp/" />
@@ -52,7 +40,7 @@
       <file leaf-file-name="index.js" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/index.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="480">
+            <state relative-caret-position="745">
               <caret line="286" column="34" lean-forward="false" selection-start-line="286" selection-start-column="34" selection-end-line="286" selection-end-column="34" />
               <folding>
                 <element signature="e#11751#14246#0" expanded="false" />
@@ -76,17 +64,21 @@
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="220">
               <caret line="11" column="28" lean-forward="true" selection-start-line="11" selection-start-column="28" selection-end-line="11" selection-end-column="28" />
-              <folding />
+              <folding>
+                <marker date="1507437405000" expanded="true" signature="338:362" ph="..." />
+              </folding>
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="404.html" pinned="false" current-in-tab="true">
+      <file leaf-file-name="404.html" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/docs/public/404.html">
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="0">
               <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-              <folding />
+              <folding>
+                <marker date="1507437405000" expanded="true" signature="338:362" ph="..." />
+              </folding>
             </state>
           </provider>
         </entry>
@@ -101,11 +93,11 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="picidae.config.js" pinned="false" current-in-tab="false">
+      <file leaf-file-name="picidae.config.js" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/docs/picidae.config.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="200">
-              <caret line="10" column="22" lean-forward="false" selection-start-line="10" selection-start-column="22" selection-end-line="10" selection-end-column="22" />
+            <state relative-caret-position="160">
+              <caret line="8" column="18" lean-forward="false" selection-start-line="8" selection-start-column="18" selection-end-line="8" selection-end-column="18" />
               <folding />
             </state>
           </provider>
@@ -251,8 +243,8 @@
         <option value="$PROJECT_DIR$/theme/template/Archive.js" />
         <option value="$PROJECT_DIR$/theme/template/Comps/Header.js" />
         <option value="$PROJECT_DIR$/theme/template/Layout.js" />
-        <option value="$PROJECT_DIR$/docs/picidae.config.js" />
         <option value="$PROJECT_DIR$/src/index.js" />
+        <option value="$PROJECT_DIR$/docs/picidae.config.js" />
       </list>
     </option>
   </component>
@@ -771,7 +763,7 @@
     </history-entry>
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="226521000" />
+    <option name="totallyTimeSpent" value="226990000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="0" y="22" width="1440" height="826" extended-state="6" />
@@ -1132,7 +1124,7 @@
         <state relative-caret-position="331">
           <caret line="35" column="43" lean-forward="false" selection-start-line="35" selection-start-column="43" selection-end-line="35" selection-end-column="43" />
           <folding>
-            <element signature="e#0#35#0" expanded="true" />
+            <element signature="e#0#35#0" expanded="false" />
           </folding>
         </state>
       </provider>
@@ -1142,7 +1134,7 @@
         <state relative-caret-position="336">
           <caret line="26" column="56" lean-forward="false" selection-start-line="26" selection-start-column="56" selection-end-line="26" selection-end-column="56" />
           <folding>
-            <element signature="e#0#25#0" expanded="true" />
+            <element signature="e#0#25#0" expanded="false" />
           </folding>
         </state>
       </provider>
@@ -1160,7 +1152,7 @@
         <state relative-caret-position="390">
           <caret line="31" column="120" lean-forward="false" selection-start-line="31" selection-start-column="120" selection-end-line="31" selection-end-column="120" />
           <folding>
-            <element signature="e#0#25#0" expanded="true" />
+            <element signature="e#0#25#0" expanded="false" />
           </folding>
         </state>
       </provider>
@@ -1195,29 +1187,11 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/docs/picidae.config.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="200">
-          <caret line="10" column="22" lean-forward="false" selection-start-line="10" selection-start-column="22" selection-end-line="10" selection-end-column="22" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/node_modules/del/index.js">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="308">
           <caret line="56" column="20" lean-forward="false" selection-start-line="56" selection-start-column="20" selection-end-line="56" selection-end-column="20" />
           <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/index.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="480">
-          <caret line="286" column="34" lean-forward="false" selection-start-line="286" selection-start-column="34" selection-end-line="286" selection-end-column="34" />
-          <folding>
-            <element signature="e#11751#14246#0" expanded="false" />
-          </folding>
         </state>
       </provider>
     </entry>
@@ -1233,7 +1207,9 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="220">
           <caret line="11" column="28" lean-forward="true" selection-start-line="11" selection-start-column="28" selection-end-line="11" selection-end-column="28" />
-          <folding />
+          <folding>
+            <marker date="1507437405000" expanded="true" signature="338:362" ph="..." />
+          </folding>
         </state>
       </provider>
     </entry>
@@ -1249,6 +1225,26 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="0">
           <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+          <folding>
+            <marker date="1507437405000" expanded="true" signature="338:362" ph="..." />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/index.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="745">
+          <caret line="286" column="34" lean-forward="false" selection-start-line="286" selection-start-column="34" selection-end-line="286" selection-end-column="34" />
+          <folding>
+            <element signature="e#11751#14246#0" expanded="false" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/docs/picidae.config.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="160">
+          <caret line="8" column="18" lean-forward="false" selection-start-line="8" selection-start-column="18" selection-end-line="8" selection-end-column="18" />
           <folding />
         </state>
       </provider>
