@@ -317,6 +317,7 @@ class Picidae extends EventEmitter {
                 let tpl = fs.readFileSync(this.htmlTempate).toString();
 
                 let pool = [];
+                // let publicPath = this.ops.publicPath
                 pool.push(...sites);
 
                 function logPath(path) {
@@ -346,7 +347,17 @@ class Picidae extends EventEmitter {
                                                 else {
                                                     logPath(obj.path);
                                                     if (!noSpider) {
-                                                        let newSites = obj.hrefList.filter(href => !pool.find(x => x.path === href));
+                                                        let newSites = obj.hrefList
+                                                            .map(href => {
+                                                                if (href.startsWith(publicPath)) {
+                                                                    href = href.substring(publicPath.length)
+                                                                    href = href.startsWith('/') ? href : ('/' + href);
+                                                                }
+                                                                return href
+                                                            })
+                                                            .filter(href => {
+                                                                return !pool.find(x => x.path === href)
+                                                            });
                                                         newSites = newSites.map(sitemap.transform);
                                                         if (newSites && newSites.length) {
                                                             console.log(path, '->', newSites);
