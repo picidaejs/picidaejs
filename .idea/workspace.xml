@@ -1,19 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="4fe84ef1-9d43-4c9a-91a2-2774d54920bd" name="Default" comment="">
-      <change type="DELETED" beforePath="$PROJECT_DIR$/docs/public/picidaejs/public/.html" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/docs/public/picidaejs/public/about.html" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/docs/public/picidaejs/public/post/a-2.html" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/docs/public/picidaejs/public/post/a.html" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/docs/public/picidaejs/public/posts/2.html" afterPath="" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/docs/public/app.js" afterPath="$PROJECT_DIR$/docs/public/app.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/docs/public/index.html" afterPath="$PROJECT_DIR$/docs/public/index.html" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/docs/public/post/a.html" afterPath="$PROJECT_DIR$/docs/public/post/a.html" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/docs/public/post/a.js" afterPath="$PROJECT_DIR$/docs/public/post/a.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/index.js" afterPath="$PROJECT_DIR$/src/index.js" />
-    </list>
+    <list default="true" id="4fe84ef1-9d43-4c9a-91a2-2774d54920bd" name="Default" comment="" />
     <ignored path="$PROJECT_DIR$/.tmp/" />
     <ignored path="$PROJECT_DIR$/temp/" />
     <ignored path="$PROJECT_DIR$/tmp/" />
@@ -27,11 +15,21 @@
   <component name="ExecutionTargetManager" SELECTED_TARGET="default_target" />
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
-      <file leaf-file-name="index.js" pinned="false" current-in-tab="true">
+      <file leaf-file-name="index.js" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/index.js">
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="359">
               <caret line="358" column="85" lean-forward="false" selection-start-line="358" selection-start-column="85" selection-end-line="358" selection-end-column="85" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="Archive.js" pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/theme/template/Archive.js">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="560">
+              <caret line="31" column="56" lean-forward="false" selection-start-line="31" selection-start-column="46" selection-end-line="31" selection-end-column="56" />
               <folding />
             </state>
           </provider>
@@ -715,7 +713,7 @@
     </history-entry>
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="228152000" />
+    <option name="totallyTimeSpent" value="228354000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="0" y="22" width="1440" height="826" extended-state="6" />
@@ -1102,16 +1100,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/theme/template/Archive.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="390">
-          <caret line="31" column="120" lean-forward="false" selection-start-line="31" selection-start-column="120" selection-end-line="31" selection-end-column="120" />
-          <folding>
-            <element signature="e#0#25#0" expanded="false" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/theme/template/About.js">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="-203">
@@ -1202,6 +1190,14 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="359">
           <caret line="358" column="85" lean-forward="false" selection-start-line="358" selection-start-column="85" selection-end-line="358" selection-end-column="85" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/theme/template/Archive.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="560">
+          <caret line="31" column="56" lean-forward="false" selection-start-line="31" selection-start-column="46" selection-end-line="31" selection-end-column="56" />
           <folding />
         </state>
       </provider>
