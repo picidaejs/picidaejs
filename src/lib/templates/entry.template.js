@@ -10,11 +10,14 @@ import '../browser-tools/index.less'
 
 const routes = routesGenerator(themeData);
 
-match({ routes: routes, location: location.pathname }, () => {
+const { pathname, search, hash } = window.location;
+const location = `${pathname}${search}${hash}`;
+const basename = '{{ root }}';
+match({ routes, location, basename}, () => {
     function render() {
         ReactDOM.render(
             <Router
-                history={useRouterHistory(createHistory)({ basename: '{{ root }}' })}
+                history={useRouterHistory(createHistory)({ basename })}
                 routes={routes}
             />,
             document.getElementById('root')

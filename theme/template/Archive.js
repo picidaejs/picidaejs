@@ -28,8 +28,8 @@ export default ({data, publicPath, pluginData: {utils}, themeConfig: {pageSize =
                 )
             }
             <div className="pagination">
-                {pagination.prev && <Link to={publicPath + 'posts/' + pagination.prev} className="left arrow">←</Link>}
-                {pagination.next && <Link to={publicPath + 'posts/' + pagination.next} className="right arrow">→</Link>}
+                {pagination.prev && <Link to={'/posts/' + pagination.prev} className="left arrow">←</Link>}
+                {pagination.next && <Link to={'/posts/' + pagination.next} className="right arrow">→</Link>}
                 <a href="#" className="top">Top</a>
             </div>
         </div>

@@ -313,7 +313,7 @@ class Picidae extends EventEmitter {
                 // let gen = require(nps.join(this.tmpPath, `routes-generator.${this.id}.ssr.js`));
                 let routes = gen(require(this.themeDataPath));
                 let sites = sitemap(routes, this.docsEntry)
-                let method = ssr(routes, false);
+                let method = ssr(routes, false, this.opts.publicPath);
                 let tpl = fs.readFileSync(this.htmlTempate).toString();
 
                 let pool = [];
@@ -474,7 +474,7 @@ class Picidae extends EventEmitter {
             if (this.opts.ssr) {
                 let gen = require(nps.join(this.tmpPath, `routes-generator.${this.id}.ssr.js`));
                 let routes = gen(require(this.themeDataPath));
-                ssr(routes)(req.url, content => {
+                ssr(routes, true, this.opts.publicPath)(req.url, content => {
                     res.send(renderTemplate(this.htmlTempate, {
                         content,
                         root: this.opts.publicPath
