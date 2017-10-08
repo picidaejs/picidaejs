@@ -23,8 +23,8 @@ const View = (props) => {
             <div className="post-line"></div>
             {render()}
             <div className="pagination">
-                {pagination.prev && <Link to={publicPath + pagination.prev._key} title={pagination.prev.title} className="left arrow">←</Link>}
-                {pagination.next && <Link to={publicPath + pagination.next._key} title={pagination.next.title} className="right arrow">→</Link>}
+                {pagination.prev && <Link to={'/' + pagination.prev._key} title={pagination.prev.title} className="left arrow">←</Link>}
+                {pagination.next && <Link to={'/' + pagination.next._key} title={pagination.next.title} className="right arrow">→</Link>}
                 <a href="#" className="top">Top</a>
             </div>
         </div>
