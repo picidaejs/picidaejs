@@ -48,7 +48,7 @@ module.exports = {
         var utils = getPickerUtils(metaData, gift, require);
 
 
-        return utils.md2Toc(content)
+        return utils.getToc()
             .then(function (toc) {
                 return getHTML()
                     .then(function (html) {
