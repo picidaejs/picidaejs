@@ -55,7 +55,7 @@ function wrap(route, filesEntry = {}) {
 
 }
 
-function transform(path) {
+function transformHexo(path) {
     let html = '';
     path = path.trim();
     if (path === '/') {
@@ -71,6 +71,18 @@ function transform(path) {
         else {
             html = path;
         }
+    }
+
+    return {path, html}
+}
+
+function transform(path) {
+    let html = '';
+    if (path === '/') {
+        html = '/index.html'
+    }
+    else {
+        html = path.replace(/\.html?$/, '') + '.html'
     }
 
     return {path, html}
