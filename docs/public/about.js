@@ -1,1 +1,1 @@
-webpackJsonp([8,9],{431:function(t,n){t.exports={content:'<html><head></head><body><h3 id="im-cuttlefish">I&apos;m CuttleFish!</h3>\n<ul>\n<li>\n<p>sds</p>\n<h2 id="not-head">not ,,,,head</h2>\n</li>\n</ul>\n<h3 id="sss">sss</h3>\n<hr>\n<p>title: About</p>\n<h2 id="datetime-2016-09-12-1120">datetime: 2016-09-12 11:20</h2>\n</body></html>'}}});
+webpackJsonp([8,9],{431:function(n,s){n.exports={content:'<h3 id="im-cuttlefish">I&apos;m CuttleFish!</h3>\n<ul>\n<li>\n<p>sds</p>\n<h2 id="not-head">not ,,,,head</h2>\n</li>\n</ul>\n<h3 id="sss">sss</h3>\n'}}});

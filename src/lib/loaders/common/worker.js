@@ -67,6 +67,8 @@ process.on('message', (task) => {
     // }
     else if (type === 'renderHtml') {
         let fs = require('fs');
+        let {sync} = require('mkdirp');
+        let nps = require('path');
 
         let tpl = args[0];
         let ctx = args[1];
@@ -91,16 +93,19 @@ process.on('message', (task) => {
             })
         }
 
-        fs.writeFile(path, htmlString, (err) => {
-            if (err) {
-                process.send('');
-            }
-            else {
-                process.send({
-                    path,
-                    hrefList
-                });
-            }
-        })
+        function write(path) {
+            fs.writeFile(path, htmlString, (err) => {
+                if (err) {
+                    process.send('');
+                }
+                else {
+                    process.send({
+                        path,
+                        hrefList
+                    });
+                }
+            })
+        }
+        write(path);
     }
 });

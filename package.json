@@ -29,7 +29,6 @@
   },
   "homepage": "https://github.com/picidaejs/picidae#readme",
   "dependencies": {
-    "arr-flatten": "^1.1.0",
     "autoprefixer": "^7.1.4",
     "babel-core": "^6.26.0",
     "babel-loader": "^6.4.1",
@@ -43,6 +42,7 @@
     "chalk": "^2.1.0",
     "cheerio": "^1.0.0-rc.2",
     "chokidar": "^1.7.0",
+    "cli-spinner": "^0.2.6",
     "commander": "^2.11.0",
     "copy-dir": "^0.3.0",
     "css-loader": "^0.28.7",

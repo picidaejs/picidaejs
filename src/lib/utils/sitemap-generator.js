@@ -1,4 +1,4 @@
-
+const nps = require('path')
 
 const sitmapGenerator = function (route, root = '') {
     if (!route) {
@@ -57,11 +57,20 @@ function wrap(route, filesEntry = {}) {
 
 function transform(path) {
     let html = '';
+    path = path.trim();
     if (path === '/') {
         html = '/index.html'
     }
     else {
-        html = path.replace(/\.html?$/, '') + '.html'
+        if (!/\.html?$/i.test(path)) {
+            html = nps.join(path, 'index.html');
+        }
+        else if (!/\/index.html?$/i.test(path) && !/^index.html?$/i.test(path)) {
+            html = path.replace(/\.html?$/i, '') + '.html';
+        }
+        else {
+            html = path;
+        }
     }
 
     return {path, html}

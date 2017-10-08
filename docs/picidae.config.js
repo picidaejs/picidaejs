@@ -23,6 +23,7 @@ module.exports = {
 
     commanders: [
         '../commanders/new?title=abc',
+        '../commanders/preview',
         // 'gh-pages?repo=',
         // 'deploy'
     ]

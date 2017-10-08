@@ -44,7 +44,7 @@ try {
     });
 
     commanders.forEach(function (ent) {
-        require(ent.path)(commander, ent.opt, config);
+        require(ent.path)(commander, ent.opt, Object.assign({}, config), require);
     })
 } catch (ex) {}
 

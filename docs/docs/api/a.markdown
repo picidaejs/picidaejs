@@ -1,11 +1,11 @@
 ---
-title: React-Render!
+title: React-Render & File-Syntax !!!
 ---
 
 hello, im `api/a.markdown`!
 
 `````render-jsx 
-@../../src/refs@
+@ ../../src/refs @
 `````
 
 ```render-jsx

@@ -1,1 +1,1 @@
-webpackJsonp([1,9],{438:function(o,e){o.exports={content:"<html><head></head><body><p>hello, im <code>posts/a.md</code>!</p>\n</body></html>"}}});
+webpackJsonp([1,9],{438:function(o,e){o.exports={content:"<p>hello, im <code>posts/a.md</code>!</p>\n"}}});

@@ -88,7 +88,7 @@ function generateEntry(fileTree, routesMap = {}) {
             })
         }
         else {
-            let key = replace(root/*.replace(/\..*$/, '')*/.substring(outRoot.length + 1)).replace(/\.(md|markdown)$/, '')
+            let key = replace(root/*.replace(/\..*$/, '')*/.substring(outRoot.length + 1)).replace(/\.(md|markdown)$/i, '')
             container[generateKey(container, key)] = root
         }
         return container;
@@ -318,12 +318,13 @@ class Picidae extends EventEmitter {
 
                 let pool = [];
                 pool.push(...sites);
+
+                function logPath(path) {
+                    console.log(chalk.green(' `'+ nps.relative(process.cwd(), path) +'`'), 'File Created successfully.')
+                }
+
                 const createProm = function (sites, {publicPath, dirRoot}, opt = {}) {
-                    let {fromPath, noSpider = false} = opt
-                    function logPath(path) {
-                        console.log(chalk.green('`'+ nps.relative(process.cwd(), path) +'`'), 'File Created successfully.')
-                    }
-                    if (fromPath) logPath(fromPath)
+                    let {noSpider = false} = opt
 
                     return Promise.all(
                         sites.map(({path, html}) => {
@@ -343,13 +344,14 @@ class Picidae extends EventEmitter {
                                             callback(err, obj) {
                                                 if (err || !obj) resolve()
                                                 else {
+                                                    logPath(obj.path);
                                                     if (!noSpider) {
                                                         let newSites = obj.hrefList.filter(href => !pool.find(x => x.path === href));
                                                         newSites = newSites.map(sitemap.transform);
                                                         if (newSites && newSites.length) {
                                                             console.log(path, '->', newSites);
                                                             pool = pool.concat(newSites);
-                                                            resolve(createProm(newSites, {publicPath, dirRoot}, obj.path))
+                                                            resolve(createProm(newSites, {publicPath, dirRoot}, {noSpider}))
                                                             return;
                                                         }
                                                     }
@@ -359,18 +361,6 @@ class Picidae extends EventEmitter {
                                         });
                                     }
                                 })
-                            }).then(path => {
-                                if (path) {
-                                    if (Array.isArray(path)) {
-                                        path = require('arr-flatten')(path)
-                                    } else {
-                                        path = [path];
-                                    }
-                                    path.forEach(path =>
-                                        logPath(path)
-                                    );
-                                }
-                                return path;
                             })
                             .catch(console.error)
                         })
@@ -378,9 +368,11 @@ class Picidae extends EventEmitter {
                 };
 
                 createProm(sites, {dirRoot: this.distRoot, publicPath: this.opts.publicPath}, {noSpider: this.opts.noSpider})
-                    .then(paths => {
+                    .then(() => {
                         let src = nps.resolve(this.opts.extraRoot);
                         let target = nps.join(this.distRoot, 'extra')
+
+                        console.log('');
                         if (fs.existsSync(src) && fs.statSync(src).isDirectory()) {
                             console.log(chalk.green(' Copying Extra Directory'));
                             sync(target);

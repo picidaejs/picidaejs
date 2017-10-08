@@ -1,4 +1,3 @@
-import React from 'react'
-
-export default () =>
-    <div>Text</div>
+// import React from 'react'
+const PureText = () =>
+    <div>Text</div>;
