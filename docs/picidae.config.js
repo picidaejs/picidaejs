@@ -5,8 +5,8 @@ module.exports = {
     },
     port: 9999,
 
-    // publicPath: '/picidaejs/public/',
-    publicPath: '/',
+    publicPath: '/picidaejs/public/',
+    // publicPath: '/',
 
     theme: '../theme',
 

@@ -2,23 +2,38 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="4fe84ef1-9d43-4c9a-91a2-2774d54920bd" name="Default" comment="">
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/Readme.md" afterPath="$PROJECT_DIR$/Readme.md" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/index.js" afterPath="$PROJECT_DIR$/src/index.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/lib/context.js" afterPath="$PROJECT_DIR$/src/lib/context.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/lib/loaders/common/worker.js" afterPath="$PROJECT_DIR$/src/lib/loaders/common/worker.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/lib/loaders/data-loader/summary-generator.js" afterPath="$PROJECT_DIR$/src/lib/loaders/data-loader/summary-generator.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/lib/loaders/markdown-loader/index.js" afterPath="$PROJECT_DIR$/src/lib/loaders/markdown-loader/index.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/lib/templates/routes-generator.template.js" afterPath="$PROJECT_DIR$/src/lib/templates/routes-generator.template.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/lib/utils/sitemap-generator.js" afterPath="$PROJECT_DIR$/src/lib/utils/sitemap-generator.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/theme/assets/style.less" afterPath="$PROJECT_DIR$/theme/assets/style.less" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/theme/index.js" afterPath="$PROJECT_DIR$/theme/index.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/theme/template/Archive.js" afterPath="$PROJECT_DIR$/theme/template/Archive.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/theme/template/ChangeLog.js" afterPath="$PROJECT_DIR$/theme/template/ChangeLog.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/theme/template/Comps/Footer.js" afterPath="$PROJECT_DIR$/theme/template/Comps/Footer.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/theme/template/Comps/Header.js" afterPath="$PROJECT_DIR$/theme/template/Comps/Header.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/theme/template/Layout.js" afterPath="$PROJECT_DIR$/theme/template/Layout.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/theme/template/PureMD.js" afterPath="$PROJECT_DIR$/theme/template/PureMD.js" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/docs/public/404.html" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/docs/public/INDEX.js" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/docs/public/INDEX.js.map" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/docs/public/about.html" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/docs/public/about.js" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/docs/public/about.js.map" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/docs/public/app.js" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/docs/public/app.js.map" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/docs/public/changelog.html" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/docs/public/changelog.js" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/docs/public/changelog.js.map" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/docs/public/common.js" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/docs/public/common.js.map" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/docs/public/doc/QA.html" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/docs/public/doc/QA.js" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/docs/public/doc/QA.js.map" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/docs/public/doc/index.html" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/docs/public/doc/index.js" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/docs/public/doc/index.js.map" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/docs/public/doc/transformer.html" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/docs/public/doc/transformer.js" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/docs/public/doc/transformer.js.map" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/docs/public/docs/1.html" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/docs/public/extra/balala" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/docs/public/guide.html" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/docs/public/guide.js" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/docs/public/guide.js.map" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/docs/public/index.html" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/docs/public/style.css" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/docs/public/style.css.map" afterPath="" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/docs/picidae.config.js" afterPath="$PROJECT_DIR$/docs/picidae.config.js" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/package.json" afterPath="$PROJECT_DIR$/package.json" />
     </list>
     <ignored path="$PROJECT_DIR$/.tmp/" />
     <ignored path="$PROJECT_DIR$/temp/" />
@@ -33,11 +48,21 @@
   <component name="ExecutionTargetManager" SELECTED_TARGET="default_target" />
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
-      <file leaf-file-name="picidae.config.js" pinned="false" current-in-tab="true">
+      <file leaf-file-name="picidae.config.js" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/docs/picidae.config.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="262">
-              <caret line="20" column="36" lean-forward="false" selection-start-line="20" selection-start-column="36" selection-end-line="20" selection-end-column="36" />
+            <state relative-caret-position="60">
+              <caret line="9" column="0" lean-forward="false" selection-start-line="9" selection-start-column="0" selection-end-line="9" selection-end-column="0" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="package.json" pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/package.json">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="180">
+              <caret line="9" column="75" lean-forward="false" selection-start-line="9" selection-start-column="75" selection-end-line="9" selection-end-column="75" />
               <folding />
             </state>
           </provider>
@@ -190,7 +215,6 @@
         <option value="$PROJECT_DIR$/src/lib/loaders/markdown-loader/generate.js" />
         <option value="$PROJECT_DIR$/bin/picidae" />
         <option value="$PROJECT_DIR$/commanders/preview/index.js" />
-        <option value="$PROJECT_DIR$/package.json" />
         <option value="$PROJECT_DIR$/docs/src/refs" />
         <option value="$PROJECT_DIR$/docs/src/Demo.js" />
         <option value="$PROJECT_DIR$/docs/docs/api/a.markdown" />
@@ -228,6 +252,7 @@
         <option value="$PROJECT_DIR$/docs/docs/home.md" />
         <option value="$PROJECT_DIR$/Readme.md" />
         <option value="$PROJECT_DIR$/docs/picidae.config.js" />
+        <option value="$PROJECT_DIR$/package.json" />
       </list>
     </option>
   </component>
@@ -854,20 +879,20 @@
     </history-entry>
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="244435000" />
+    <option name="totallyTimeSpent" value="244599000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="0" y="22" width="1440" height="826" extended-state="6" />
     <layout>
       <window_info id="TypeScript" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
-      <window_info id="Project" active="true" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.17547569" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
+      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.17547569" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
       <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
       <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="7" side_tool="true" content_ui="tabs" />
       <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
-      <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.32833788" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
+      <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32833788" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.3705722" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.2494043" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
-      <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.2506812" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
+      <window_info id="Terminal" active="true" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.2506812" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Favorites" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="true" content_ui="tabs" />
       <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.39918256" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Cvs" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
@@ -973,14 +998,6 @@
     <watches-manager />
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/docs/public/example/b.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="0">
-          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/docs/public/post/a.js">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="0">
@@ -1320,7 +1337,7 @@
         <state relative-caret-position="193">
           <caret line="335" column="67" lean-forward="false" selection-start-line="335" selection-start-column="67" selection-end-line="335" selection-end-column="67" />
           <folding>
-            <element signature="e#0#35#0" expanded="true" />
+            <element signature="e#0#35#0" expanded="false" />
           </folding>
         </state>
       </provider>
@@ -1418,8 +1435,16 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/docs/picidae.config.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="262">
-          <caret line="20" column="36" lean-forward="false" selection-start-line="20" selection-start-column="36" selection-end-line="20" selection-end-column="36" />
+        <state relative-caret-position="60">
+          <caret line="9" column="0" lean-forward="false" selection-start-line="9" selection-start-column="0" selection-end-line="9" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/package.json">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="180">
+          <caret line="9" column="75" lean-forward="false" selection-start-line="9" selection-start-column="75" selection-end-line="9" selection-end-column="75" />
           <folding />
         </state>
       </provider>
