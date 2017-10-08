@@ -1,9 +1,11 @@
 module.exports = {
     hello: 'world -> default',
-    pageSize: 2,
+    pageSize: 10,
 
     routesMap: {
-        'posts': 'post',
-        'api': 'post',
+        'CHANGELOG.md': 'changelog.md',
+        'home.md': 'INDEX.md',
+        // 'doc': ''
+        // 'api': 'post',
     }
 }
