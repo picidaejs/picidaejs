@@ -331,9 +331,8 @@ class Picidae extends EventEmitter {
                         sites.map(({path, html}) => {
                             let absoluteHtml = nps.join(dirRoot, html.replace(/^\/+/, ''));
                             sync(nps.dirname(absoluteHtml));
-
                             return new Promise(resolve => {
-                                method(path, content => {
+                                method(publicPath.replace(/\/+$/, '') + '/' + path.replace(/^\/+/, ''), content => {
                                     if (!content) {
                                         resolve()
                                     }
