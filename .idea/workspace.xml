@@ -2,6 +2,7 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="4fe84ef1-9d43-4c9a-91a2-2774d54920bd" name="Default" comment="">
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/theme/template/Archive.js" afterPath="$PROJECT_DIR$/theme/template/Archive.js" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/theme/template/Comps/CatalogueItem.js" afterPath="$PROJECT_DIR$/theme/template/Comps/CatalogueItem.js" />
     </list>
     <ignored path="$PROJECT_DIR$/.tmp/" />
@@ -27,21 +28,21 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="Archive.js" pinned="false" current-in-tab="false">
+      <file leaf-file-name="Archive.js" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/theme/template/Archive.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="180">
-              <caret line="12" column="0" lean-forward="true" selection-start-line="12" selection-start-column="0" selection-end-line="12" selection-end-column="0" />
+            <state relative-caret-position="149">
+              <caret line="26" column="67" lean-forward="false" selection-start-line="26" selection-start-column="67" selection-end-line="26" selection-end-column="67" />
               <folding />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="CatalogueItem.js" pinned="false" current-in-tab="true">
+      <file leaf-file-name="CatalogueItem.js" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/theme/template/Comps/CatalogueItem.js">
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="100">
-              <caret line="5" column="44" lean-forward="true" selection-start-line="5" selection-start-column="44" selection-end-line="5" selection-end-column="44" />
+              <caret line="5" column="9" lean-forward="false" selection-start-line="5" selection-start-column="5" selection-end-line="5" selection-end-column="9" />
               <folding>
                 <element signature="e#0#25#0" expanded="true" />
               </folding>
@@ -214,13 +215,13 @@
         <option value="$PROJECT_DIR$/docs/docs/posts/b.markdown" />
         <option value="$PROJECT_DIR$/src/lib/templates/routes-generator.template.js" />
         <option value="$PROJECT_DIR$/theme/template/Post.js" />
-        <option value="$PROJECT_DIR$/theme/template/Archive.js" />
         <option value="$PROJECT_DIR$/theme/template/Comps/Header.js" />
         <option value="$PROJECT_DIR$/theme/template/Layout.js" />
         <option value="$PROJECT_DIR$/docs/picidae.config.js" />
         <option value="$PROJECT_DIR$/src/lib/utils/sitemap-generator.js" />
         <option value="$PROJECT_DIR$/src/index.js" />
         <option value="$PROJECT_DIR$/theme/template/Comps/CatalogueItem.js" />
+        <option value="$PROJECT_DIR$/theme/template/Archive.js" />
       </list>
     </option>
   </component>
@@ -727,7 +728,7 @@
     </history-entry>
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="228583000" />
+    <option name="totallyTimeSpent" value="228766000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="0" y="22" width="1440" height="826" extended-state="6" />
@@ -1201,21 +1202,21 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/theme/template/Archive.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="180">
-          <caret line="12" column="0" lean-forward="true" selection-start-line="12" selection-start-column="0" selection-end-line="12" selection-end-column="0" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/theme/template/Comps/CatalogueItem.js">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="100">
-          <caret line="5" column="44" lean-forward="true" selection-start-line="5" selection-start-column="44" selection-end-line="5" selection-end-column="44" />
+          <caret line="5" column="9" lean-forward="false" selection-start-line="5" selection-start-column="5" selection-end-line="5" selection-end-column="9" />
           <folding>
             <element signature="e#0#25#0" expanded="true" />
           </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/theme/template/Archive.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="149">
+          <caret line="26" column="67" lean-forward="false" selection-start-line="26" selection-start-column="67" selection-end-line="26" selection-end-column="67" />
+          <folding />
         </state>
       </provider>
     </entry>

@@ -24,7 +24,7 @@ export default ({data, publicPath, pluginData: {utils}, themeConfig: {pageSize =
         <div className="catalogue">
             {
                 posts.map(({title, datetime, desc, _key}, i) =>
-                    <CatalogueItem key={i} datetime={datetime} to={publicPath + _key} title={title} content={desc}/>
+                    <CatalogueItem key={i} datetime={datetime} to={_key} title={title} content={desc}/>
                 )
             }
             <div className="pagination">
