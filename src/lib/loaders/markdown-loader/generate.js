@@ -14,23 +14,34 @@ export const alignClass = {
 
 function generate(content, callback) {
     const {__content, ...meta} = yamlFront.loadFront(content);
-    remark()
-        .use(remarkAlign, alignClass)
-        .use(remarkHtml)
-        .use(toEmoji)
-        .use(slug)
-        .use(highlight)
-        .process(__content, function (err, file) {
-            if (err) {
-                callback(err);
-            }
-            else {
-                callback(null, meta, {
-                    // todo -> transformers
-                    content: file.contents
-                })
-            }
-        });
+
+    toHTML(__content)
+        .then(content =>
+            callback(null, meta, {
+                content
+            })
+        )
+        .catch(err => callback(err))
+}
+
+generate.toHTML = toHTML
+function toHTML(md) {
+    return new Promise((resolve, reject) => {
+        remark()
+            .use(remarkAlign, alignClass)
+            .use(remarkHtml)
+            .use(toEmoji)
+            .use(slug)
+            .use(highlight)
+            .process(md, function (err, file) {
+                if (err) {
+                    reject(err);
+                }
+                else {
+                    resolve(file.contents)
+                }
+            });
+    })
 }
 
 module.exports = generate;

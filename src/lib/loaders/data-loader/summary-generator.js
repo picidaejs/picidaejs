@@ -7,6 +7,7 @@ const fs = require('fs')
 const nps = require('path')
 const moment = require('moment')
 
+const {toHTML} = require('../markdown-loader/generate')
 const {chain, split} = require('../../utils/transformerUtils');
 
 /**
@@ -52,7 +53,10 @@ async function generatePickedMeta(filesMap, {picker, fromPath = process.cwd(), t
 
         meta.datetime = moment(meta.datetime || fs.statSync(filesMap[path]).mtime).format();
         meta.filename = nps.relative(fromPath, filesMap[path]);
-        meta = await picker(meta, {content, filename: filesMap[path]}, require);
+        function getHTML(md = content) {
+            return toHTML(md);
+        }
+        meta = await picker(meta, {content, filename: filesMap[path], getHTML}, require);
         if (meta) {
             picked[path] = meta;
         }
