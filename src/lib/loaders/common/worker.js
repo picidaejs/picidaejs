@@ -33,7 +33,7 @@ process.on('message', (task) => {
         let {markdownTransformers, htmlTransformers} = split(transformers)
         let {__content, ...meta} = YFM.loadFront(content);
 
-        let promise = chain(markdownTransformers, content, {meta, filename});
+        let promise = chain(markdownTransformers, content, {meta: {...meta}, filename});
 
         promise
             .then(md => {
@@ -49,7 +49,7 @@ process.on('message', (task) => {
                 });
             })
             .then(({meta, data}) => {
-                return chain(htmlTransformers, data, {meta, filename});
+                return chain(htmlTransformers, data, {meta: {...meta}, filename});
             })
             .then(data => {
                 process.send(stringify(data, null, 2));

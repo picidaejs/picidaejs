@@ -47,13 +47,9 @@ module.exports = {
             getHTML = gift.getHTML;
         var utils = getPickerUtils(metaData, gift, require);
 
-
         return utils.getToc()
             .then(function (toc) {
-                return getHTML()
-                    .then(function (html) {
-                        return Object.assign(metaData, {desc: content, toc: toc});
-                    })
+                return getHTML().then(html => Object.assign(metaData, {desc: html, toc: toc}))
             })
     },
 }
