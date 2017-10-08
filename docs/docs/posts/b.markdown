@@ -4,6 +4,11 @@ title: posts/b.markdown
 
 hello, im `posts/b.markdown`!
 
-`../about.md` blow:
+<details><summary>`../about.md` blow:</summary>
+
 @../about.md@
+
+</details>
+
+
 

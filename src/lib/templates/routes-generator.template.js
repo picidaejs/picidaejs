@@ -61,7 +61,7 @@ module.exports = function routesGenerator({routes, root, notFound, themeConfig})
             let collector = Component.collector || defaultCollector;
             let promiseList = data.plugins.map(plugin => {
                 let p = plugin({...nextProps});
-                return p && typeof p.then === 'function' ? p : Promise.resolve(p)
+                return Promise.resolve(p)
             });
 
             function then(data) {
