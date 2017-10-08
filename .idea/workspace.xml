@@ -2,22 +2,11 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="4fe84ef1-9d43-4c9a-91a2-2774d54920bd" name="Default" comment="">
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/docs/docs/refs/ref-in-ref.md" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/docs/docs/guide.md" afterPath="$PROJECT_DIR$/docs/docs/guide.md" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/docs/public/404.html" afterPath="$PROJECT_DIR$/docs/public/404.html" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/docs/public/INDEX.js" afterPath="$PROJECT_DIR$/docs/public/INDEX.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/docs/public/about.html" afterPath="$PROJECT_DIR$/docs/public/about.html" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/docs/public/app.js" afterPath="$PROJECT_DIR$/docs/public/app.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/docs/public/changelog.html" afterPath="$PROJECT_DIR$/docs/public/changelog.html" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/docs/public/common.js" afterPath="$PROJECT_DIR$/docs/public/common.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/docs/public/doc/QA.html" afterPath="$PROJECT_DIR$/docs/public/doc/QA.html" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/docs/public/doc/QA.js" afterPath="$PROJECT_DIR$/docs/public/doc/QA.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/docs/public/doc/index.html" afterPath="$PROJECT_DIR$/docs/public/doc/index.html" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/docs/public/doc/transformer.html" afterPath="$PROJECT_DIR$/docs/public/doc/transformer.html" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/docs/public/doc/transformer.js" afterPath="$PROJECT_DIR$/docs/public/doc/transformer.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/docs/public/docs/1.html" afterPath="$PROJECT_DIR$/docs/public/docs/1.html" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/docs/public/guide.html" afterPath="$PROJECT_DIR$/docs/public/guide.html" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/docs/public/index.html" afterPath="$PROJECT_DIR$/docs/public/index.html" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/docs/docs/CHANGELOG.md" afterPath="$PROJECT_DIR$/docs/docs/CHANGELOG.md" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/docs/docs/doc/QA.md" afterPath="$PROJECT_DIR$/docs/docs/doc/QA.md" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/package.json" afterPath="$PROJECT_DIR$/package.json" />
     </list>
     <ignored path="$PROJECT_DIR$/.tmp/" />
     <ignored path="$PROJECT_DIR$/temp/" />
@@ -32,7 +21,7 @@
   <component name="ExecutionTargetManager" SELECTED_TARGET="default_target" />
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
-      <file leaf-file-name="picidae.config.js" pinned="false" current-in-tab="true">
+      <file leaf-file-name="picidae.config.js" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/docs/picidae.config.js">
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="180">
@@ -46,20 +35,31 @@
         <entry file="file://$PROJECT_DIR$/package.json">
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="180">
-              <caret line="9" column="75" lean-forward="false" selection-start-line="9" selection-start-column="75" selection-end-line="9" selection-end-column="75" />
+              <caret line="9" column="79" lean-forward="false" selection-start-line="9" selection-start-column="79" selection-end-line="9" selection-end-column="79" />
               <folding />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="guide.html" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/docs/public/guide.html">
+      <file leaf-file-name="ref-in-ref.md" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/docs/docs/refs/ref-in-ref.md">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="340">
-              <caret line="17" column="6" lean-forward="false" selection-start-line="17" selection-start-column="6" selection-end-line="17" selection-end-column="6" />
-              <folding>
-                <marker date="1507462337000" expanded="true" signature="2127:2152" ph="..." />
-              </folding>
+            <state relative-caret-position="20">
+              <caret line="1" column="29" lean-forward="false" selection-start-line="1" selection-start-column="29" selection-end-line="1" selection-end-column="29" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="b.markdown" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/docs/docs/example/b.markdown">
+          <provider selected="true" editor-type-id="split-provider[text-editor;markdown-preview-editor]">
+            <state split_layout="SPLIT">
+              <first_editor relative-caret-position="0">
+                <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+                <folding />
+              </first_editor>
+              <second_editor />
             </state>
           </provider>
         </entry>
@@ -90,29 +90,25 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="index.md" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/docs/docs/doc/index.md">
+      <file leaf-file-name="QA.md" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/docs/docs/doc/QA.md">
           <provider selected="true" editor-type-id="split-provider[text-editor;markdown-preview-editor]">
-            <state split_layout="SPLIT">
-              <first_editor relative-caret-position="376">
-                <caret line="51" column="6" lean-forward="false" selection-start-line="51" selection-start-column="6" selection-end-line="51" selection-end-column="6" />
-                <folding>
-                  <marker date="1507455952000" expanded="true" signature="559:613" ph="{...}" />
-                  <marker date="1507455952000" expanded="true" signature="717:896" ph="{...}" />
-                  <marker date="1507455952000" expanded="true" signature="851:893" ph="{...}" />
-                </folding>
+            <state split_layout="FIRST">
+              <first_editor relative-caret-position="140">
+                <caret line="7" column="0" lean-forward="true" selection-start-line="7" selection-start-column="0" selection-end-line="7" selection-end-column="0" />
+                <folding />
               </first_editor>
               <second_editor />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="QA.md" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/docs/docs/doc/QA.md">
+      <file leaf-file-name="CHANGELOG.md" pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/docs/docs/CHANGELOG.md">
           <provider selected="true" editor-type-id="split-provider[text-editor;markdown-preview-editor]">
             <state split_layout="SPLIT">
-              <first_editor relative-caret-position="100">
-                <caret line="5" column="12" lean-forward="false" selection-start-line="5" selection-start-column="12" selection-end-line="5" selection-end-column="12" />
+              <first_editor relative-caret-position="225">
+                <caret line="63" column="0" lean-forward="true" selection-start-line="63" selection-start-column="0" selection-end-line="63" selection-end-column="0" />
                 <folding />
               </first_editor>
               <second_editor />
@@ -142,16 +138,6 @@
                 <folding />
               </first_editor>
               <second_editor />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="routes-generator.template.js" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/lib/templates/routes-generator.template.js">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="195">
-              <caret line="49" column="47" lean-forward="false" selection-start-line="49" selection-start-column="42" selection-end-line="49" selection-end-column="47" />
-              <folding />
             </state>
           </provider>
         </entry>
@@ -211,8 +197,6 @@
   <component name="IdeDocumentHistory">
     <option name="CHANGED_PATHS">
       <list>
-        <option value="$PROJECT_DIR$/src/lib/webpack-server/build.js" />
-        <option value="$PROJECT_DIR$/lib/lib/webpack-server/getWebpackConfig.js" />
         <option value="$PROJECT_DIR$/lib/lib/tmp/data.9d1b2d59.js" />
         <option value="$PROJECT_DIR$/src/lib/webpack-server/serverMaker.js" />
         <option value="$PROJECT_DIR$/src/lib/webpack-server/getWebpackConfig.js" />
@@ -248,7 +232,6 @@
         <option value="$PROJECT_DIR$/docs/docs/refs/why-need-require.js" />
         <option value="$PROJECT_DIR$/docs/docs/refs/why-need-require.md" />
         <option value="$PROJECT_DIR$/src/lib/context.js" />
-        <option value="$PROJECT_DIR$/docs/docs/doc/QA.md" />
         <option value="$PROJECT_DIR$/src/lib/loaders/common/worker.js" />
         <option value="$PROJECT_DIR$/src/lib/loaders/data-loader/summary-generator.js" />
         <option value="$PROJECT_DIR$/src/lib/loaders/markdown-loader/index.js" />
@@ -259,9 +242,12 @@
         <option value="$PROJECT_DIR$/docs/docs/doc/transformer.md" />
         <option value="$PROJECT_DIR$/docs/docs/home.md" />
         <option value="$PROJECT_DIR$/Readme.md" />
-        <option value="$PROJECT_DIR$/package.json" />
         <option value="$PROJECT_DIR$/docs/docs/guide.md" />
         <option value="$PROJECT_DIR$/docs/picidae.config.js" />
+        <option value="$PROJECT_DIR$/docs/docs/refs/ref-in-ref.md" />
+        <option value="$PROJECT_DIR$/package.json" />
+        <option value="$PROJECT_DIR$/docs/docs/doc/QA.md" />
+        <option value="$PROJECT_DIR$/docs/docs/CHANGELOG.md" />
       </list>
     </option>
   </component>
@@ -527,7 +513,7 @@
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
             <PATH_ELEMENT>
-              <option name="myItemId" value="public" />
+              <option name="myItemId" value="docs" />
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
           </PATH>
@@ -546,6 +532,10 @@
             </PATH_ELEMENT>
             <PATH_ELEMENT>
               <option name="myItemId" value="docs" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="refs" />
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
           </PATH>
@@ -866,10 +856,10 @@
     </history-entry>
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="244926000" />
+    <option name="totallyTimeSpent" value="247484000" />
   </component>
   <component name="ToolWindowManager">
-    <frame x="0" y="22" width="1440" height="826" extended-state="6" />
+    <frame x="0" y="22" width="1440" height="826" extended-state="0" />
     <editor active="true" />
     <layout>
       <window_info id="TypeScript" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
@@ -986,22 +976,6 @@
     <watches-manager />
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/docs/public/post/a.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="0">
-          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/docs/public/post/a-1.html">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="180">
-          <caret line="9" column="15" lean-forward="false" selection-start-line="9" selection-start-column="15" selection-end-line="9" selection-end-column="15" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/node_modules/history/lib/index.js">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="280">
@@ -1041,17 +1015,6 @@
           <folding>
             <element signature="e#0#25#0" expanded="false" />
           </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/docs/docs/CHANGELOG.md">
-      <provider selected="true" editor-type-id="split-provider[text-editor;markdown-preview-editor]">
-        <state split_layout="SPLIT">
-          <first_editor relative-caret-position="0">
-            <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-            <folding />
-          </first_editor>
-          <second_editor />
         </state>
       </provider>
     </entry>
@@ -1342,17 +1305,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/docs/docs/doc/QA.md">
-      <provider selected="true" editor-type-id="split-provider[text-editor;markdown-preview-editor]">
-        <state split_layout="SPLIT">
-          <first_editor relative-caret-position="100">
-            <caret line="5" column="12" lean-forward="false" selection-start-line="5" selection-start-column="12" selection-end-line="5" selection-end-column="12" />
-            <folding />
-          </first_editor>
-          <second_editor />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/docs/docs/doc/transformer.md">
       <provider selected="true" editor-type-id="split-provider[text-editor;markdown-preview-editor]">
         <state split_layout="SPLIT">
@@ -1402,21 +1354,11 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/package.json">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="180">
-          <caret line="9" column="75" lean-forward="false" selection-start-line="9" selection-start-column="75" selection-end-line="9" selection-end-column="75" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/docs/public/guide.html">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="340">
           <caret line="17" column="6" lean-forward="false" selection-start-line="17" selection-start-column="6" selection-end-line="17" selection-end-column="6" />
-          <folding>
-            <marker date="1507462337000" expanded="true" signature="2127:2152" ph="..." />
-          </folding>
+          <folding />
         </state>
       </provider>
     </entry>
@@ -1436,6 +1378,55 @@
         <state relative-caret-position="180">
           <caret line="9" column="0" lean-forward="false" selection-start-line="9" selection-start-column="0" selection-end-line="9" selection-end-column="0" />
           <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/package.json">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="180">
+          <caret line="9" column="79" lean-forward="false" selection-start-line="9" selection-start-column="79" selection-end-line="9" selection-end-column="79" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/docs/docs/refs/ref-in-ref.md">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="20">
+          <caret line="1" column="29" lean-forward="false" selection-start-line="1" selection-start-column="29" selection-end-line="1" selection-end-column="29" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/docs/docs/example/b.markdown">
+      <provider selected="true" editor-type-id="split-provider[text-editor;markdown-preview-editor]">
+        <state split_layout="SPLIT">
+          <first_editor relative-caret-position="0">
+            <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+            <folding />
+          </first_editor>
+          <second_editor />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/docs/docs/doc/QA.md">
+      <provider selected="true" editor-type-id="split-provider[text-editor;markdown-preview-editor]">
+        <state split_layout="FIRST">
+          <first_editor relative-caret-position="140">
+            <caret line="7" column="0" lean-forward="true" selection-start-line="7" selection-start-column="0" selection-end-line="7" selection-end-column="0" />
+            <folding />
+          </first_editor>
+          <second_editor />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/docs/docs/CHANGELOG.md">
+      <provider selected="true" editor-type-id="split-provider[text-editor;markdown-preview-editor]">
+        <state split_layout="SPLIT">
+          <first_editor relative-caret-position="225">
+            <caret line="63" column="0" lean-forward="true" selection-start-line="63" selection-start-column="0" selection-end-line="63" selection-end-column="0" />
+            <folding />
+          </first_editor>
+          <second_editor />
         </state>
       </provider>
     </entry>

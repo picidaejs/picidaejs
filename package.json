@@ -7,7 +7,7 @@
     "test": "mocha",
     "build": "babel src --out-dir lib -D",
     "prepublish": "npm run build",
-    "page": "cd docs && picidae build -f && cd .. && gp-qk \"publish `docs`\"",
+    "page": "cd docs && picidae build -f && cd .. && gp-qk \"publish 'docs'\"",
     "dev": "babel src --out-dir lib -Dw"
   },
   "bin": {
