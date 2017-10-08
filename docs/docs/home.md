@@ -10,7 +10,7 @@ title: 你好, Picidae!
 
 [:+1: GitHub](https://github.com/picidaejs/picidaejs)
 
-[开始入门](./guide)  
-[深入了解](./docs/1)
+@link::[开始入门]./guide.md@  
+@link::[深入了解]./doc/index.md@
 
 

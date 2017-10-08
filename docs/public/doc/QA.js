@@ -1,2 +1,2 @@
-webpackJsonp([4,7],{433:function(n,x){n.exports={content:'<p><a href="/picidaejs/public/">HOME</a></p>\n<ul>\n<li>&#x4E3A;&#x4EC0;&#x4E48;&#x9700;&#x8981;&#x4F20;&#x5165; require</li>\n</ul>\n'}}});
+webpackJsonp([4,7],{433:function(n,x){n.exports={content:'<p><a href="/">HOME</a></p>\n<ul>\n<li>&#x4E3A;&#x4EC0;&#x4E48;&#x9700;&#x8981;&#x4F20;&#x5165; require</li>\n</ul>\n'}}});
 //# sourceMappingURL=QA.js.map

@@ -5,8 +5,8 @@ module.exports = {
     },
     port: 9999,
 
-    publicPath: '/picidaejs/public/',
-    // publicPath: '/',
+    // publicPath: '/picidaejs/public/',
+    publicPath: '/',
 
     theme: '../theme',
 
@@ -15,7 +15,7 @@ module.exports = {
     templateRoot: './templates',
     extraRoot: './extra',
 
-    excludes: [/example/, /api/,/* /\/refs\//*/],
+    excludes: [/example/, /api/, /\/refs\//],
 
     transformers: [
         'picidae-transformer-react-render?lang=render-jsx', 'file-syntax'
