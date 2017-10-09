@@ -13,4 +13,7 @@ title: 你好, Picidae!
 @link::[开始入门]./guide.md@  
 @link::[深入了解]./doc/index.md@
 
+- 粗旷的介绍  
+<iframe width="100%" height="544" src="https://www.youtube.com/embed/Jd82aaqeg40" frameborder="0" allowfullscreen></iframe>
+
 

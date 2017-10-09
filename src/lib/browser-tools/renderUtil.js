@@ -1,7 +1,39 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import {Link} from 'react-router';
-import html2React from 'html2react';
+const HtmlToReact = require('html-to-react');
+const camelAttributeNames = require('html-to-react/lib/camel-case-attribute-names');
+const utils = require('html-to-react/lib/utils');
+const {Parser} = HtmlToReact;
+const processNodeDefinitions = new HtmlToReact.ProcessNodeDefinitions(React);
+const htmlToReactParser = new Parser();
+
+const processingInstructions = [
+    {
+        replaceChildren: false,
+        shouldProcessNode: function (node) {
+            return node.name === 'a'
+                && ('href' in node.attribs)
+                && !/^\s*(http:|https:|ftp:)\/\//.test(node.attribs['href']);
+        },
+        processNode: function (node, children, index) {
+            node.name = Link;
+            node.attribs['to'] = node.attribs['href'];
+            delete node.attribs['href'];
+            return utils.createElement(node, index, node.data, children);
+        }
+    },
+    {
+        shouldProcessNode: function (node) {
+            return true;
+        },
+        processNode: processNodeDefinitions.processDefaultNode
+    }
+];
+
+const isValidNode = function () {
+    return true;
+};
 
 
 
@@ -21,15 +53,7 @@ class MarkdownRoot extends React.Component {
 
         return (
             <article>
-                {
-                    html2React(pageData.markdown.content, {
-                        a: ({href, ...props}) => (
-                            /^\s*(http:|https:|ftp:)\/\//.test(href)
-                                ? <a href={href} {...props}/>
-                                : <Link {...props} to={href}/>
-                        )
-                    })
-                }
+            {htmlToReactParser.parseWithInstructions(pageData.markdown.content, isValidNode, processingInstructions)}
             </article>
         );
     }
