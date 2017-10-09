@@ -2,41 +2,30 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="4fe84ef1-9d43-4c9a-91a2-2774d54920bd" name="Default" comment="">
-      <change type="DELETED" beforePath="$PROJECT_DIR$/docs/public/INDEX.js.map" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/docs/public/404.html" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/docs/public/INDEX.js" afterPath="" />
       <change type="DELETED" beforePath="$PROJECT_DIR$/docs/public/about.html" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/docs/public/about.js.map" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/docs/public/app.js.map" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/docs/public/about.js" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/docs/public/app.js" afterPath="" />
       <change type="DELETED" beforePath="$PROJECT_DIR$/docs/public/changelog.html" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/docs/public/changelog.js.map" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/docs/public/common.js.map" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/docs/public/changelog.js" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/docs/public/common.js" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/docs/public/doc/QA-ABC.html" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/docs/public/doc/QA-ABC.js" afterPath="" />
       <change type="DELETED" beforePath="$PROJECT_DIR$/docs/public/doc/QA.html" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/docs/public/doc/QA.js.map" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/docs/public/doc/QA.js" afterPath="" />
       <change type="DELETED" beforePath="$PROJECT_DIR$/docs/public/doc/index.html" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/docs/public/doc/index.js.map" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/docs/public/doc/index.js" afterPath="" />
       <change type="DELETED" beforePath="$PROJECT_DIR$/docs/public/doc/transformer.html" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/docs/public/doc/transformer.js.map" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/docs/public/doc/transformer.js" afterPath="" />
       <change type="DELETED" beforePath="$PROJECT_DIR$/docs/public/docs/1.html" afterPath="" />
       <change type="DELETED" beforePath="$PROJECT_DIR$/docs/public/extra/balala" afterPath="" />
       <change type="DELETED" beforePath="$PROJECT_DIR$/docs/public/guide.html" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/docs/public/guide.js.map" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/docs/public/guide.js" afterPath="" />
       <change type="DELETED" beforePath="$PROJECT_DIR$/docs/public/index.html" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/docs/public/style.css.map" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/docs/public/style.css" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/docs/templates/index.html" afterPath="" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/docs/docs/home.md" afterPath="$PROJECT_DIR$/docs/docs/home.md" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/docs/public/404.html" afterPath="$PROJECT_DIR$/docs/public/404.html" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/docs/public/INDEX.js" afterPath="$PROJECT_DIR$/docs/public/INDEX.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/docs/public/about.js" afterPath="$PROJECT_DIR$/docs/public/about.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/docs/public/app.js" afterPath="$PROJECT_DIR$/docs/public/app.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/docs/public/changelog.js" afterPath="$PROJECT_DIR$/docs/public/changelog.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/docs/public/common.js" afterPath="$PROJECT_DIR$/docs/public/common.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/docs/public/doc/QA.js" afterPath="$PROJECT_DIR$/docs/public/doc/QA.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/docs/public/doc/index.js" afterPath="$PROJECT_DIR$/docs/public/doc/index.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/docs/public/doc/transformer.js" afterPath="$PROJECT_DIR$/docs/public/doc/transformer.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/docs/public/guide.js" afterPath="$PROJECT_DIR$/docs/public/guide.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/docs/public/style.css" afterPath="$PROJECT_DIR$/docs/public/style.css" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/package-lock.json" afterPath="$PROJECT_DIR$/package-lock.json" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/package.json" afterPath="$PROJECT_DIR$/package.json" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/lib/browser-tools/renderUtil.js" afterPath="$PROJECT_DIR$/src/lib/browser-tools/renderUtil.js" />
     </list>
     <ignored path="$PROJECT_DIR$/.tmp/" />
     <ignored path="$PROJECT_DIR$/temp/" />
@@ -55,7 +44,7 @@
         <entry file="file://$PROJECT_DIR$/src/lib/browser-tools/renderUtil.js">
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="218">
-              <caret line="60" column="0" lean-forward="true" selection-start-line="60" selection-start-column="0" selection-end-line="60" selection-end-column="0" />
+              <caret line="60" column="0" lean-forward="false" selection-start-line="60" selection-start-column="0" selection-end-line="60" selection-end-column="0" />
               <folding>
                 <element signature="e#0#26#0" expanded="true" />
               </folding>
@@ -63,7 +52,7 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="home.md" pinned="false" current-in-tab="true">
+      <file leaf-file-name="home.md" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/docs/docs/home.md">
           <provider selected="true" editor-type-id="split-provider[text-editor;markdown-preview-editor]">
             <state split_layout="FIRST">
@@ -72,6 +61,16 @@
                 <folding />
               </first_editor>
               <second_editor />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="index.html" pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/docs/templates/index.html">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="0">
+              <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+              <folding />
             </state>
           </provider>
         </entry>
@@ -491,69 +490,25 @@
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
             <PATH_ELEMENT>
+              <option name="myItemId" value="templates" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+          </PATH>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="picidae" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="picidae" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="docs" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
               <option name="myItemId" value="src" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-          </PATH>
-          <PATH>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="picidae" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="picidae" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="docs" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="docs" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-          </PATH>
-          <PATH>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="picidae" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="picidae" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="docs" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="docs" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="refs" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-          </PATH>
-          <PATH>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="picidae" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="picidae" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="docs" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="docs" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="doc" />
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
           </PATH>
@@ -830,7 +785,7 @@
     </history-entry>
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="257521000" />
+    <option name="totallyTimeSpent" value="257726000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="0" y="22" width="1920" height="826" extended-state="0" />
@@ -950,17 +905,6 @@
     <watches-manager />
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/Readme.md">
-      <provider selected="true" editor-type-id="split-provider[text-editor;markdown-preview-editor]">
-        <state split_layout="SPLIT">
-          <first_editor relative-caret-position="219">
-            <caret line="38" column="42" lean-forward="false" selection-start-line="38" selection-start-column="42" selection-end-line="38" selection-end-column="42" />
-            <folding />
-          </first_editor>
-          <second_editor />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/docs/public/index.html">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="200">
@@ -1370,7 +1314,7 @@
     <entry file="file://$PROJECT_DIR$/src/lib/browser-tools/renderUtil.js">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="218">
-          <caret line="60" column="0" lean-forward="true" selection-start-line="60" selection-start-column="0" selection-end-line="60" selection-end-column="0" />
+          <caret line="60" column="0" lean-forward="false" selection-start-line="60" selection-start-column="0" selection-end-line="60" selection-end-column="0" />
           <folding>
             <element signature="e#0#26#0" expanded="true" />
           </folding>
@@ -1385,6 +1329,14 @@
             <folding />
           </first_editor>
           <second_editor />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/docs/templates/index.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="0">
+          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+          <folding />
         </state>
       </provider>
     </entry>
