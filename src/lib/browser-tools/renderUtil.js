@@ -1,5 +1,8 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
+import {Link} from 'react-router';
+import html2React from 'html2react';
+
 
 
 class MarkdownRoot extends React.Component {
@@ -15,8 +18,19 @@ class MarkdownRoot extends React.Component {
         if (!pageData || !pageData.markdown) {
             return null;
         }
+
         return (
-            <article dangerouslySetInnerHTML={{__html: pageData.markdown.content}} />
+            <article>
+                {
+                    html2React(pageData.markdown.content, {
+                        a: ({href, ...props}) => (
+                            /^\s*(http:|https:|ftp:)\/\//.test(href)
+                                ? <a href={href} {...props}/>
+                                : <Link {...props} to={href}/>
+                        )
+                    })
+                }
+            </article>
         );
     }
 }

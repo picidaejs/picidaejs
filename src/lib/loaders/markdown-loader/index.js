@@ -13,7 +13,7 @@ module.exports = function mdLoader(content, sourceMap) {
     const webpackRemainingChain = loaderUtils.getRemainingRequest(this).split('!');
     const filename = webpackRemainingChain[webpackRemainingChain.length - 1];
     // const options = loaderUtils.getOptions(this) || {}
-    const {nodeTransformers: transformers, docsEntry: filesMap, opts: {publicPath}} = context.picidae;
+    const {nodeTransformers: transformers, docsEntry: filesMap} = context.picidae;
     let path = Object.keys(filesMap).find(path => filesMap[path] === filename);
 
 
@@ -22,7 +22,6 @@ module.exports = function mdLoader(content, sourceMap) {
         path,
         filesMap,
         transformers,
-        publicPath,
         filename,
         callback(err, result) {
             callback(err,

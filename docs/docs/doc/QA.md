@@ -1,7 +1,7 @@
 ---
 title: QA
 datetime: 2020-10-10 10:00
-disable-file-syntax: link
+# disable-file-syntax: link
 ---
 
 @link::[HOME]../home.md@

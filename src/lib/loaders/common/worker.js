@@ -10,7 +10,6 @@ process.on('message', (task) => {
         filename,
         filesMap = {},
         path,
-        publicPath,
         content,
         plugins,
         transformers,
@@ -24,7 +23,7 @@ process.on('message', (task) => {
         let {markdownTransformers, htmlTransformers} = split(transformers)
         let {__content, ...meta} = YFM.loadFront(content);
 
-        let promise = chain(markdownTransformers, content, {meta: {...meta}, publicPath, filesMap: {...filesMap}, path});
+        let promise = chain(markdownTransformers, content, {meta: {...meta}, filesMap: {...filesMap}, path});
 
         promise
             .then(md => {
