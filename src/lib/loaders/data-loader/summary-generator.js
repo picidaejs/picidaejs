@@ -10,6 +10,7 @@ const moment = require('moment')
 const generate = require('../markdown-loader/generate')
 const context = require('../../context')
 const {chain, split} = require('../../utils/transformerUtils');
+const stringify = require('../../utils/stringify');
 
 /**
  * @param filesMap
@@ -54,7 +55,7 @@ async function generatePickedMeta(filesMap, {picker, fromPath = process.cwd(), h
 
         content = await chain(markdownTransformers, content, {meta: {...meta}, publicPath, path, filesMap: {...filesMap}});
 
-        function getHTML(md = content) {
+        function getMarkdownData(md = content) {
             return new Promise((resolve, reject)=> {
                 generate(md, function (err, meta, data) {
                     if (err) {
@@ -63,7 +64,7 @@ async function generatePickedMeta(filesMap, {picker, fromPath = process.cwd(), h
                     else {
                         resolve(
                             chain(htmlTransformers, data, {meta: {...meta}, publicPath, path, filesMap: {...filesMap}})
-                                .then(data => data.content)
+                                // .then(data => stringify(data))
                         )
                     }
                 });
@@ -72,7 +73,7 @@ async function generatePickedMeta(filesMap, {picker, fromPath = process.cwd(), h
 
         meta.datetime = moment(meta.datetime || fs.statSync(filename).mtime).format();
         meta.filename = meta.filename || nps.relative(fromPath, filename);
-        meta = await picker(meta, {content, filename, getHTML}, require);
+        meta = await picker(meta, {content, filename, getMarkdownData}, require);
         if (meta) {
             picked[path] = meta;
         }
@@ -94,7 +95,7 @@ async function summaryGenerate(filesMap, {plugins = [], nodeTransformers, transf
     return Promise.resolve('{' +
         '\n  lazyload: {' + generateLazyLoad(filesMap, lazyload) +
         '  },' +
-        '\n  meta: ' + JSON.stringify(meta, null, 2) +
+        '\n  meta: ' + stringify(meta, null, 2) +
         '\n,' +
         '\n  plugins: [' + pluginsStr(plugins) + '],' +
         '\n  transformers: [' + pluginsStr(transformers) + ']' +

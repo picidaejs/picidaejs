@@ -3,7 +3,7 @@ import {Link} from 'react-router'
 
 import CatalogueItem from './Comps/CatalogueItem'
 
-export default ({data, publicPath, pluginData: {utils}, themeConfig: {pageSize = 2}, params: {page = 1}}) => {
+export default ({data, render, publicPath, pluginData: {utils}, themeConfig: {pageSize = 2}, params: {page = 1}}) => {
     let posts = utils.group('doc');
     let pagination = {};
 
@@ -19,13 +19,16 @@ export default ({data, publicPath, pluginData: {utils}, themeConfig: {pageSize =
     }
 
     posts = posts.slice(start, end);
-
     return (
         <div className="catalogue">
             {
-                posts.map(({title, datetime, desc, _key}, i) =>
-                    <CatalogueItem key={i} datetime={datetime} to={_key} title={title} content={desc}/>
-                )
+                posts.map(({title, datetime, desc, _key, ...rest}, i) => {
+                    let content = render({
+                        markdown: desc,
+                        meta: {title, datetime, ...rest}
+                    });
+                    return <CatalogueItem key={i} datetime={datetime} to={_key} title={title} content={content}/>
+                })
             }
             <div className="pagination">
                 {pagination.prev && <Link to={'/docs/' + pagination.prev} className="left arrow">←</Link>}

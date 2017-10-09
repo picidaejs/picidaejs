@@ -1,21 +1,9 @@
 const summary = require('../data-loader/summary-generator');
 const marked = require('../markdown-loader/generate');
 const {chain, split} = require('../../utils/transformerUtils');
+const stringify = require('../../utils/stringify');
 const YFM = require('yaml-front-matter');
 
-
-function stringify(obj) {
-    let str = JSON.stringify(obj, function (key, value) {
-        if (value && value.PICIDAE_EVAL_CODE === true) {
-            if (typeof value.value === 'string' && value.value) {
-                return 'PICIDAE_EVAL_CODE' + value.value + 'PICIDAE_EVAL_CODE'
-            }
-        }
-        return value;
-    }, 2);
-
-    return str.replace(/(['"])PICIDAE_EVAL_CODE([^]+?)PICIDAE_EVAL_CODE\1/g, '$2')
-}
 
 process.on('message', (task) => {
     let {
@@ -58,7 +46,7 @@ process.on('message', (task) => {
                 process.send(stringify(data, null, 2));
             }).catch(err => {
                 console.error(err);
-                process.send(stringify(data, null, 2));
+                process.send(stringify({}, null, 2));
             });
     }
     // else if (type === 'summary') {
