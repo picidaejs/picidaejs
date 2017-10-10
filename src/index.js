@@ -125,23 +125,28 @@ class Picidae extends EventEmitter {
         this.distRoot = nps.resolve(this.opts.distRoot);
 
         this.opts.transformers = this.opts.transformers || [];
-        this.nodeTransformers = this.opts.transformers
-            .map(str =>
-                resolve(parseQuery.autoPrefix(str.replace(/\?.*?$/, ''), 'picidae-transformer-'))
-                && parseQuery(
-                    parseQuery.injectJoin(str, 'node.js'), 'picidae-transformer-', {allowNotExists: true}
-                )
-            )
-            .filter(Boolean)
-        this.browserTransformers = this.opts.transformers
-            .map(str =>
-                resolve(parseQuery.autoPrefix(str.replace(/\?.*?$/, ''), 'picidae-transformer-'))
-                && parseQuery(
-                    parseQuery.injectJoin(str, 'browser.js'), 'picidae-transformer-', {allowNotExists: true}
-                )
-            )
-            .filter(Boolean)
 
+        function getTransformers(transformers, suffix) {
+            return transformers
+                .map(str => {
+                    let moduleName = parseQuery.autoPrefix(str.replace(/\?.*?$/, ''), 'picidae-transformer-');
+                    let modulePath = '';
+                    try {
+                        let name = parseQuery.injectJoin(moduleName, suffix)
+                        modulePath = resolve(name);
+                    } catch (ex) {
+                        console.warn(`\`${moduleName}/${suffix}\` transformer is not found.`);
+                        return false;
+                    };
+                    return parseQuery(
+                        parseQuery.injectJoin(str, suffix), 'picidae-transformer-', {allowNotExists: true}
+                    )
+                })
+                .filter(Boolean);
+        }
+
+        this.nodeTransformers = getTransformers(this.opts.transformers, 'node.js')
+        this.browserTransformers = getTransformers(this.opts.transformers, 'browser.js');
 
         this.watchTheme()
             .then(() => this.watchSummary())
