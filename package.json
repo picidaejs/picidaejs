@@ -1,6 +1,6 @@
 {
   "name": "picidae",
-  "version": "0.0.5",
+  "version": "0.0.6",
   "description": "![](https://avatars2.githubusercontent.com/u/32284874?v=4&s=200)",
   "main": "lib/index.js",
   "scripts": {
