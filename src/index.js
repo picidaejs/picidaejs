@@ -122,6 +122,29 @@ class Picidae extends EventEmitter {
         this.docPath = nps.resolve(this.opts.docRoot);
         this.distRoot = nps.resolve(this.opts.distRoot);
 
+        // initial webpackServer
+        this.wpServer = new WebpackServer({
+            ...this.opts,
+            dev: this.opts.watch,
+            webpackConfigGetter: config => {
+                config = webpackConfigGetter(config, this.nodeTransformers);
+                config.entry = {
+                    ...config.entry,
+                    app: entryFile,
+                    // ...generateEntry(tree)
+                }
+                config.output.publicPath = this.opts.publicPath || config.output.publicPath;
+                config.output.path = this.distRoot;
+
+                if (this.opts.webpackConfigUpdater) {
+                    return this.opts.webpackConfigUpdater(config, require('webpack'))
+                }
+                return config;
+            }
+        });
+
+
+
         this.opts.transformers = this.opts.transformers || [];
 
         function getTransformers(transformers, suffix) {
@@ -153,22 +176,6 @@ class Picidae extends EventEmitter {
             .then(() => this.watchSummary())
 
 
-        this.webpackConfigGetter = config => {
-            config = webpackConfigGetter(config, this.nodeTransformers);
-            config.entry = {
-                ...config.entry,
-                app: entryFile,
-                // ...generateEntry(tree)
-            }
-            config.output.publicPath = this.opts.publicPath || config.output.publicPath;
-            config.output.path = this.distRoot;
-
-            if (this.opts.webpackConfigUpdater) {
-                return this.opts.webpackConfigUpdater(config, require('webpack'))
-            }
-            return config;
-        };
-
         // Write Files for Webpack
         renderTemplate(
             nps.join(templatePath, 'entry.template.js'),
@@ -176,12 +183,6 @@ class Picidae extends EventEmitter {
             entryFile
         );
 
-        // initial webpackServer
-        this.wpServer = new WebpackServer({
-            ...this.opts,
-            dev: this.opts.watch,
-            webpackConfigGetter: this.webpackConfigGetter
-        });
     }
 
     async generateSummary(plugins = this.initialThemeConfig().plugins) {

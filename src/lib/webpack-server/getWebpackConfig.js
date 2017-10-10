@@ -99,6 +99,7 @@ export default function getWebpackCommonConfig(args = {}) {
                                 && !/(node_modules|bower_components)\/picidae/.test(name)
                                 && /(node_modules|bower_components)/.test(name)
                         },
+                        /\/node_modules\/core-js\//
                     ],
                     options: babelOptions,
                 },

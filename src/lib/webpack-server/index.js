@@ -26,9 +26,7 @@ export default class WebpackServer {
         }
         this.opt = opt;
         const defaultWebpackConfig = getWebpackConfig({ cwd: process.cwd(), dev: this.opt.dev })
-
         this.webpackConfig = webpackConfigUpdater(this.opt.webpackConfigGetter(defaultWebpackConfig), this.opt.dev)
-
     }
 
     getWebpackConfig() {
