@@ -6,7 +6,6 @@ import webpack from 'webpack'
 import build from './lib/webpack-server/build'
 import fs from './lib/utils/fs'
 import Error from './lib/utils/Error'
-import defaultConfig from './lib/default-config'
 import assign from './lib/utils/array-append-assign'
 import {fileIsMarkdown, renderTemplate} from './lib/utils'
 import {tmpPath, templatePath} from './lib/utils/context'
@@ -19,11 +18,10 @@ import boss from './lib/loaders/common/boss'
 import summary from './lib/loaders/data-loader/summary-generator'
 import ssr from './lib/utils/ssr'
 import context from './lib/context'
-
+import defaultConfig from './lib/default-config'
 import chokidar from 'chokidar'
 
 const chalk = require('chalk');
-
 
 function webpackConfigGetter(config = {}, transformers = [], filesMap) {
 

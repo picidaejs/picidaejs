@@ -27,16 +27,5 @@ function assign(source, ...list) {
     }, source)
 }
 
-// let s = {
-//     arr: [1, 2],
-//     str: 'str'
-// }
-
-// console.log(assign(s, {
-//     str: 'xxxx',
-//     arr: {}
-// }, {
-//     arr: 22
-// }))
 
 module.exports = assign

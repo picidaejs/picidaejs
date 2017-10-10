@@ -32,7 +32,8 @@
   },
   "files": [
     "lib",
-    "bin"
+    "bin",
+    "theme"
   ],
   "preferGlobal": true,
   "repository": {

@@ -1,7 +1,7 @@
 import nps from 'path'
 
 module.exports = {
-    theme: nps.join(__dirname, '../theme'),
+    theme: nps.join(__dirname, '../../theme'),
 
     publicPath: '/',
     docRoot: './docs',
@@ -16,4 +16,4 @@ module.exports = {
     transformers: [],
 
     commanders: []
-}
+};
