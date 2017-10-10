@@ -13,11 +13,11 @@ exports.split = function (transformers = []) {
     let htmlTransformers = []
     transformers.forEach(({path, opt}) => {
         let transformer = require(path);
-        if (typeof transformer.markdownTransfomer === 'function') {
-            markdownTransformers.push(transformer.markdownTransfomer.bind(null, opt));
+        if (typeof transformer.markdownTransformer === 'function') {
+            markdownTransformers.push(transformer.markdownTransformer.bind(null, opt));
         }
-        if (typeof transformer.htmlTransfomer === 'function') {
-            htmlTransformers.push(transformer.htmlTransfomer.bind(null, opt));
+        if (typeof transformer.htmlTransformer === 'function') {
+            htmlTransformers.push(transformer.htmlTransformer.bind(null, opt));
         }
         if (typeof transformer === 'function') {
             htmlTransformers.push(transformer.bind(null, opt));

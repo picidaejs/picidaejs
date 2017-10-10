@@ -12,9 +12,10 @@ const processingInstructions = [
     {
         replaceChildren: false,
         shouldProcessNode: function (node) {
+            const href = node.attribs && node.attribs['href'];
             return node.name === 'a'
-                && ('href' in node.attribs)
-                && !/^\s*(http:|https:|ftp:)\/\//.test(node.attribs['href']);
+                && href != null
+                && !/^(http:|https:|ftp:)\/\//.test(href.trim());
         },
         processNode: function (node, children, index) {
             node.name = Link;
