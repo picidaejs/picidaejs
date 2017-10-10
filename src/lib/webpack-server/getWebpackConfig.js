@@ -57,7 +57,7 @@ export default function getWebpackCommonConfig(args = {}) {
     }, {});
 
     const config = {
-        // babel: babelOptions,
+        babel: babelOptions,
         cache: true,
         postcss: postcssOptions,
         output: {

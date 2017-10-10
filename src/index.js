@@ -249,7 +249,7 @@ class Picidae extends EventEmitter {
         this.routesMap = routesMap;
         renderTemplate(
             nps.join(templatePath, 'commonjs.template.js'),
-            {body: JSON.stringify({root, notFound, routes, publicPath: this.opts.publicPath, themeConfig: config})},
+            {body: JSON.stringify({root, notFound, routes, themeConfig: config})},
             this.themeDataPath
         );
 

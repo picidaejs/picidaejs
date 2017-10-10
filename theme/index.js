@@ -37,7 +37,7 @@ module.exports = {
     root: './template',
 
     plugins: [
-        'toc?depth=3'
+        // 'toc?depth=3'
     ],
 
     picker(metaData, gift, require) {

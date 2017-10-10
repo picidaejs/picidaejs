@@ -13,6 +13,23 @@
   "bin": {
     "picidae": "./bin/picidae"
   },
+  "babel": {
+    "presets": [
+      "es2015",
+      "react",
+      "stage-0"
+    ],
+    "plugins": [
+      "transform-decorators-legacy",
+      [
+        "transform-runtime",
+        {
+          "polyfill": false,
+          "regenerator": true
+        }
+      ]
+    ]
+  },
   "files": [
     "lib",
     "bin"
@@ -36,6 +53,7 @@
     "babel-plugin-add-module-exports": "^0.2.1",
     "babel-plugin-transform-decorators-legacy": "^1.3.4",
     "babel-plugin-transform-runtime": "^6.23.0",
+    "babel-polyfill": "^6.26.0",
     "babel-preset-es2015": "^6.24.1",
     "babel-preset-react": "^6.24.1",
     "babel-preset-stage-0": "^6.24.1",
@@ -78,13 +96,15 @@
     "webpack": "^1.15.0",
     "webpack-dev-middleware": "^1.12.0",
     "webpack-hot-middleware": "^2.19.1",
-    "yaml-front-matter": "^3.4.0"
+    "yaml-front-matter": "^3.4.0",
+    "picidae-plugin-utils": "^0.0.2",
+    "picidae-tools": "^0.0.2"
   },
   "devDependencies": {
     "babel-cli": "^6.26.0",
     "mocha": "^3.5.3",
-    "picidae-plugin-utils": "0.0.2",
-    "picidae-tools": "0.0.2"
+    "picidae-transformer-file-syntax": "^0.0.1",
+    "picidae-transformer-react-render": "^1.0.0"
   },
   "directories": {
     "lib": "lib"

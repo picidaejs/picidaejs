@@ -2,7 +2,7 @@ const nps = require('path')
 
 function resolve(path, ...paths /*, paths*/) {
     assertPath(path);
-    path = nps.join.apply(nps, arguments)
+    path = path.replace(/\/*$/, '/') + nps.join.apply(nps, paths).replace(/^\/*/, '');
 
     if (isRelative(path)) {
         return nps.resolve(path);
@@ -18,7 +18,7 @@ const Resolve = resolve
 Resolve.isNodeModule = isNodeModule;
 function isNodeModule (path) {
     assertPath(path);
-    return !nps.isAbsolute(path) && !isRelative(path)
+    return !isAbsolute(path) && !isRelative(path)
 }
 
 Resolve.isRelative = isRelative;
@@ -26,6 +26,12 @@ function isRelative (path) {
     assertPath(path);
     return path.trim().startsWith('.')
 }
+Resolve.isRelative = isAbsolute;
+function isAbsolute(path) {
+    assertPath(path);
+    return path.trim().startsWith('/')
+}
+
 
 function assertPath(path) {
     if (typeof path !== 'string') {
