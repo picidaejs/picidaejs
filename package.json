@@ -87,6 +87,6 @@
     "picidae-tools": "0.0.2"
   },
   "directories": {
-    "lib": "lib",
+    "lib": "lib"
   }
 }
