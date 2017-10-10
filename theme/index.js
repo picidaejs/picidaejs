@@ -43,12 +43,17 @@ module.exports = {
     picker(metaData, gift, require) {
         var content = gift.content,
             filename = gift.filename,
-            getMarkdownData = gift.getMarkdownData;
+            getMarkdownData = gift.getMarkdownData,
+            path = gift.path;
         var utils = getPickerUtils(metaData, gift, require);
 
         return utils.getToc()
             .then(function (toc) {
-                return getMarkdownData().then(data => Object.assign(metaData, {desc: data, toc: toc}))
+                var meta = Object.assign(metaData, {toc: toc});
+                if (!path.includes('/')) {
+                    return meta
+                }
+                return getMarkdownData().then(data => Object.assign(meta, {desc: data}))
             })
     },
 }

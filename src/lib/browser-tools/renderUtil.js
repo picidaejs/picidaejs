@@ -46,14 +46,18 @@ class MarkdownRoot extends React.Component {
     }
 
     render() {
-        const pageData = this.props.pageData;
+        const {pageData, convertRules} = this.props;
         if (!pageData || !pageData.markdown) {
             return null;
         }
 
         return (
             <article>
-            {htmlToReactParser.parseWithInstructions(pageData.markdown.content, isValidNode, processingInstructions)}
+            {htmlToReactParser.parseWithInstructions(
+                pageData.markdown.content,
+                isValidNode,
+                convertRules.concat(processingInstructions)
+            )}
             </article>
         );
     }
@@ -61,21 +65,21 @@ class MarkdownRoot extends React.Component {
 
 export default function renderUtil(pageData, transformers = []) {
     const collection = [];
-
-    function tailTransformer(pageData) {
-        return <MarkdownRoot callbackCollection={collection} pageData={pageData} />;
+    function callbackCollect(callback) {
+        if (typeof callback === 'function') {
+            collection.push(callback);
+        }
     }
-    transformers = transformers.concat(tailTransformer);
 
-    return transformers.reduce(
-        (pageData, transformer) =>
-            transformer.call({
-                callbackCollect(callback) {
-                    if (typeof callback === 'function') {
-                        collection.push(callback);
-                    }
-                }
-            }, pageData),
-        pageData
+    const convertRules = transformers.reduce(
+        (convertRules, transformer) => {
+            const ret = transformer.call({callbackCollect}, pageData);
+            if (typeof ret === 'object') {
+                convertRules.push(ret);
+            }
+            return convertRules;
+        }, []
     );
+
+    return <MarkdownRoot convertRules={convertRules} callbackCollection={collection} pageData={pageData} />;
 }

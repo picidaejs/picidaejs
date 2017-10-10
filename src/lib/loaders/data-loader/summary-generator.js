@@ -73,7 +73,7 @@ async function generatePickedMeta(filesMap, {picker, fromPath = process.cwd(), h
 
         meta.datetime = moment(meta.datetime || fs.statSync(filename).mtime).format();
         meta.filename = meta.filename || nps.relative(fromPath, filename);
-        meta = await picker(meta, {content, filename, getMarkdownData}, require);
+        meta = await picker(meta, {content, filename, getMarkdownData, path}, require);
         if (meta) {
             picked[path] = meta;
         }
