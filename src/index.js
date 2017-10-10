@@ -127,14 +127,16 @@ class Picidae extends EventEmitter {
         this.opts.transformers = this.opts.transformers || [];
         this.nodeTransformers = this.opts.transformers
             .map(str =>
-                parseQuery(
+                resolve(parseQuery.autoPrefix(str.replace(/\?.*?$/, ''), 'picidae-transformer-'))
+                && parseQuery(
                     parseQuery.injectJoin(str, 'node.js'), 'picidae-transformer-', {allowNotExists: true}
                 )
             )
             .filter(Boolean)
         this.browserTransformers = this.opts.transformers
             .map(str =>
-                parseQuery(
+                resolve(parseQuery.autoPrefix(str.replace(/\?.*?$/, ''), 'picidae-transformer-'))
+                && parseQuery(
                     parseQuery.injectJoin(str, 'browser.js'), 'picidae-transformer-', {allowNotExists: true}
                 )
             )

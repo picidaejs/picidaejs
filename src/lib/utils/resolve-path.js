@@ -2,8 +2,9 @@ const nps = require('path')
 
 function resolve(path, ...paths /*, paths*/) {
     assertPath(path);
-    path = path.replace(/\/*$/, '/') + nps.join.apply(nps, paths).replace(/^\/*/, '');
-
+    if (paths && paths.length) {
+        path = path.replace(/\/*$/, '/') + nps.join.apply(nps, paths).replace(/^\/*/, '');
+    }
     if (isRelative(path)) {
         return nps.resolve(path);
     }
