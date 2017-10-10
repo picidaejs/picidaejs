@@ -8,5 +8,8 @@ fs.copySync = function (src, dest) {
 fs.isDirectory = function (path) {
     return fs.existsSync(path) && fs.statSync(path).isDirectory();
 }
+fs.isFile = function (path) {
+    return fs.existsSync(path) && fs.statSync(path).isFile();
+}
 
 module.exports = fs

@@ -18,7 +18,7 @@ module.exports = {
     excludes: [/example/, /api/, /\/refs\//],
 
     transformers: [
-        'picidae-transformer-react-render?lang=render-jsx', 'file-syntax'
+        'picidae-transformer-react-render?lang=render-jsx', '/Users/yaozhiqiu/self/picidajs/example/node_modules/picidae-transformer-file-syntax'
     ],
 
     commanders: [

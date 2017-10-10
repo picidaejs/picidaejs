@@ -132,6 +132,9 @@ class Picidae extends EventEmitter {
                     try {
                         let name = parseQuery.injectJoin(moduleName, suffix)
                         modulePath = resolve(name);
+                        if (!fs.isFile(modulePath)) {
+                            return false;
+                        }
                     } catch (ex) {
                         console.warn(`\`${moduleName}/${suffix}\` transformer is not found.`);
                         return false;
