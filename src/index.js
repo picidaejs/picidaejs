@@ -479,6 +479,10 @@ class Picidae extends EventEmitter {
             console.log(chalk.underline.blue('Server Side Render Model is OPEN.'))
         }
 
+        this.wpServer.start(callback);
+        if (typeof this.opts.expressSetup === 'function') {
+            this.opts.expressSetup(this.wpServer.app);
+        }
         this.wpServer.inject((req, res) => {
             res.type('html');
             if (this.opts.ssr) {
@@ -497,8 +501,7 @@ class Picidae extends EventEmitter {
                 content: '',
                 root: this.opts.publicPath
             }))
-        })
-        this.wpServer.start(callback);
+        });
     }
 
     stop(callback) {
