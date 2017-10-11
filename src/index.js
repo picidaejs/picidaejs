@@ -23,18 +23,18 @@ import chokidar from 'chokidar'
 
 const chalk = require('chalk');
 
-function webpackConfigGetter(config = {}, transformers = [], filesMap) {
+function webpackConfigGetter(config = {}) {
 
-    if (config.module && config.module.loaders) {
-        config.module.loaders.push({
-            test: filename => {
-                return /\.(md|markdown)\.js/.test(filename) || fileIsMarkdown(filename)
-            },
-            excludes: [/(node_modules|bower_components)/],
-            loader: require.resolve('./lib/loaders/markdown-loader'),
-            query: JSON.stringify({transformers, filesMap})
-        })
-    }
+    // if (config.module && config.module.loaders) {
+    //     config.module.loaders.push({
+    //         test: filename => {
+    //             return /\.(md|markdown)\.js/.test(filename) || fileIsMarkdown(filename)
+    //         },
+    //         excludes: [/(node_modules|bower_components)/],
+    //         loader: ,
+    //         // query: JSON.stringify({transformers, filesMap})
+    //     })
+    // }
     return config;
 }
 
@@ -127,7 +127,6 @@ class Picidae extends EventEmitter {
             ...this.opts,
             dev: this.opts.watch,
             webpackConfigGetter: config => {
-                config = webpackConfigGetter(config, this.nodeTransformers);
                 config.entry = {
                     ...config.entry,
                     app: entryFile,
@@ -137,8 +136,9 @@ class Picidae extends EventEmitter {
                 config.output.path = this.distRoot;
 
                 if (this.opts.webpackConfigUpdater) {
-                    return this.opts.webpackConfigUpdater(config, require('webpack'))
+                    config = this.opts.webpackConfigUpdater(config, require('webpack'))
                 }
+                config = webpackConfigGetter(config);
                 return config;
             }
         });

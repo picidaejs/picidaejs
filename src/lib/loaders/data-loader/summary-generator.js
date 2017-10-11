@@ -12,6 +12,8 @@ const context = require('../../context')
 const {chain, split} = require('../../utils/transformerUtils');
 const stringify = require('../../utils/stringify');
 
+const mdLoaderPath = require.resolve('../markdown-loader')
+
 /**
  * @param filesMap
  *   posts/a.md: 'absolute path'
@@ -23,13 +25,13 @@ function generateLazyLoad(filesMap, lazy) {
     '${name}': function () {
         return new Promise(function (resolve) {
             require.ensure([], function (require) {
-                resolve(require('${require}'));
+                resolve(require('${mdLoaderPath}!${require}'));
             }, '${name}')
         })
     },` : `
     '${name}': function() {
         return new Promise(function (resolve) {
-            resolve(require('${require}'));
+            resolve(require('${mdLoaderPath}!${require}'));
         })    
     },`
     }
