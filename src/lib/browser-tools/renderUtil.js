@@ -15,6 +15,7 @@ const processingInstructions = [
             const href = node.attribs && node.attribs['href'];
             return node.name === 'a'
                 && href != null
+                && !href.startsWith('#')
                 && !/^(http:|https:|ftp:)\/\//.test(href.trim());
         },
         processNode: function (node, children, index) {

@@ -5,6 +5,8 @@ import toEmoji from 'remark-gemoji-to-emoji'
 import slug from 'remark-slug'
 import highlight from 'remark-highlight.js'
 import yamlFront from 'yaml-front-matter'
+import headings from 'remark-autolink-headings'
+
 
 export const alignClass = {
     left: 'align-left',
@@ -28,11 +30,12 @@ generate.toHTML = toHTML
 function toHTML(md) {
     return new Promise((resolve, reject) => {
         remark()
-            .use(remarkAlign, alignClass)
-            .use(remarkHtml)
             .use(toEmoji)
+            .use(remarkHtml)
             .use(slug)
+            .use(headings)
             .use(highlight)
+            .use(remarkAlign, alignClass)
             .process(md, function (err, file) {
                 if (err) {
                     reject(err);
