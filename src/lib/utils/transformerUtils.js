@@ -9,10 +9,15 @@ exports.chain = function (transformers = [], beginData, extra = {}) {
 }
 
 exports.split = function (transformers = []) {
+    let remarkTransformers = []
     let markdownTransformers = []
     let htmlTransformers = []
     transformers.forEach(({path, opt}) => {
         let transformer = require(path);
+        if (typeof transformer.remarkTransformer === 'function') {
+            transformer.remarkTransformer.options = opt;
+            remarkTransformers.push(transformer.remarkTransformer);
+        }
         if (typeof transformer.markdownTransformer === 'function') {
             markdownTransformers.push(transformer.markdownTransformer.bind(null, opt));
         }
@@ -24,5 +29,5 @@ exports.split = function (transformers = []) {
         }
     });
 
-    return {htmlTransformers, markdownTransformers}
+    return {htmlTransformers, markdownTransformers, remarkTransformers}
 }

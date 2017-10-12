@@ -44,7 +44,9 @@ function generateLazyLoad(filesMap, lazy) {
     return lazyload;
 }
 
-async function generatePickedMeta(filesMap, {picker, fromPath = process.cwd(), htmlTransformers = [], markdownTransformers = []}) {
+async function generatePickedMeta(filesMap, {
+    picker, fromPath = process.cwd(), htmlTransformers = [], markdownTransformers = [], remarkTransformers = []
+}) {
     picker = picker || (meta => meta);
 
     let picked = {};
@@ -69,7 +71,7 @@ async function generatePickedMeta(filesMap, {picker, fromPath = process.cwd(), h
                                 // .then(data => stringify(data))
                         )
                     }
-                });
+                }, remarkTransformers);
             })
         }
 
@@ -89,10 +91,10 @@ function pluginsStr (plugins = []) {
 }
 
 async function summaryGenerate(filesMap, {plugins = [], nodeTransformers, transformers = [], picker, docRoot}, lazyload = true) {
-    let {markdownTransformers, htmlTransformers} = split(nodeTransformers)
+    let {markdownTransformers, htmlTransformers, remarkTransformers} = split(nodeTransformers)
     let meta = await generatePickedMeta(filesMap, {
         picker, fromPath: docRoot,
-        markdownTransformers, htmlTransformers
+        markdownTransformers, htmlTransformers, remarkTransformers
     });
     return Promise.resolve('{' +
         '\n  lazyload: {' + generateLazyLoad(filesMap, lazyload) +

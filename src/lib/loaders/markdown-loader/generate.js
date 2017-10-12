@@ -14,10 +14,10 @@ export const alignClass = {
     right: 'align-right'
 }
 
-function generate(content, callback) {
+function generate(content, callback, transformers = []) {
     const {__content, ...meta} = yamlFront.loadFront(content);
 
-    toHTML(__content)
+    toHTML(__content, transformers)
         .then(content =>
             callback(null, meta, {
                 content
@@ -27,16 +27,18 @@ function generate(content, callback) {
 }
 
 generate.toHTML = toHTML
-function toHTML(md) {
+function toHTML(md, transformers = []) {
+    var source = remark()
+        .use(toEmoji)
+        .use(remarkHtml)
+        .use(slug)
+        .use(headings)
+        .use(highlight)
+        .use(remarkAlign, alignClass);
+
     return new Promise((resolve, reject) => {
-        remark()
-            .use(toEmoji)
-            .use(remarkHtml)
-            .use(slug)
-            .use(headings)
-            .use(highlight)
-            .use(remarkAlign, alignClass)
-            .process(md, function (err, file) {
+        source = transformers.reduce((source, transformer) => source.use(transformer, transformer.options || {}), source);
+        source.process(md, function (err, file) {
                 if (err) {
                     reject(err);
                 }

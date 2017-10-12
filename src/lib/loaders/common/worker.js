@@ -20,7 +20,7 @@ process.on('message', (task) => {
 
     if (type === 'markdown') {
 
-        let {markdownTransformers, htmlTransformers} = split(transformers)
+        let {markdownTransformers, htmlTransformers, remarkTransformers} = split(transformers)
         let {__content, ...meta} = YFM.loadFront(content);
 
         let promise = chain(markdownTransformers, content, {meta: {...meta}, filesMap: {...filesMap}, path});
@@ -35,7 +35,7 @@ process.on('message', (task) => {
                             return
                         }
                         resolve({meta: _meta, data});
-                    })
+                    }, remarkTransformers)
                 });
             })
             .then(({meta, data}) => {
