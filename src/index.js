@@ -287,7 +287,7 @@ class Picidae extends EventEmitter {
         console.log(chalk.green('Building...'));
         if (this.opts.force) {
             console.log(chalk.red(' FORCE Mode is OPEN'));
-            require('del').sync([nps.join(this.distRoot, '*'), '!' + nps.join(this.distRoot, '.git')]);
+            require('del').sync([nps.join(this.distRoot, '*'), '!' + nps.join(this.distRoot, '.git')], {force: true});
         }
         if (!this.opts.ssr) {
             console.log(chalk.red(' SSR Mode is CLOSED'));
