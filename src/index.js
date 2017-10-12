@@ -289,6 +289,9 @@ class Picidae extends EventEmitter {
             console.log(chalk.red(' FORCE Mode is OPEN'));
             require('del').sync([nps.join(this.distRoot, '*'), '!' + nps.join(this.distRoot, '.git')]);
         }
+        if (!this.opts.ssr) {
+            console.log(chalk.red(' SSR Mode is CLOSED'));
+        }
         if (!this.opts.noSpider) {
             console.log(chalk.green(' Spider Mode is OPEN'));
         }
@@ -317,17 +320,21 @@ class Picidae extends EventEmitter {
             ssrWebpackConfig.plugins = ssrWebpackConfig.plugins
                 .filter(plugin => !(plugin instanceof webpack.optimize.CommonsChunkPlugin));
 
-            build(ssrWebpackConfig, () => {
-                let gen = require(nps.join(this.tmpPath, ssrEntryName)).ssr;
+            const buildMethod = this.opts.ssr ? build : (config, callback) => callback(null);
+            buildMethod(ssrWebpackConfig, () => {
+                let routes = require(this.themeDataPath).routes;
+                let method = (url, callback) => callback('');
                 let sitemap = require('./lib/utils/sitemap-generator')
-                // let gen = require(nps.join(this.tmpPath, `routes-generator.${this.id}.ssr.js`));
-                let routes = gen(require(this.themeDataPath));
-                let sites = sitemap(routes, this.docsEntry)
-                let method = ssr(routes, false, this.opts.publicPath);
+                if (this.opts.ssr) {
+                    let gen = require(nps.join(this.tmpPath, ssrEntryName)).ssr
+                    routes = gen(require(this.themeDataPath));
+                    method = ssr(routes, false, this.opts.publicPath);
+                }
+
+                let sites = sitemap(routes, this.docsEntry);
                 let tpl = fs.readFileSync(this.htmlTempate).toString();
 
                 let pool = [];
-                // let publicPath = this.ops.publicPath
                 pool.push(...sites);
 
                 function logPath(path) {
@@ -344,7 +351,7 @@ class Picidae extends EventEmitter {
                             return new Promise(resolve => {
                                 // publicPath.replace(/\/+$/, '') +
                                 method('/' + path.replace(/^\/+/, ''), content => {
-                                    if (!content) {
+                                    if (content == null) {
                                         resolve()
                                     }
                                     else {

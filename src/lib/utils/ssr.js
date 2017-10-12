@@ -2,7 +2,7 @@ import React from 'react'
 import ReactDOMServer from 'react-dom/server';
 import RouterContext from 'react-router/lib/RouterContext'
 import match from 'react-router/lib/match'
-import createElement from './create-element'
+// import createElement from './create-element'
 
 export default function ssr(routes, isStatic = true, basename) {
     return function (url, callback) {
@@ -17,7 +17,7 @@ export default function ssr(routes, isStatic = true, basename) {
                 const content = method(
                     <RouterContext
                         {...renderProps}
-                        createElement={createElement}
+                        // createElement={createElement}
                     />
                 );
                 callback(content);

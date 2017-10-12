@@ -4,7 +4,7 @@ import {Router, useRouterHistory, match} from 'react-router'
 import {createHistory} from 'history'
 import routesGenerator from './routes-generator.{{dataSuffix}}'
 import themeData from '{{ themeDataPath }}'
-import createElement from '../utils/create-element'
+// import createElement from '../utils/create-element'
 
 import '../browser-tools/index.less'
 
@@ -19,7 +19,7 @@ match({ routes, location, basename}, () => {
             <Router
                 history={useRouterHistory(createHistory)({ basename })}
                 routes={routes}
-                createElement={createElement}
+                // createElement={createElement}
             />,
             document.getElementById('root')
         )

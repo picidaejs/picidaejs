@@ -11,7 +11,7 @@ module.exports = function (commander) {
     config.sourceMap = commander.sourceMap;
     config.id = require('md5')(configPath).substr(2, 8)
     config.watch = false;
-    config.ssr = true;
+    config.ssr = commander.ssr;
 
     var picidae = new Picidae(config)
     picidae.build(function () {

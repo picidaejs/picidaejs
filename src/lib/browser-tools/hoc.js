@@ -1,8 +1,10 @@
 import React from 'react'
+import NProgress from 'nprogress'
 
 function wrap(Component, extra) {
     return class HOC extends React.Component {
         componentDidMount(...args) {
+            NProgress.done()
         }
 
         render() {
@@ -21,9 +23,7 @@ function inverseExtend(Component) {
 }
 
 
-export default function hoc({location, ...data}) {
-    return Component => {
-        Component[location.pathname] = data;
-        return Component;
-    }
+export default function hoc(data) {
+    return Component =>
+        wrap(Component, data);
 }
