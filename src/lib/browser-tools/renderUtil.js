@@ -77,7 +77,7 @@ export default function renderUtil(pageData, transformers = []) {
         (convertRules, transformer) => {
             const ret = transformer.call({callbackCollect}, pageData);
             if (typeof ret === 'object') {
-                convertRules.push(ret);
+                convertRules = convertRules.concat(ret);
             }
             return convertRules;
         }, []
