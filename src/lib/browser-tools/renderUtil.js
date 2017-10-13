@@ -53,13 +53,15 @@ class MarkdownRoot extends React.Component {
             return null;
         }
 
+        let comp = htmlToReactParser.parseWithInstructions(
+            pageData.markdown.content,
+            isValidNode,
+            convertRules.concat(processingInstructions)
+        );
+
         return (
             <article>
-            {htmlToReactParser.parseWithInstructions(
-                pageData.markdown.content,
-                isValidNode,
-                convertRules.concat(processingInstructions)
-            )}
+                {comp}
             </article>
         );
     }
