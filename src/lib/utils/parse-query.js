@@ -40,9 +40,9 @@ parser.injectJoin = function (target, ...tails) {
     let tail = nps.join.apply(null, tails);
     let index = target.lastIndexOf('?');
     if (index >= 0) {
-        return nps.join(target.substring(0, index), tail) + target.substring(index);
+        return target.substring(0, index).replace(/\/*$/, '/') + tail.replace(/^\/+/, '') + target.substring(index);
     }
-    return nps.join(target, tail);
+    return target.replace(/\/*$/, '/') + tail.replace(/^\/+/, '');
 }
 
 // console.error(injectJoin('render-react?a=22', 'index.js'));

@@ -47,6 +47,11 @@ class MarkdownRoot extends React.Component {
         callbackCollection.forEach(callback => callback(dom))
     }
 
+    componentWillUnmount() {
+        const {unmountCollection = []} = this.props;
+        unmountCollection.forEach(callable => callable(this.props));
+    }
+
     render() {
         const {pageData, convertRules} = this.props;
         if (!pageData || !pageData.markdown) {
@@ -69,15 +74,21 @@ class MarkdownRoot extends React.Component {
 
 export default function renderUtil(pageData, transformers = []) {
     const collection = [];
+    const unmountCollection = [];
     function callbackCollect(callback) {
         if (typeof callback === 'function') {
             collection.push(callback);
         }
     }
+    function unmountCallbackCollect(callback) {
+        if (typeof callback === 'function') {
+            unmountCollection.push(callback);
+        }
+    }
 
     const convertRules = transformers.reduce(
         (convertRules, transformer) => {
-            const ret = transformer.call({callbackCollect}, pageData);
+            const ret = transformer.call({callbackCollect, unmountCallbackCollect}, pageData);
             if (typeof ret === 'object') {
                 convertRules = convertRules.concat(ret);
             }
@@ -85,5 +96,5 @@ export default function renderUtil(pageData, transformers = []) {
         }, []
     );
 
-    return <MarkdownRoot convertRules={convertRules} callbackCollection={collection} pageData={pageData} />;
+    return <MarkdownRoot convertRules={convertRules} unmountCollection={unmountCollection} callbackCollection={collection} pageData={pageData} />;
 }
