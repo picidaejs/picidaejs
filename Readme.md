@@ -1,16 +1,42 @@
-# picidae
+# Picidae
 
 ![](https://avatars2.githubusercontent.com/u/32284874?v=4&s=200)
 
-```
+Picidae is a document generator which has gentle experience. :dash:  
+As shown below
+
+```text
               (webpack/react)
 markdown files -> picidae <- theme
                      |
                      |
                      |
-                html(spa/ssr)
+                assets(spa/ssr)
 ```
 
+[Picidae Video](https://picidaejs.github.io/picidaejs/public)
+
+## Theme
+
+We can write customized Theme using React.
+[Default Theme](./theme)
+
+## Commander
+
+We can write customized Commander using `commander`.
+[Commander: New](./commanders/new)
+
+## Transformer
+
+We can write customized Transformer which is divided into NodeTransformer & BrowserTransformer  
+As shown below
+
+** mdast -> remark transformer -> markdown -> markdown transfromer -> markdown -> html -> html transformer -> html -> browser transformer (converter) -> html-to-react **
+
+- [picidae-transformer-style-loader](https://github.com/picidaejs/picidae-transformer-style-loader)  
+- [picidae-transformer-react-render](https://github.com/picidaejs/picidae-transformer-react-render)  
+- [picidae-transformer-file-syntax](https://github.com/picidaejs/picidae-transformer-file-syntax)  
+- ...
 
 ## Dev Record
 
@@ -28,6 +54,7 @@ use remark convert markdown to html with:
 3. remark-highlight.js
 4. remark-slug
 5. remark-gemoji-to-emoji
+6. remark-auto-heading
 
     
 ## Todo
@@ -36,7 +63,7 @@ use remark convert markdown to html with:
 2. [x] data-loader Demo
 3. [x] posts/api posts/doc ... -> multiply directory
 4. [x] routes supports Object/Array
-5. [ ] **markdown <-> json -> React -> HTML**
+5. [x] **mdast -> remark transformer -> markdown -> markdown transfromer -> markdown -> html -> html transformer -> html -> browser transformer (converter) -> html-to-react **
 6. [x] markdown-loader -> meta/content
 7. [x] ssr build
 8. [x] utils / tools
