@@ -4,6 +4,9 @@ title: 更新说明
 
 ## 发行版
 
+- v0.0.16  
+修复不支持文件名中包含`'`bug
+
 - v0.0.15  
 NodeTransformer 支持 Markdown、Remark、HTML Transformer  
 BrowserTransformer 支持 callbackCollect/unmountCallbackCollect
