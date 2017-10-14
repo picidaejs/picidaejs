@@ -14,6 +14,7 @@ module.exports = {
     distRoot: './public',
     templateRoot: './templates',
     extraRoot: './extra',
+    themeConfigsRoot: './theme-configs',
 
     excludes: [/example/, /api/, /\/refs\//],
 

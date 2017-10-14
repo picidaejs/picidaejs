@@ -18,9 +18,43 @@ come on，put your hand up！:hand:
 
 ### Picidae 配置
 
+```js
+module.exports = {
+    // 更新webpack的配置
+    webpackConfigUpdater(config, webpack) {
+        return config;
+    },
+    // picidae start 服务的端口
+    port: 9999,
+    // 与webpack中publicPath概念相同
+    publicPath: '/picidaejs/public/',
+    // 配置的主题
+    theme: '../theme',
+    // 文档的根目录
+    docRoot: './docs',
+    // build后资源放置的根目录
+    distRoot: './public',
+    // 模板的根目录，其中html模板为 templateRoot 下的index.html
+    templateRoot: './templates',
+    // build过程中额外的资源，将会被复制到distRoot
+    extraRoot: './extra',
+    // 主题的配置根目录
+    themeConfigsRoot: './theme-configs',
+    // docRoot中被排除的规则，可以是 RegExp | String | (filename) => exclude
+    excludes: [/example/, /api/, /\/refs\//],
+
+    transformers: [
+        'picidae-transformer-react-render?lang=render-jsx', 'picidae-transformer-file-syntax',
+        './test/style-loader?lang=style'
+    ],
+
+    commanders: [
+        '../commanders/new?title=abc',
+        '../commanders/preview',
+        // 'gh-pages?repo=',
+        // 'deploy'
+    ]
+}
+```
+
 ### 主题配置
-
-
-## 其他
-
-### 其他命令
