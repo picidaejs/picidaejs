@@ -76,7 +76,7 @@ process.on('message', (task) => {
                 href = href.trim()
                 if (href && !href.startsWith('#')) {
                     href = require('url').resolve(pathname, href).trim();
-                    if (!/^(\/\/|https?:)/.test(href)) {
+                    if (!/^(\/\/|https?:|ftp:|file:)/.test(href)) {
                         hrefList.push(href)
                     }
                 }

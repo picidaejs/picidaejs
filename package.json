@@ -84,7 +84,7 @@
     "node-notifier": "^5.1.2",
     "nprogress": "^0.2.0",
     "nunjucks": "^3.0.1",
-    "picidae-plugin-utils": "^0.0.3",
+    "picidae-plugin-utils": "0.0.3",
     "picidae-tools": "~0.0.3",
     "postcss-loader": "^1.3.3",
     "react": "^15.0.2",

@@ -5,12 +5,14 @@ import getWebpackConfig from './getWebpackConfig'
 import webpackConfigUpdater from './webpackConfigUpdater'
 import console from '../utils/console'
 import chalk from 'chalk'
+import fs from '../utils/fs'
 
 export default class WebpackServer {
     static defaultOptions = {
         port: 8989,
         webpackConfigGetter: config => config,
         verbose: true,
+        static: null,
         dev: true
     }
 
@@ -69,6 +71,7 @@ export default class WebpackServer {
         }
         this.app = serverMaker({
             verbose: this.opt.verbose,
+            staticPath: fs.isDirectory(this.opt.static) && this.opt.static,
             webpackConfig: this.webpackConfig
         });
         this.setInjected();

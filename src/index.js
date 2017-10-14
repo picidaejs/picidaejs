@@ -17,6 +17,7 @@ import match from './lib/utils/rule-match'
 import boss from './lib/loaders/common/boss'
 import summary from './lib/loaders/data-loader/summary-generator'
 import ssr from './lib/utils/ssr'
+// import writeHtml from './lib/utils/write-html'
 import context from './lib/context'
 import defaultConfig from './lib/default-config'
 import chokidar from 'chokidar'
@@ -125,6 +126,7 @@ class Picidae extends EventEmitter {
         // initial webpackServer
         this.wpServer = new WebpackServer({
             ...this.opts,
+            static: nps.resolve(this.opts.extraRoot),
             dev: this.opts.watch,
             webpackConfigGetter: config => {
                 config.entry = {
@@ -338,7 +340,10 @@ class Picidae extends EventEmitter {
                 let pool = [];
                 pool.push(...sites);
 
+                let count = 1;
+
                 function logPath(path) {
+                    count++;
                     console.log(chalk.green(' `'+ nps.relative(process.cwd(), path) +'`'), 'File Created successfully.')
                 }
 
@@ -349,8 +354,7 @@ class Picidae extends EventEmitter {
                         sites.map(({path, html}) => {
                             let absoluteHtml = nps.join(dirRoot, html.replace(/^\/+/, ''));
                             sync(nps.dirname(absoluteHtml));
-                            return new Promise(resolve => {
-                                // publicPath.replace(/\/+$/, '') +
+                            return new Promise((resolve, reject) => {
                                 method('/' + path.replace(/^\/+/, ''), content => {
                                     if (content == null) {
                                         resolve()
@@ -391,17 +395,19 @@ class Picidae extends EventEmitter {
                                     }
                                 })
                             })
-                            .catch(console.error)
+                            .catch(console.error);
                         })
-                    );
+                    )
                 };
 
                 createProm(sites, {dirRoot: this.distRoot, publicPath: this.opts.publicPath}, {noSpider: this.opts.noSpider})
                     .then(() => {
+                        boss.jobDone();
                         let src = nps.resolve(this.opts.extraRoot);
-                        let target = nps.join(this.distRoot, 'extra')
+                        let target = nps.join(this.distRoot);
 
                         console.log('');
+                        console.log(chalk.green(` ${count}`), 'Files Created successfully\n');
                         if (fs.existsSync(src) && fs.statSync(src).isDirectory()) {
                             console.log(chalk.green(' Copying Extra Directory'));
                             sync(target);
@@ -409,8 +415,6 @@ class Picidae extends EventEmitter {
                         }
 
                         console.log(chalk.green(' Done!  :P'));
-
-                        boss.jobDone();
                         callback && callback();
                     })
                     .catch(console.error);

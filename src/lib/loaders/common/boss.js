@@ -15,8 +15,8 @@ function createWorkers(count) {
 const workersCount = os.cpus().length - 1;
 
 module.exports = (function () {
-    const workers = createWorkers(workersCount);
-    const tasksQueue = [];
+    let workers = createWorkers(workersCount);
+    let tasksQueue = [];
 
     function arrange(task) {
         const worker = workers.pop();
@@ -32,6 +32,10 @@ module.exports = (function () {
     }
 
     return {
+        restart() {
+            workers = createWorkers(workersCount);
+            tasksQueue = [];
+        },
         queue(task) {
             if (workers.length <= 0) {
                 tasksQueue.push(task);
@@ -41,6 +45,7 @@ module.exports = (function () {
         },
         jobDone() {
             workers.forEach(w => w.kill());
+            tasksQueue = [];
         },
     };
 }());

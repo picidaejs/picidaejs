@@ -6,9 +6,13 @@ import express from 'express'
 import console from '../utils/console'
 
 
-export default function maker({webpackConfig, verbose, log = console.log}) {
+export default function maker({webpackConfig, staticPath, verbose, log = console.log}) {
     const app = express();
     const compiler = webpack(webpackConfig);
+
+    if (typeof staticPath === 'string' && staticPath) {
+        app.use(express.static(staticPath));
+    }
 
     app.use(webpackDevMiddleware(compiler, {
         noInfo: !verbose,

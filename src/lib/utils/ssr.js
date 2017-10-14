@@ -7,7 +7,6 @@ import match from 'react-router/lib/match'
 export default function ssr(routes, isStatic = true, basename) {
     return function (url, callback) {
         match({ routes: routes, location: url, basename }, function (error, redirectLocation, renderProps) {
-            // console.error(error, redirectLocation, renderProps);
             if (error) {
                 callback('');
             } else if (redirectLocation) {
