@@ -1,9 +1,9 @@
-import {join, basename} from 'path'
 import Error from '../utils/Error'
 import hoc from '../browser-tools/hoc'
 import renderUtil from '../browser-tools/renderUtil'
 import NProgress from 'nprogress'
 
+const isBrowser = (() => !(typeof process === 'object' && typeof process.versions === 'object' && typeof process.versions.node !== 'undefined'))();
 const data = require('./data.{{dataSuffix}}')
 
 function wrapData(data) {
@@ -125,7 +125,7 @@ module.exports = function routesGenerator({routes, root, notFound, themeConfig, 
         return {
             ...routes,
             onEnter() {
-                if (typeof document !== 'undefined') {
+                if (isBrowser) {
                     NProgress.start();
                 }
             },
@@ -145,7 +145,7 @@ module.exports = function routesGenerator({routes, root, notFound, themeConfig, 
     customizedRoutes.push({
         path: '*',
         onEnter() {
-            if (typeof document !== 'undefined') {
+            if (isBrowser) {
                 NProgress.start();
             }
         },
