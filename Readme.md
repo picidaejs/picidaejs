@@ -1,6 +1,6 @@
 # Picidae
 
-![](./logo/picidae-1x.png)
+![](./logo/picidae-2x.png)
 
 Picidae is a document generator which has gentle experience. :dash:  
 As shown below
