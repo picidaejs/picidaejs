@@ -1,7 +1,7 @@
 {
   "name": "picidae",
   "version": "0.0.17",
-  "description": "![](https://avatars2.githubusercontent.com/u/32284874?v=4&s=200)",
+  "description": "Picidae is a document generator which has gentle experience. :dash:",
   "main": "lib/index.js",
   "scripts": {
     "test": "mocha",
@@ -110,6 +110,8 @@
     "picidae-transformer-react-render": "^1.0.1"
   },
   "directories": {
-    "lib": "lib"
+    "doc": "docs",
+    "lib": "lib",
+    "test": "test"
   }
 }

@@ -1,6 +1,6 @@
 # Picidae
 
-![](https://avatars2.githubusercontent.com/u/32284874?v=4&s=200)
+![](./logo/picidae-1x.png)
 
 Picidae is a document generator which has gentle experience. :dash:  
 As shown below
