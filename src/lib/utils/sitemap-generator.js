@@ -83,10 +83,10 @@ function transform(path) {
         html = '/index.html';
         path = '/';
     }
-    if (!path.endsWith('/')) {
+    else if (!path.endsWith('/')) {
         html = path.replace(/\.html?$/, '') + '.html'
     } else {
-        html = html + 'index.html'
+        html = path + 'index.html'
     }
 
     return {path: decodeURIComponent(path), html: decodeURIComponent(html)}
