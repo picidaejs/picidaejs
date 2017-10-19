@@ -1,3 +1,5 @@
+import '../browser-tools/index.less'
+
 import React from 'react'
 import ReactDOM from 'react-dom'
 import {Router, useRouterHistory, match} from 'react-router'
@@ -5,8 +7,6 @@ import {createHistory} from 'history'
 import routesGenerator from './routes-generator.{{dataSuffix}}'
 import themeData from '{{ themeDataPath }}'
 // import createElement from '../utils/create-element'
-
-import '../browser-tools/index.less'
 
 const routes = routesGenerator(themeData);
 
