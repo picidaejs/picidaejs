@@ -4,6 +4,9 @@ title: 更新说明
 
 ## 发行版
 
+- v0.0.25
+`routesMap` 支持 Function: pathname => you-wanted
+
 - v0.0.16  
 修复不支持文件名中包含`'`bug
 

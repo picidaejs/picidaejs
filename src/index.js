@@ -47,9 +47,15 @@ function looseRoutesMap(map = {}) {
 }
 
 function generateEntry(fileTree, routesMap = {}) {
-    routesMap = looseRoutesMap(routesMap);
+    if (typeof routesMap !== 'function') {
+        routesMap = looseRoutesMap(routesMap);
+    }
     // console.log(routesMap);
     function replace(pathname) {
+        if (typeof routesMap === 'function') {
+            return routesMap(pathname) || pathname;
+        }
+
         let matched = false;
         return pathname
             .split('/')
