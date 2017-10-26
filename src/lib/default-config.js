@@ -11,6 +11,8 @@ module.exports = {
 
     themeConfigsRoot: './theme-configs',
 
+    hotReloadTests: [/\.(md|markdown)$/i],
+
     excludes: [/\.ignore\./],
 
     transformers: [],

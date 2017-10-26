@@ -224,11 +224,11 @@ class Picidae extends EventEmitter {
 
     watchSummary() {
         if (this.opts.watch) {
-            this.summaryLock = false
+            this.summaryLock = false;
             this.summaryWatcher = chokidar.watch(this.docPath, {ignoreInitial: true});
             this.summaryWatcher.on('all', async (event, path) => {
-                console.log(path);
-                if (fileIsMarkdown(path)/* && !this.summaryLock*/) {
+                if (match(this.opts.hotReloadTests, path)) {
+                    console.log('Detect File ' + event + ' :', nps.relative(this.docPath, path));
                     await this.generateSummary();
                     this.summaryLock = true;
                 }
