@@ -36,60 +36,49 @@ export default class WebpackServer {
     }
 
 
-    injectList = []
+    injectList = [];
 
-    setInjected() {
-        if (this.app && this.injectList.length) {
+    useInjected() {
+        if (this.app && this.app._listening && this.injectList.length) {
             this.injectList.forEach(args => this.app.use.apply(this.app, args));
             this.injectList = []
         }
     }
 
     inject(routerPatternOrRequestHandler, requestHandler) {
-        this.setInjected();
-
         if (typeof routerPatternOrRequestHandler === 'string') {
-            if (!this.app) {
-                this.injectList.push([routerPatternOrRequestHandler, requestHandler])
-            }
-
-            this.app && this.app.use(routerPatternOrRequestHandler, requestHandler);
+            this.injectList.push([routerPatternOrRequestHandler, requestHandler])
         }
         else if (typeof routerPatternOrRequestHandler === 'function') {
-            if (!this.app) {
-                this.injectList.push([routerPatternOrRequestHandler])
-            }
-            this.app && this.app.use(routerPatternOrRequestHandler);
+            this.injectList.push([routerPatternOrRequestHandler])
         }
 
+        this.useInjected();
         return this;
     }
 
     start(callback) {
-        if (this._server) {
+        if (this.app && this.app._server) {
             throw new Error('WebpackServer is running currently!')
         }
         this.app = serverMaker({
+            port: this.opt.port,
+            callback: (err, port) => {
+                callback && callback(err, port);
+                this.useInjected();
+            },
             verbose: this.opt.verbose,
             staticPath: fs.isDirectory(this.opt.static) && this.opt.static,
             webpackConfig: this.webpackConfig
         });
-        this.setInjected();
 
-        this._server = this.app.listen(this.opt.port, err => {
-            let port = this._server.address().port;
-            if (port && this.opt.verbose) {
-                console.log(' WebpackServer run on', chalk.underline.red(`${'http://localhost:' + port + '/'}`) );
-            }
-            callback && callback(err, port);
-        })
         return this;
     }
 
     stop(callback) {
-        if (this._server) {
-            this._server.close(callback)
-            this._server = void 0
+        if (this.app && this.app._server) {
+            this.app._server.close(callback);
+            this.app._server = void 0;
             this.app = void 0;
         }
         else {

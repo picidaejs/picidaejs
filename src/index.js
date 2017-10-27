@@ -21,8 +21,9 @@ import ssr from './lib/utils/ssr'
 import context from './lib/context'
 import defaultConfig from './lib/default-config'
 import chokidar from 'chokidar'
-
 const chalk = require('chalk');
+
+const logoText = fs.readFileSync(nps.join(__dirname, 'lib/logo')).toString();
 
 function webpackConfigGetter(config = {}) {
 
@@ -111,9 +112,11 @@ class Picidae extends EventEmitter {
         super();
 
         context.__init({picidae: this});
-
         this.opts = Picidae.assignOption(opts);
         this.id = this.opts.id || 'ID';
+
+        process.stdout.write(chalk.yellow(logoText));
+
         this.tmpPath = nps.join(tmpPath) //, '..', require('md5')(Date.now()).substr(0, 15))
         sync(this.tmpPath);
         let entryFile = nps.join(this.tmpPath, `entry.${this.id}.js`);

@@ -169,7 +169,7 @@ export default function getWebpackCommonConfig(args = {}) {
 
         plugins: [
             new webpack.ProgressPlugin(function(percentage, msg) {
-                var stream = process.stderr;
+                const stream = process.stdout;
                 if (stream.isTTY && percentage < 0.71) {
                     stream.cursorTo(0);
                     stream.write('  ' + require('chalk').cyan(msg));
