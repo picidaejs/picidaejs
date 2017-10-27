@@ -8,6 +8,10 @@ module.exports = {
     publicPath: '/picidaejs/public/',
     // publicPath: '/',
 
+    expressSetup(app) {
+        console.log('expressSetup');
+    },
+
     theme: '../theme',
 
     docRoot: './docs',
