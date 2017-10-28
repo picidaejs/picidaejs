@@ -9,11 +9,11 @@ const sitmapGenerator = function (route, root = '') {
 
         let path = root + (route.path || '');
         if (route.component || route.getComponent) {
-            routes.push(path)
+            routes.push(path.replace(/^\/*/, '/'))
         }
 
         if (route.indexRoute) {
-            routes.push(path + (route.indexRoute.path || ''))
+            routes.push(path.replace(/\/*$/, '') + (route.indexRoute.path || '').replace(/^\/*/, '/'))
         }
         if (route.childRoutes) {
             routes = routes.concat(sitmapGenerator(route.childRoutes, path))
@@ -31,6 +31,9 @@ const sitmapGenerator = function (route, root = '') {
 
 function wrap(route, filesEntry = {}) {
     let sites = sitmapGenerator(route)
+    if (!sites.includes('/')) {
+        sites.push('/');
+    }
     let ret = [];
     let map = {};
 
