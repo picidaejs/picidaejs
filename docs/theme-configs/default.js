@@ -7,7 +7,7 @@ module.exports = {
 
         var map = {
             'CHANGELOG.md': 'changelog',
-            'home.md': 'INDEX.md',
+            'home.md': 'index.md',
             // 'doc/index.md': 'changelog',
             // 'doc': ''
             // 'api': 'post',

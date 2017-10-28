@@ -47,7 +47,7 @@ module.exports = function routesGenerator({routes, root, notFound, themeConfig, 
             let pathname = nextState.location.pathname
                         .replace(/^\/+/, '')
                         .replace(/\/+$/, '');
-            pathname = pathname === '' ? 'INDEX' : pathname;
+            pathname = pathname === '' ? 'index' : pathname;
 
             let nextProps = {
                 ...nextState,

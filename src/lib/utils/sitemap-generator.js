@@ -79,7 +79,7 @@ function transformHexo(path) {
 function transform(path) {
     let html = '';
 
-    if (path === '/INDEX') {
+    if (path === '/index') {
         html = '/index.html';
         path = '/';
     }

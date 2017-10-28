@@ -4,7 +4,12 @@ title: 更新说明
 
 ## 发行版
 
-- v0.0.25
+- v1.0.1  
+ `doc/index.md` -> `doc.js`  
+ remove `common.js`  
+ rename `app.js` to `PICIDAE_ENTRY.js`
+
+- v0.0.25  
 `routesMap` 支持 Function: pathname => you-wanted
 
 - v0.0.16  

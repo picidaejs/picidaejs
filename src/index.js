@@ -93,6 +93,9 @@ function generateEntry(fileTree, routesMap = {}) {
         }
         else {
             let key = replace(root/*.replace(/\..*$/, '')*/.substring(outRoot.length + 1)).replace(/\.(md|markdown)$/i, '')
+            if (nps.basename(key) === 'index') {
+                key = key.replace(/\/index\s*$/, '');
+            }
             container[generateKey(container, key)] = root
         }
         return container;
@@ -140,7 +143,7 @@ class Picidae extends EventEmitter {
             webpackConfigGetter: config => {
                 config.entry = {
                     ...config.entry,
-                    app: entryFile,
+                    PICIDAE_ENTRY: entryFile,
                     // ...generateEntry(tree)
                 }
                 config.output.publicPath = this.opts.publicPath || config.output.publicPath;

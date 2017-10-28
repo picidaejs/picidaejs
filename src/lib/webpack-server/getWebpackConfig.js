@@ -179,7 +179,7 @@ export default function getWebpackCommonConfig(args = {}) {
                     console.log(require('chalk').cyan('webpack: bundle build is now finished.'));
                 }
             }),
-            new webpack.optimize.CommonsChunkPlugin('common', commonName),
+            // new webpack.optimize.CommonsChunkPlugin('common', commonName),
             new ExtractTextPlugin('style.css', {
                 // filename: cssFileName,
                 disable: false,
