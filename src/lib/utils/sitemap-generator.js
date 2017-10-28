@@ -7,7 +7,7 @@ const sitmapGenerator = function (route, root = '') {
     let routes = [];
     if (!Array.isArray(route)) {
 
-        let path = root + (route.path || '');
+        let path = root.replace(/\/*$/, '') + (route.path || '').replace(/^\/*/, '/');
         if (route.component || route.getComponent) {
             routes.push(path.replace(/^\/*/, '/'))
         }
