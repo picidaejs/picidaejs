@@ -9,7 +9,7 @@ module.exports = {
     // publicPath: '/',
 
     expressSetup(app) {
-        console.log('expressSetup');
+        // console.log('expressSetup');
     },
 
     theme: '../theme',
@@ -19,6 +19,12 @@ module.exports = {
     templateRoot: './templates',
     extraRoot: './extra',
     themeConfigsRoot: './theme-configs',
+
+    templateData: {
+        buildTime: '' + new Date().getTime()
+    },
+
+    host: 'https://picidaejs.github.io/',
 
     excludes: [/example/, /api/, /\/refs\//],
 

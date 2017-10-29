@@ -12,8 +12,11 @@ import {tmpPath, templatePath} from './lib/utils/context'
 import console from './lib/utils/console'
 import resolve from './lib/utils/resolve-path'
 import file2Tree from './lib/utils/files-to-tree'
+import {toRobots, toSitemap} from './lib/utils/seo-helper'
+import each from './lib/utils/each'
 import parseQuery from './lib/utils/parse-query'
 import match from './lib/utils/rule-match'
+import unique from './lib/utils/array-unique'
 import boss from './lib/loaders/common/boss'
 import summary from './lib/loaders/data-loader/summary-generator'
 import ssr from './lib/utils/ssr'
@@ -21,6 +24,7 @@ import ssr from './lib/utils/ssr'
 import context from './lib/context'
 import defaultConfig from './lib/default-config'
 import chokidar from 'chokidar'
+import url from 'url'
 const chalk = require('chalk');
 
 const logoText = fs.readFileSync(nps.join(__dirname, 'lib/logo')).toString();
@@ -96,7 +100,10 @@ function generateEntry(fileTree, routesMap = {}) {
             if (nps.basename(key) === 'index') {
                 key = key.replace(/\/index\s*$/, '');
             }
-            container[generateKey(container, key)] = root
+            container[generateKey(container, key)] = {
+                path: root,
+                lastmod: fileTree.lastmod
+            }
         }
         return container;
     }
@@ -206,7 +213,12 @@ class Picidae extends EventEmitter {
         let tree = file2Tree(this.docPath, filename => {
             return fileIsMarkdown(filename) && !match(this.opts.excludes, filename)
         });
-        this.docsEntry = generateEntry(tree, this.routesMap);
+        this.docsEntityEntry = generateEntry(tree, this.routesMap);
+
+        this.docsEntry = {};
+        each(this.docsEntityEntry, ({path}, key, index, data) => {
+            this.docsEntry[key] = path;
+        });
 
         let opt = {
             plugins,
@@ -359,8 +371,9 @@ class Picidae extends EventEmitter {
                     console.log(chalk.green(' `'+ nps.relative(process.cwd(), path) +'`'), 'File Created successfully.')
                 }
 
-                const createProm = function (sites, {publicPath, dirRoot}, opt = {}) {
-                    let {noSpider = false} = opt
+                const createProm = (sites, ctxData, opt = {}) => {
+                    const {publicPath, dirRoot, templateData} = ctxData;
+                    let {noSpider = false} = opt;
 
                     return Promise.all(
                         sites.map(({path, html}) => {
@@ -375,9 +388,9 @@ class Picidae extends EventEmitter {
                                         let opts = {path: absoluteHtml, pathname: path, spider: true};
                                         boss.queue({
                                             type: 'renderHtml',
-                                            args: [tpl, {content, root: publicPath}, opts],
+                                            args: [tpl, {content, root: publicPath, ...templateData}, opts],
                                             callback(err, obj) {
-                                                if (err || !obj) resolve()
+                                                if (err || !obj) resolve();
                                                 else {
                                                     logPath(obj.path);
                                                     if (!noSpider) {
@@ -396,7 +409,7 @@ class Picidae extends EventEmitter {
                                                         if (newSites && newSites.length) {
                                                             console.log(path, '->', newSites);
                                                             pool = pool.concat(newSites);
-                                                            resolve(createProm(newSites, {publicPath, dirRoot}, {noSpider}))
+                                                            resolve(createProm(newSites, ctxData, {noSpider}))
                                                             return;
                                                         }
                                                     }
@@ -412,7 +425,8 @@ class Picidae extends EventEmitter {
                     )
                 };
 
-                createProm(sites, {dirRoot: this.distRoot, publicPath: this.opts.publicPath}, {noSpider: this.opts.noSpider})
+                const ctxData = {dirRoot: this.distRoot, publicPath: this.opts.publicPath, templateData: this.opts.templateData};
+                createProm(sites, ctxData, {noSpider: this.opts.noSpider})
                     .then(() => {
                         boss.jobDone();
                         let src = nps.resolve(this.opts.extraRoot);
@@ -420,6 +434,39 @@ class Picidae extends EventEmitter {
 
                         console.log('');
                         console.log(chalk.green(` ${count}`), 'Files Created successfully\n');
+
+                        if (this.opts.ssr && this.opts.host) {
+                            if (this.docsEntityEntry['index']) {
+                                this.docsEntityEntry[''] = this.docsEntityEntry['index'];
+                                delete this.docsEntityEntry['index'];
+                            }
+                            let sites = [];
+                            each(this.docsEntityEntry, (val, key) => {
+                                sites.push({
+                                    loc: key,
+                                    lastmod: val.lastmod
+                                })
+                            });
+
+                            const host = url.resolve(this.opts.host, this.opts.publicPath);
+                            sites = unique(
+                                sites.concat(
+                                    pool.filter(({path}) => path !== 'NOT_FOUND_PAGE')
+                                        .map(({path}) => path.replace(/^\/*/, ''))
+                                ),
+                                obj => typeof obj === 'string' ? obj : obj.loc
+                            );
+                            const sitemapText = toSitemap({host, minify: true, sites});
+                            const robotsText = toRobots(host);
+                            const writeFile = (filename, data, logText) => {
+                                fs.writeFileSync(filename, data);
+                                console.log(chalk.cyan(logText), 'File Created');
+                            };
+                            writeFile(nps.join(this.distRoot, 'robots.txt'), robotsText, 'robots.txt');
+                            writeFile(nps.join(this.distRoot, 'sitemap.xml'), sitemapText, 'sitemap.xml');
+                        }
+
+
                         if (fs.existsSync(src) && fs.statSync(src).isDirectory()) {
                             console.log(chalk.green(' Copying Extra Directory'));
                             sync(target);
@@ -515,7 +562,8 @@ class Picidae extends EventEmitter {
                 ssr(routes, true, this.opts.publicPath)(req.url, content => {
                     res.send(renderTemplate(this.htmlTempate, {
                         content,
-                        root: this.opts.publicPath
+                        root: this.opts.publicPath,
+                        ...this.opts.templateData
                     }))
                 });
                 return;
@@ -523,7 +571,8 @@ class Picidae extends EventEmitter {
 
             res.send(renderTemplate(this.htmlTempate, {
                 content: '',
-                root: this.opts.publicPath
+                root: this.opts.publicPath,
+                ...this.opts.templateData
             }))
         });
     }

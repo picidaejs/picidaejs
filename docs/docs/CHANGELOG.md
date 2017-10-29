@@ -3,6 +3,9 @@ title: 更新说明
 ---
 
 ## 发行版
+- v1.0.5  
+ssr mode supports `host` option to generate `sitemap.xml`  
+add option: `templateData`: `{}`
 
 - v1.0.1  
  `doc/index.md` -> `doc.js`  

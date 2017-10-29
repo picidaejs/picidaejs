@@ -6,11 +6,13 @@ const utils = require('util')
 const ruleMatch = require('./rule-match')
 
 function filesToTree(root, file, filter) {
-    if (fs.statSync(file).isFile()) {
+    let stat = fs.statSync(file);
+    if (stat.isFile()) {
         if (ruleMatch(filter, file)) {
             return {
                 type: 'file',
-                file: file.substring(root.length).replace(/^\//, '')
+                file: file.substring(root.length).replace(/^\//, ''),
+                lastmod: stat.mtime
             }
         }
     }
@@ -21,6 +23,7 @@ function filesToTree(root, file, filter) {
         return {
             type: 'dir',
             file: file.substring(root.length).replace(/^\//, ''),
+            lastmod: stat.mtime,
             files
         };
     }
