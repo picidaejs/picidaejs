@@ -5,6 +5,7 @@
  */
 
 const url = require('url')
+const html_encode = require('./html-encode')
 
 function toSitemap({host = '', sites = [], minify = true}) {
     host = host.replace(/\/*$/, '/');
@@ -13,10 +14,10 @@ function toSitemap({host = '', sites = [], minify = true}) {
     const content = sites.map(loc => {
         let str = '';
         if (typeof loc === 'string') {
-            str += '<loc>' + url.resolve(host, loc) + '</loc>';
+            str += '<loc>' + html_encode(url.resolve(host, loc)) + '</loc>';
         }
         else {
-            str += '<loc>' + url.resolve(host, loc.loc) + '</loc>';
+            str += '<loc>' + html_encode(url.resolve(host, loc.loc)) + '</loc>';
             str += '<lastmod>' + new Date(loc.lastmod).toISOString() + '</lastmod>';
         }
         return `<url>${str}</url>`;
@@ -32,7 +33,7 @@ function toSitemap({host = '', sites = [], minify = true}) {
 
 function toRobots(host) {
 
-    return ['User-agent: *', `Sitemap: ${url.resolve(host, 'sitemap.xml')}`].join('\n')
+    return ['User-agent: *', `Sitemap: ${html_encode(url.resolve(host, 'sitemap.xml'))}`].join('\n')
 }
 
 exports.toSitemap = toSitemap;
