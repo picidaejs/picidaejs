@@ -9,7 +9,7 @@
 </head>
 <body>
 <div id="root">
-    <div data-reactroot="" data-reactid="1" data-react-checksum="37464545"><nav class="nav" data-reactid="2"><div class="nav-container" data-reactid="3"><a href="/picidaejs/public/" data-reactid="4"><h2 class="nav-title" data-reactid="5">Picidae</h2></a><ul data-reactid="6"><li data-reactid="7"><a href="/picidaejs/public/guide" data-reactid="8">Guide</a></li><li data-reactid="9"><a href="/picidaejs/public/docs/1" data-reactid="10">Document</a></li><li data-reactid="11"><a href="/picidaejs/public/changelog" class="active-header" data-reactid="12">ChangeLog</a></li><li data-reactid="13"><a href="/picidaejs/public/about" data-reactid="14">About Me</a></li></ul></div></nav><main data-reactid="15"><div class="post" data-reactid="16"><div class="post-info" data-reactid="17"><div class="post-info" data-reactid="18"><span data-reactid="19">Written </span><span data-reactid="20">on </span><time datetime="2017-10-29T21:40:10+08:00" data-reactid="21">Oct 29, 2017</time></div></div><h1 class="post-title" data-reactid="22">更新说明</h1><div class="post-line" data-reactid="23"></div><article data-reactid="24"><h2 id="发行版" data-reactid="25"><a href="#%E5%8F%91%E8%A1%8C%E7%89%88" aria-hidden="true" data-reactid="26"><span class="icon icon-link" data-reactid="27"></span></a><!-- react-text: 28 -->发行版<!-- /react-text --></h2><!-- react-text: 29 -->
+    <div data-reactroot="" data-reactid="1" data-react-checksum="-1705055936"><nav class="nav" data-reactid="2"><div class="nav-container" data-reactid="3"><a href="/picidaejs/public/" data-reactid="4"><h2 class="nav-title" data-reactid="5">Picidae</h2></a><ul data-reactid="6"><li data-reactid="7"><a href="/picidaejs/public/guide" data-reactid="8">Guide</a></li><li data-reactid="9"><a href="/picidaejs/public/docs/1" data-reactid="10">Document</a></li><li data-reactid="11"><a href="/picidaejs/public/changelog" class="active-header" data-reactid="12">ChangeLog</a></li><li data-reactid="13"><a href="/picidaejs/public/about" data-reactid="14">About Me</a></li></ul></div></nav><main data-reactid="15"><div class="post" data-reactid="16"><div class="post-info" data-reactid="17"><div class="post-info" data-reactid="18"><span data-reactid="19">Written </span><span data-reactid="20">on </span><time datetime="2017-10-29T21:40:10+08:00" data-reactid="21">Oct 29, 2017</time></div></div><h1 class="post-title" data-reactid="22">更新说明</h1><div class="post-line" data-reactid="23"></div><article data-reactid="24"><h2 id="发行版" data-reactid="25"><a href="#%E5%8F%91%E8%A1%8C%E7%89%88" aria-hidden="true" data-reactid="26"><span class="icon icon-link" data-reactid="27"></span></a><!-- react-text: 28 -->发行版<!-- /react-text --></h2><!-- react-text: 29 -->
 <!-- /react-text --><ul data-reactid="30"><!-- react-text: 31 -->
 <!-- /react-text --><li data-reactid="32"><!-- react-text: 33 -->
 <!-- /react-text --><p data-reactid="34"><!-- react-text: 35 -->v1.0.5<!-- /react-text --><br data-reactid="36"/><!-- react-text: 37 -->
@@ -49,7 +49,7 @@ BrowserTransformer 支持 callbackCollect/unmountCallbackCollect<!-- /react-text
 自动同步更新前端代码。</p><!-- react-text: 127 -->
 <!-- /react-text --><p data-reactid="128"><!-- react-text: 129 -->其中：文档（markdown）内容包括 meta/content，如下 文本开头的<!-- /react-text --><code data-reactid="130">--- * ---</code><!-- react-text: 131 --> 中的为meta文本（yaml格式），
 之后的为 markdown 内容本身，即content<!-- /react-text --></p><!-- react-text: 132 -->
-<!-- /react-text --><pre data-reactid="133"><code class="hljs language-markdown" data-reactid="134"><!-- react-text: 135 -->---
+<!-- /react-text --><pre data-reactid="133"><code class="hljs language-markdown" data-query="{}" data-lang="markdown" data-reactid="134"><!-- react-text: 135 -->---
 title: im title of meta
 <!-- /react-text --><span class="hljs-section" data-reactid="136">datetime: 2017-09-09 10:22
 ---</span><!-- react-text: 137 -->
@@ -75,7 +75,7 @@ BrowserTransformer 则为在浏览器环境下执行的转换，其中在浏览�
 <!-- /react-text --><p data-reactid="170"><!-- react-text: 171 -->react-render<!-- /react-text --><br data-reactid="172"/><!-- react-text: 173 -->
 使用 HTMLTransformer 和 BrowserTransformer 实现。<!-- /react-text --><br data-reactid="174"/><!-- react-text: 175 -->
 用法：在markdown文本中，书写如下，就可以在markdown下面自动生成该组件的View<!-- /react-text --></p><!-- react-text: 176 -->
-<!-- /react-text --><pre data-reactid="177"><code class="hljs language-markdown" data-reactid="178"><span class="hljs-code" data-reactid="179">```render-jsx
+<!-- /react-text --><pre data-reactid="177"><code class="hljs language-markdown" data-query="{}" data-lang="markdown" data-reactid="178"><span class="hljs-code" data-reactid="179">```render-jsx
 export default () =&gt; &lt;h1&gt;im H1&lt;/h1&gt;
 ```</span></code></pre><!-- react-text: 180 -->
 <!-- /react-text --></li><!-- react-text: 181 -->
@@ -84,12 +84,12 @@ export default () =&gt; &lt;h1&gt;im H1&lt;/h1&gt;
 使用 MarkdownTransformer 实现。<!-- /react-text --><br data-reactid="188"/><!-- react-text: 189 -->
 用法1：在markdown文本中，书写如下，可以直接得到其中的文本的内容。其中路径只能是相对于本文件路径。
 (不支持自己读取本身内容，会循环嵌套)<!-- /react-text --></p><!-- react-text: 190 -->
-<!-- /react-text --><pre data-reactid="191"><code class="hljs language-markdown" data-reactid="192">@./path/to/file@</code></pre><!-- react-text: 193 -->
+<!-- /react-text --><pre data-reactid="191"><code class="hljs language-markdown" data-query="{}" data-lang="markdown" data-reactid="192">@./path/to/file@</code></pre><!-- react-text: 193 -->
 <!-- /react-text --><p data-reactid="194">用法2：在markdown文本中，书写如下，可以直接页面生成一个跳转到该文件的link。（根据docsEntry实现）</p><!-- react-text: 195 -->
-<!-- /react-text --><pre data-reactid="196"><code class="hljs language-markdown" data-reactid="197">@link::[title]./path/to/file@
+<!-- /react-text --><pre data-reactid="196"><code class="hljs language-markdown" data-query="{}" data-lang="markdown" data-reactid="197">@link::[title]./path/to/file@
 @link::./path/to/file@</code></pre><!-- react-text: 198 -->
 <!-- /react-text --><p data-reactid="199">在meta中书写</p><!-- react-text: 200 -->
-<!-- /react-text --><pre data-reactid="201"><code class="hljs language-yaml" data-reactid="202"><span class="hljs-meta" data-reactid="203">---</span><!-- react-text: 204 -->
+<!-- /react-text --><pre data-reactid="201"><code class="hljs language-yaml" data-query="{}" data-lang="yaml" data-reactid="202"><span class="hljs-meta" data-reactid="203">---</span><!-- react-text: 204 -->
 <!-- /react-text --><span class="hljs-comment" data-reactid="205"># both： 功能全部关闭</span><!-- react-text: 206 -->
 <!-- /react-text --><span class="hljs-comment" data-reactid="207"># link： link 功能关闭</span><!-- react-text: 208 -->
 <!-- /react-text --><span class="hljs-comment" data-reactid="209"># file-content： file-content 功能关闭</span><!-- react-text: 210 -->
@@ -113,6 +113,6 @@ plugin执行在浏览器端，适合于主题开发者，默认注入了 utils p
 <!-- /react-text --></ul><!-- react-text: 242 -->
 <!-- /react-text --></article><div class="pagination" data-reactid="243"><a href="#" class="top" data-reactid="244">Top</a></div></div></main><footer data-reactid="245"><span data-reactid="246"><!-- react-text: 247 -->© <!-- /react-text --><time data-reactid="248">2017</time><!-- react-text: 249 -->. Powered By <!-- /react-text --><a href="https://github.com/picidaejs/picidae" data-reactid="250">Picidae</a><!-- react-text: 251 --> .<!-- /react-text --></span></footer></div>
 </div>
-<script src="/picidaejs/public/PICIDAE_ENTRY.js?_=1509284954412"></script>
+<script src="/picidaejs/public/PICIDAE_ENTRY.js?_=1509738829129"></script>
 </body>
 </html>
