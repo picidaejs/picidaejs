@@ -56,12 +56,12 @@ async function generatePickedMeta(filesMap, {
         let content = meta.__content;
         let filename = filesMap[path]
         delete meta.__content;
-
-        content = await chain(markdownTransformers, content, {meta: {...meta}, path, filesMap: {...filesMap}});
+        const infoData = {meta: {...meta}, path, filesMap: {...filesMap}};
+        content = await chain(markdownTransformers, content, infoData);
 
         function getMarkdownData(md = content) {
             return new Promise((resolve, reject)=> {
-                generate(md, function (err, meta, data) {
+                generate(md, infoData, function (err, meta, data) {
                     if (err) {
                         reject(err)
                     }

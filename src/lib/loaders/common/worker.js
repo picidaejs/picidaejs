@@ -23,12 +23,13 @@ process.on('message', (task) => {
         let {markdownTransformers, htmlTransformers, remarkTransformers} = split(transformers)
         let {__content, ...meta} = YFM.loadFront(content);
 
-        let promise = chain(markdownTransformers, content, {meta: {...meta}, filesMap: {...filesMap}, path});
+        const infoData = {meta: {...meta}, filesMap: {...filesMap}, path};
+        let promise = chain(markdownTransformers, content, infoData);
 
         promise
             .then(md => {
                 return new Promise(resolve => {
-                    marked(md, (err, _meta, data) => {
+                    marked(md, infoData, (err, _meta, data) => {
                         if (err) {
                             console.error(err);
                             process.send(JSON.stringify(data, null, 2));

@@ -94,6 +94,7 @@
     "remark-highlight.js": "^5.0.0",
     "remark-html": "^6.0.1",
     "remark-slug": "^4.2.3",
+    "unist-util-visit": "^1.1.3",
     "url-loader": "^0.5.9",
     "webpack": "^1.15.0",
     "webpack-dev-middleware": "^1.12.0",
@@ -103,9 +104,9 @@
   "devDependencies": {
     "babel-cli": "^6.26.0",
     "mocha": "^3.5.3",
+    "picidae-tools": "~0.0.3",
     "picidae-transformer-file-syntax": "^0.0.1",
-    "picidae-transformer-react-render": "^1.0.1",
-    "picidae-tools": "~0.0.3"
+    "picidae-transformer-react-render": "^1.0.9"
   },
   "directories": {
     "doc": "docs",

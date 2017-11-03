@@ -29,7 +29,8 @@ module.exports = {
     excludes: [/example/, /api/, /\/refs\//],
 
     transformers: [
-        'picidae-transformer-react-render?lang=render-jsx', 'picidae-transformer-file-syntax',
+        'picidae-transformer-react-render?lang=render-jsx',
+        'picidae-transformer-file-syntax',
         './test/style-loader?lang=style'
     ],
 
