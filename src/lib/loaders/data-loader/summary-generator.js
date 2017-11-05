@@ -2,7 +2,7 @@
  * Generate Meta / LazyLoad Data For Webpack
  */
 
-const yamlFront = require('yaml-front-matter')
+const yamlFront = require('../../utils/loadFront')
 const fs = require('fs')
 const nps = require('path')
 const moment = require('moment')

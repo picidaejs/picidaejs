@@ -4,7 +4,7 @@ import remarkAlign from 'remark-align'
 import toEmoji from 'remark-gemoji-to-emoji'
 import slug from 'remark-slug'
 import highlight from 'remark-highlight.js'
-import yamlFront from 'yaml-front-matter'
+import yamlFront from '../../utils/loadFront'
 import headings from 'remark-autolink-headings'
 
 import visit from 'unist-util-visit';

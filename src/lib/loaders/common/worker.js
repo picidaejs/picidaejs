@@ -2,7 +2,7 @@ const summary = require('../data-loader/summary-generator');
 const marked = require('../markdown-loader/generate');
 const {chain, split} = require('../../utils/transformerUtils');
 const stringify = require('../../utils/stringify');
-const YFM = require('yaml-front-matter');
+const YFM = require('../../utils/loadFront');
 
 
 process.on('message', (task) => {
