@@ -345,8 +345,25 @@ class Picidae extends EventEmitter {
                 library: 'ssr',
                 libraryTarget: 'commonjs',
             });
+
+            const isDebug = !!process.env.PICIDAE_DEBUG;
+            const ignorePluginsType = isDebug
+                ? [webpack.optimize.CommonsChunkPlugin, webpack.DefinePlugin, webpack.optimize.UglifyJsPlugin]
+                : [webpack.optimize.CommonsChunkPlugin]
+
             ssrWebpackConfig.plugins = ssrWebpackConfig.plugins
-                .filter(plugin => !(plugin instanceof webpack.optimize.CommonsChunkPlugin));
+                .filter(plugin =>
+                    ignorePluginsType.findIndex(Type => plugin instanceof Type) < 0
+                )
+
+            if (isDebug) {
+                ssrWebpackConfig.debug = true
+                ssrWebpackConfig.plugins.push(
+                    new webpack.DefinePlugin({
+                        'process.env.NODE_ENV': '"development"'
+                    })
+                )
+            }
 
             const buildMethod = this.opts.ssr ? build : (config, callback) => callback(null);
             buildMethod(ssrWebpackConfig, () => {
