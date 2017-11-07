@@ -6,11 +6,18 @@ import chalk from 'chalk'
 import console from '../utils/console'
 
 
-export default function maker({webpackConfig, staticPath, verbose, callback, port, log = console.log}) {
+export default function maker({webpackConfig, static: staticPath, verbose, callback, port, log = console.log}) {
     const app = express();
 
     if (typeof staticPath === 'string' && staticPath) {
         app.use(express.static(staticPath));
+    } else if (
+        Array.isArray(staticPath)
+        && typeof staticPath[1] === 'string'
+        && typeof staticPath[0] === 'string'
+    ) {
+        const [route, path] = staticPath;
+        app.use(route, express.static(path));
     }
 
 

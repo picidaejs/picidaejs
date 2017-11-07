@@ -10,6 +10,7 @@ import fs from '../utils/fs'
 export default class WebpackServer {
     static defaultOptions = {
         port: 8989,
+        publicPath: '/',
         webpackConfigGetter: config => config,
         verbose: true,
         static: null,
@@ -68,7 +69,7 @@ export default class WebpackServer {
                 this.useInjected();
             },
             verbose: this.opt.verbose,
-            staticPath: fs.isDirectory(this.opt.static) && this.opt.static,
+            static: [this.opt.publicPath, fs.isDirectory(this.opt.static) && this.opt.static],
             webpackConfig: this.webpackConfig
         });
 
