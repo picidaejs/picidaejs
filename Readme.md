@@ -5,25 +5,18 @@
 Picidae is a document generator which has gentle experience. :dash:  
 As shown below
 
-```text
-              (webpack/react)
-markdown files -> picidae <- theme
-                     |
-                     |
-                     |
-                assets(spa/ssr)
-```
+![](https://i.loli.net/2017/11/07/5a01c6630dc5f.jpg)
 
 [Picidae Video](https://picidaejs.github.io/picidaejs/public)
 
 ## Theme
 
-We can write customized Theme using React.
+We can write customized Theme using React.  
 [Default Theme](./theme)
 
 ## Commander
 
-We can write customized Commander using `commander`.
+We can write customized Commander using `commander`.  
 [Commander: New](./commanders/new)
 
 ## Transformer
