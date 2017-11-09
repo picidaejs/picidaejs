@@ -35,9 +35,7 @@ module.exports = {
     ],
 
     commanders: [
-        '../commanders/new?title=abc',
-        '../commanders/preview',
-        'gh-pages?repo=git@github.com:picidaejs/picidaejs.git',
+        '../commanders/gh-pages?repo=git@github.com:picidaejs/picidaejs.git',
         // 'gh-pages?repo=',
         // 'deploy'
     ]
