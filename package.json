@@ -10,7 +10,7 @@
     "prepublish": "npm run build",
     "gh-pages": "cd docs && NODE_DEBUG=gh-pages picidae gh-pages",
     "bd": "cd docs && picidae build -f",
-    "page": "npm run bd && npm run gh-page",
+    "page": "npm run bd && npm run gh-pages",
     "dev": "babel src --out-dir lib -Dw"
   },
   "bin": {
