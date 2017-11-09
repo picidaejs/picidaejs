@@ -1,2 +1,2 @@
 User-agent: *
-Sitemap: https://picidaejs.github.io/sitemap.xml
+Sitemap: https://picidaejs.github.io/picidaejs/sitemap.xml
