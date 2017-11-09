@@ -242,6 +242,7 @@ class Picidae extends EventEmitter {
     }
 
     watchSummary() {
+
         if (this.opts.watch) {
             this.summaryLock = false;
             this.summaryWatcher = chokidar.watch(this.docPath, {ignoreInitial: true});

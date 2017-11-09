@@ -1,6 +1,10 @@
 
 function preAppendEntry(entry, dev) {
-    let preset = ['babel-polyfill', dev && 'webpack-hot-middleware/client?reload=true'].filter(Boolean)
+    let preset = [
+        'babel-polyfill',
+        dev && 'react-hot-loader/patch',
+        dev && 'webpack-hot-middleware/client?reload=true'
+    ].filter(Boolean)
     if (typeof entry === 'string') {
         entry = preset.concat(entry)
     }

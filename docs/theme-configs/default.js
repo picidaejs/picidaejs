@@ -3,7 +3,6 @@ module.exports = {
     pageSize: 10,
 
     routesMap: function (pathname) {
-        console.log(pathname);
 
         var map = {
             'CHANGELOG.md': 'changelog',

@@ -56,7 +56,7 @@ use remark convert markdown to html with:
 2. [x] data-loader Demo
 3. [x] posts/api posts/doc ... -> multiply directory
 4. [x] routes supports Object/Array
-5. [x] **mdast -> remark transformer -> markdown -> markdown transfromer -> markdown -> html -> html transformer -> html -> browser transformer (converter) -> html-to-react **
+5. [x] **mdast -> remark transformer -> markdown -> markdown transformer -> markdown -> html -> html transformer -> html -> browser transformer (converter) -> html-to-react **
 6. [x] markdown-loader -> meta/content
 7. [x] ssr build
 8. [x] utils / tools

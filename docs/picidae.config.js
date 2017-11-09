@@ -4,7 +4,7 @@ module.exports = {
         return config;
     },
     port: 9999,
-
+    hotReloadTests: [/refs/, /\.jsx?$/],
     publicPath: '/picidaejs/public/',
     // publicPath: '/',
 

@@ -4,12 +4,13 @@ import renderUtil from '../browser-tools/renderUtil'
 import NProgress from 'nprogress'
 
 const isBrowser = (() => !(typeof process === 'object' && typeof process.versions === 'object' && typeof process.versions.node !== 'undefined'))();
-const data = require('./data.{{dataSuffix}}')
+let data = require('./data.{{dataSuffix}}')
+data = wrapData(data);
 
 function wrapData(data) {
-    let lazy = data.lazyload;
-    let meta = data.meta;
-    // let plugins = data.plugins || [];
+    const cloned = {...data, lazyload: {...data.lazyload}, meta: {...data.meta}};
+    let lazy = cloned.lazyload;
+    let meta = cloned.meta;
 
     for (let path in lazy) {
         lazy[path] = (function (callable, path) {
@@ -23,8 +24,8 @@ function wrapData(data) {
             }
         })(lazy[path], path)
     }
+    return cloned
 }
-wrapData(data);
 
 async function defaultCollector(next) {
     return next;
