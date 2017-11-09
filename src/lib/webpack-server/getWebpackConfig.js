@@ -85,11 +85,15 @@ export default function getWebpackCommonConfig(args = {}) {
             loaders: [
                 {
                     test: /\.less$/,
-                    loader: ExtractTextPlugin.extract(['css-loader', 'postcss', 'less'])
+                    loader: dev
+                        ? 'style-loader!css-loader?sourceMap!postcss-loader?sourceMap!less-loader?sourceMap'
+                        : ExtractTextPlugin.extract(['css-loader', 'postcss-loader', 'less-loader'])
                 },
                 {
                     test: /\.css$/,
-                    loader: ExtractTextPlugin.extract(['css-loader', 'postcss'])
+                    loader: dev
+                        ? 'style-loader!css-loader?sourceMap'
+                        : ExtractTextPlugin.extract(['css-loader', 'postcss-loader'])
                 },
                 {
                     test: /\.jsx?$/,

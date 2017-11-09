@@ -1,11 +1,15 @@
 var nps = require('path');
 var Picidae = require('../lib');
+var getPath = require('./lib/getPath');
 
 
 module.exports = function (commander) {
-    var configPath = nps.join(process.cwd(), commander.config || 'picidae.config.js')
+    var p = getPath(commander.config)
+    var configPath = p.configPath, cwd = p.cwd
     var config = require(configPath)
-    // console.log(commander);
+
+    process.chdir(cwd)
+
     config.force = commander.force;
     config.noSpider = !commander.spider;
     config.sourceMap = commander.sourceMap;

@@ -33,7 +33,8 @@
   "files": [
     "lib",
     "bin",
-    "theme"
+    "theme",
+    "exports"
   ],
   "preferGlobal": true,
   "repository": {
@@ -82,7 +83,7 @@
     "node-notifier": "^5.1.2",
     "nprogress": "^0.2.0",
     "nunjucks": "^3.0.1",
-    "picidae-plugin-utils": "0.0.3",
+    "picidae-plugin-utils": "^0.0.3",
     "postcss-loader": "^1.3.3",
     "react": "^15.0.2",
     "react-dom": "^15.0.2",
@@ -95,6 +96,7 @@
     "remark-highlight.js": "^5.0.0",
     "remark-html": "^6.0.1",
     "remark-slug": "^4.2.3",
+    "style-loader": "^0.19.0",
     "unist-util-visit": "^1.1.3",
     "url-loader": "^0.5.9",
     "webpack": "^1.15.0",

@@ -6,6 +6,7 @@ const utils = require('util')
 const ruleMatch = require('./rule-match')
 
 function filesToTree(root, file, filter) {
+    if (!fs.existsSync(file)) throw new Error('Not found file: ' + file)
     let stat = fs.statSync(file);
     if (stat.isFile()) {
         if (ruleMatch(filter, file)) {

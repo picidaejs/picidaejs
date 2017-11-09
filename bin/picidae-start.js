@@ -1,15 +1,21 @@
 // #!/usr/bin/env node
 // var commander = require('commander');
 
-var nps = require('path');
 var Picidae = require('../lib');
+var getPath = require('./lib/getPath');
 
 module.exports = function (commander) {
-    var configPath = nps.join(process.cwd(), commander.config || 'picidae.config.js')
+    var p = getPath(commander.config)
+    var configPath = p.configPath, cwd = p.cwd
     var config = require(configPath)
+
+    process.chdir(cwd)
+
     config.id = require('md5')(configPath).substr(0, 8)
     config.watch = true;
     config.ssr = false;
+
+    process.chdir(cwd)
     var picidae = new Picidae(config)
     picidae.start();
 

@@ -16,6 +16,7 @@ import {toRobots, toSitemap} from './lib/utils/seo-helper'
 import each from './lib/utils/each'
 import parseQuery from './lib/utils/parse-query'
 import match from './lib/utils/rule-match'
+import chCwdFlow from './lib/utils/chcwd-flow'
 import unique from './lib/utils/array-unique'
 import boss from './lib/loaders/common/boss'
 import summary from './lib/loaders/data-loader/summary-generator'
@@ -25,7 +26,9 @@ import context from './lib/context'
 import defaultConfig from './lib/default-config'
 import chokidar from 'chokidar'
 import url from 'url'
-const chalk = require('chalk');
+import chalk from 'chalk';
+
+
 
 const logoText = fs.readFileSync(nps.join(__dirname, 'lib/logo')).toString();
 
@@ -114,21 +117,21 @@ function generateEntry(fileTree, routesMap = {}) {
     return generateEntryInner(fileTree.file, fileTree);
 }
 
+function assignOption(opts) {
+    return assign({}, defaultConfig, opts);
+}
+
 class Picidae extends EventEmitter {
-    static assignOption(opts) {
-        return assign({}, defaultConfig, opts);
-    }
 
     constructor(opts) {
         super();
-
         context.__init({picidae: this});
-        this.opts = Picidae.assignOption(opts);
+        this.opts = assignOption(opts);
         this.id = this.opts.id || 'ID';
 
         process.stdout.write(chalk.yellow(logoText));
 
-        this.tmpPath = nps.join(tmpPath) //, '..', require('md5')(Date.now()).substr(0, 15))
+        this.tmpPath = nps.join(tmpPath); //, '..', require('md5')(Date.now()).substr(0, 15))
         sync(this.tmpPath);
         let entryFile = nps.join(this.tmpPath, `entry.${this.id}.js`);
         let tmpThemeDataPath = nps.join(this.tmpPath, `theme-data.${this.id}.js`);
@@ -198,7 +201,6 @@ class Picidae extends EventEmitter {
         this.watchTheme()
             .then(() => this.watchSummary())
 
-
         // Write Files for Webpack
         renderTemplate(
             nps.join(templatePath, 'entry.template.js'),
@@ -249,7 +251,11 @@ class Picidae extends EventEmitter {
             this.summaryWatcher.on('all', async (event, path) => {
                 if (match(this.opts.hotReloadTests, path)) {
                     console.log('Detect File ' + event + ' :', nps.relative(this.docPath, path));
-                    await this.generateSummary();
+                    try {
+                        await this.generateSummary();
+                    } catch (ex) {
+                        console.error(ex);
+                    }
                     this.summaryLock = true;
                 }
             });
@@ -304,8 +310,12 @@ class Picidae extends EventEmitter {
             {root, /*routesMap: JSON.stringify(routesMap), */dataSuffix: this.id},
             nps.join(this.tmpPath, `routes-generator.${this.id}.js`),
         );
-
-        await this.generateSummary(plugins);
+        try {
+            await this.generateSummary(plugins);
+        } catch (ex) {
+            console.error(ex);
+            return
+        }
     }
 
     clearTmp() {
@@ -526,13 +536,17 @@ class Picidae extends EventEmitter {
             picker,
             config: themeConfig = {},
             plugins = []
-        } = require(themePath) || require(themePath).default;
-        plugins = ['utils'].concat(plugins);
-        plugins = plugins.map(f =>
-            parseQuery(f, 'picidae-plugin-')
-        );
-        this.opts.picker = picker;
+        } = require(themePath).default || require(themePath);
 
+        chCwdFlow(nps.dirname(themePath), () => {
+            plugins = ['utils'].concat(plugins);
+            plugins = plugins.map(f =>
+                parseQuery(f, 'picidae-plugin-')
+            );
+            root = nps.resolve(root)
+        });
+
+        this.opts.picker = picker;
         try {
             themeConfig = require(themeConfigFile)
         } catch (ex) {
@@ -542,7 +556,6 @@ class Picidae extends EventEmitter {
         console.log('    ', chalk.green(nps.relative(process.cwd(), require.resolve(themeConfigFile))))
 
         this.opts.themeConfig = themeConfig;
-        root = nps.join(nps.dirname(themePath), root);
 
         themeConfigFiles = themeConfigFiles
             .map(x => {

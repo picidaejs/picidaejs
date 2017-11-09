@@ -1,5 +1,4 @@
 import '../browser-tools/index.less'
-
 import React from 'react'
 import ReactDOM from 'react-dom'
 import {Router, useRouterHistory, match} from 'react-router'
@@ -8,7 +7,6 @@ import {AppContainer} from 'react-hot-loader'
 
 const {pathname, search, hash} = window.location;
 const basename = '{{ root }}';
-// match({ routes, location, basename}, () => {
 
 let counter = 0;
 const history = useRouterHistory(createHistory)({basename})
@@ -30,7 +28,6 @@ function render() {
 }
 
 render();
-// });
 
 if (module.hot) {
     module.hot.accept(
