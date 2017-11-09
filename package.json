@@ -8,7 +8,7 @@
     "test": "mocha",
     "build": "babel src --out-dir lib -D",
     "prepublish": "npm run build",
-    "gh-pages": "cd docs && picidae gh-pages",
+    "gh-pages": "cd docs && NODE_DEBUG=gh-pages picidae gh-pages",
     "bd": "cd docs && picidae build -f",
     "page": "npm run bd && npm run gh-page",
     "dev": "babel src --out-dir lib -Dw"

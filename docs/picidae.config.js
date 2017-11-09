@@ -5,8 +5,8 @@ module.exports = {
     },
     port: 9999,
     hotReloadTests: [/refs/, /\.jsx?$/],
-    publicPath: '/picidaejs/public/',
-    // publicPath: '/',
+    // publicPath: '/picidaejs/public/',
+    publicPath: '/',
 
     expressSetup(app) {
         // console.log('expressSetup');
@@ -24,7 +24,7 @@ module.exports = {
         buildTime: '' + new Date().getTime()
     },
 
-    host: 'https://picidaejs.github.io/',
+    host: 'https://picidaejs.github.io/picidaejs/',
 
     excludes: [/example/, /api/, /\/refs\//],
 
