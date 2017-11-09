@@ -123,6 +123,8 @@ function assignOption(opts) {
 
 class Picidae extends EventEmitter {
 
+    static assignOption = assignOption
+
     constructor(opts) {
         super();
         context.__init({picidae: this});
