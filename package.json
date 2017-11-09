@@ -7,7 +7,7 @@
     "test": "mocha",
     "build": "babel src --out-dir lib -D",
     "prepublish": "npm run build",
-    "page": "cd docs && picidae build -f && cd .. && gp-qk \"publish 'docs'\"",
+    "page": "cd docs && picidae build -f && picidae gh-pages",
     "dev": "babel src --out-dir lib -Dw"
   },
   "bin": {
@@ -107,6 +107,7 @@
   "devDependencies": {
     "babel-cli": "^6.26.0",
     "mocha": "^3.5.3",
+    "picidae-commander-gh-pages": "^1.0.0",
     "picidae-tools": "~0.0.3",
     "picidae-transformer-file-syntax": "^0.0.1",
     "picidae-transformer-react-render": "^1.0.9"
