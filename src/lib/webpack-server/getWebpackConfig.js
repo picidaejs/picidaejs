@@ -16,7 +16,7 @@ export default function getWebpackCommonConfig(args = {}) {
 
     const jsFileName = args.hash ? '[name]-[chunkhash].js' : '[name].js';
     const cssFileName = args.hash ? '[name]-[chunkhash].css' : '[name].css';
-    const commonName = args.hash ? 'common-[chunkhash].js' : 'common.js';
+    const commonName = args.hash ? 'PICIDAE_COMMON-[chunkhash].js' : 'PICIDAE_COMMON.js';
     const chunkFilename = args.hash ? '[name]-[chunkhash].js' : '[name].js';
     //         chunkFilename: 'modules/[name].min.js?v=[chunkhash]'
 
@@ -183,7 +183,7 @@ export default function getWebpackCommonConfig(args = {}) {
                     console.log(require('chalk').cyan('webpack: bundle build is now finished.'));
                 }
             }),
-            // new webpack.optimize.CommonsChunkPlugin('common', commonName),
+            new webpack.optimize.CommonsChunkPlugin('common', commonName),
             new ExtractTextPlugin('style.css', {
                 // filename: cssFileName,
                 disable: false,
