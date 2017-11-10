@@ -34,20 +34,20 @@ commander
 
 
 var defaultConfigPath = nps.resolve('./picidae.config.js')
+var config = require(defaultConfigPath);
+config = Picidae.assignOption(config);
 
 try {
-    var config = require(defaultConfigPath);
-    config = Picidae.assignOption(config);
-
     var commanders = config.commanders || [];
     commanders = commanders.map(function (path) {
-        return parsePkg(path);
+        return parsePkg(path, 'picidae-commander-');
     });
-
     commanders.forEach(function (ent) {
         require(ent.path)(commander, ent.opt, Object.assign({}, config), require);
     })
-} catch (ex) {}
+} catch (ex) {
+    console.error(ex)
+}
 
 commander.parse(process.argv);
 

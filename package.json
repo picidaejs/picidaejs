@@ -1,13 +1,16 @@
 {
   "name": "picidae",
-  "version": "1.1.0",
+  "version": "1.1.2",
   "description": "Picidae is a document generator which has gentle experience. :dash:",
   "main": "lib/index.js",
   "scripts": {
+    "link": "ln -sf ./ node_modules/picidae",
     "test": "mocha",
     "build": "babel src --out-dir lib -D",
     "prepublish": "npm run build",
-    "page": "cd docs && picidae build -f && cd .. && gp-qk \"publish 'docs'\"",
+    "gh-pages": "cd docs && NODE_DEBUG=gh-pages picidae gh-pages",
+    "bd": "cd docs && picidae build -f",
+    "page": "npm run bd && npm run gh-pages",
     "dev": "babel src --out-dir lib -Dw"
   },
   "bin": {
@@ -106,6 +109,7 @@
   },
   "devDependencies": {
     "babel-cli": "^6.26.0",
+    "gh-pages": "^1.0.0",
     "mocha": "^3.5.3",
     "picidae-tools": "~0.0.3",
     "picidae-transformer-file-syntax": "^0.0.1",

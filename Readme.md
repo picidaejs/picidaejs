@@ -17,7 +17,7 @@ We can write customized Theme using React.
 ## Commander
 
 We can write customized Commander using `commander`.  
-[Commander: New](./commanders/new)
+[Commander: New](commanders/gh-pages)
 
 ## Transformer
 
