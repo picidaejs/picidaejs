@@ -44,7 +44,7 @@ As shown below
 use remark convert markdown to html with: 
 1. [remark-align](https://github.com/zestedesavoir/zmarkdown/tree/master/packages/remark-align)
 2. remark-html
-3. remark-highlight.js
+3. remark-babel-core.js
 4. remark-slug
 5. remark-gemoji-to-emoji
 6. remark-auto-heading
