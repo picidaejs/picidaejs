@@ -3,6 +3,8 @@ title: 更新说明
 ---
 
 ## 发行版
+- v1.1.5  
+    HMR
 - v1.0.5  
 ssr mode supports `host` option to generate `sitemap.xml`  
 add option: `templateData`: `{}`
