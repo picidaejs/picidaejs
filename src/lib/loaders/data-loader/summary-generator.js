@@ -25,13 +25,13 @@ function generateLazyLoad(filesMap, lazy) {
     ${JSON.stringify(name)}: function () {
         return new Promise(function (resolve) {
             require.ensure([], function (require) {
-                resolve(require(${JSON.stringify(mdLoaderPath + '!' + require)}));
+                resolve(require(${JSON.stringify('!!' + mdLoaderPath + '!' + require)}));
             }, ${JSON.stringify(name)})
         })
     },` : `
     ${JSON.stringify(name)}: function() {
         return new Promise(function (resolve) {
-            resolve(require(${JSON.stringify(mdLoaderPath + '!' + require)}));
+            resolve(require(${JSON.stringify('!!' + mdLoaderPath + '!' + require)}));
         })    
     },`
     }
