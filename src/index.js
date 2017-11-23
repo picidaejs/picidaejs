@@ -21,10 +21,11 @@ import unique from './lib/utils/array-unique'
 import boss from './lib/loaders/common/boss'
 import summary from './lib/loaders/data-loader/summary-generator'
 import ssr from './lib/utils/ssr'
-// import writeHtml from './lib/utils/write-html'
+import checkThemeConfig from './lib/utils/check-theme-config-file'
 import context from './lib/context'
-import defaultConfig from './lib/default-config'
+import {value as defaultConfig, type as picidaeConfigType} from './lib/default-config'
 import chokidar from 'chokidar'
+import PropTypes from 'prop-types'
 import url from 'url'
 import chalk from 'chalk';
 
@@ -128,6 +129,9 @@ class Picidae extends EventEmitter {
     constructor(opts) {
         super();
         context.__init({picidae: this});
+
+        PropTypes.checkPropTypes(picidaeConfigType, opts, 'config', 'Picidae Configuration')
+
         this.opts = assignOption(opts);
         this.id = this.opts.id || 'ID';
 
@@ -531,6 +535,8 @@ class Picidae extends EventEmitter {
             }
         }
 
+        let themeConfigOrigin = require(themePath).default || require(themePath)
+        checkThemeConfig(themeConfigOrigin)
         let {
             root,
             routes,
@@ -538,7 +544,7 @@ class Picidae extends EventEmitter {
             picker,
             config: themeConfig = {},
             plugins = []
-        } = require(themePath).default || require(themePath);
+        } = themeConfigOrigin;
 
         chCwdFlow(nps.dirname(themePath), () => {
             plugins = ['utils'].concat(plugins);

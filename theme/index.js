@@ -2,8 +2,7 @@ var getPickerUtils = require('picidae-tools/node/getPickerUtils');
 
 
 module.exports = {
-
-    routes: {
+    routes: [{
         path: '/',
         component: './Layout',
         indexRoute: {
@@ -31,7 +30,7 @@ module.exports = {
                 component: './PureMD'
             },
         ]
-    },
+    }],
     notFound: './NotFound',
 
     root: './template',
