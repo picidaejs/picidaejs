@@ -7,11 +7,17 @@ module.exports = {
         component: './Layout',
         indexRoute: {
             component: './PureMD',
+            data: {
+                a: 0
+            }
         },
         childRoutes: [
             {
                 path: 'doc/*',
-                component: './Post'
+                component: './Post',
+                data: {
+                    a: 1
+                }
             },
             {
                 path: 'docs/:page',

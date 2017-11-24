@@ -41,7 +41,7 @@ module.exports = function routesGenerator({routes, root, notFound, themeConfig, 
         return template
     }
 
-    function wrapGetComponent(template, path = '') {
+    function wrapGetComponent(template, path = '', routeData = {}) {
         let Component = getComp(template);
 
         return function getComponent(nextState, callback) {
@@ -55,6 +55,7 @@ module.exports = function routesGenerator({routes, root, notFound, themeConfig, 
                 data,
                 pageData: data.lazyload[pathname],
                 themeConfig,
+                routeData
                 // render
                 // utils
             };
@@ -131,11 +132,11 @@ module.exports = function routesGenerator({routes, root, notFound, themeConfig, 
                 }
             },
             component: void 0,
-            getComponent: wrapGetComponent(routes.component, routes.path),
+            getComponent: wrapGetComponent(routes.component, routes.path, routes.data),
             indexRoute: routes.indexRoute && {
                 ...routes.indexRoute,
                 component: void 0,
-                getComponent: wrapGetComponent(routes.indexRoute.component, routes.indexRoute.path)
+                getComponent: wrapGetComponent(routes.indexRoute.component, routes.indexRoute.path, routes.indexRoute.data)
             },
             childRoutes: routes.childRoutes && routes.childRoutes.map(processRoutes)
         }
