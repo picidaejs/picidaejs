@@ -4,7 +4,7 @@ const PropTypes = require('prop-types')
 module.exports = {
     value: {
         theme: nps.join(__dirname, '../../theme'),
-        verbose: false,
+        verbose: true,
         port: 8989,
         publicPath: '/',
         expressSetup: null,
