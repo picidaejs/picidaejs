@@ -518,10 +518,11 @@ class Picidae extends EventEmitter {
     }
 
     initialThemeConfig() {
+        let theme = parseQuery.autoPrefix(this.opts.theme, 'picidae-theme-')
         let themeKey = resolve.isNodeModule(this.opts.theme)
-            ? parseQuery.autoPrefix(this.opts.theme, 'picidae-theme-') : 'default';
+            ? theme : 'default';
         let themePath = resolve.isNodeModule(this.opts.theme)
-            ? resolve(this.opts.theme) : nps.join(resolve(this.opts.theme), 'index.js');
+            ? resolve(theme) : nps.join(resolve(this.opts.theme), 'index.js');
 
         let themeConfigsRoot = nps.resolve(this.opts.themeConfigsRoot);
         let themeConfigFile = nps.join(themeConfigsRoot, themeKey);
