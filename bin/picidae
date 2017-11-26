@@ -32,10 +32,12 @@ commander
         require('./picidae-build')(opts)
     });
 
-
-var defaultConfigPath = nps.resolve('./picidae.config.js')
-var config = require(defaultConfigPath);
-config = Picidae.assignOption(config);
+var config = {}
+try {
+    var defaultConfigPath = nps.resolve('./picidae.config.js')
+    config = require(defaultConfigPath);
+    config = Picidae.assignOption(config);
+} catch (ex) {}
 
 try {
     var commanders = config.commanders || [];

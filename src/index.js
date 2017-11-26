@@ -29,9 +29,10 @@ import PropTypes from 'prop-types'
 import url from 'url'
 import chalk from 'chalk';
 
-
-
+const isDebug = !!process.env.PICIDAE_DEBUG;
 const logoText = fs.readFileSync(nps.join(__dirname, 'lib/logo')).toString();
+
+process.on('uncaughtException', console.error)
 
 function webpackConfigGetter(config = {}) {
 
@@ -325,7 +326,8 @@ class Picidae extends EventEmitter {
     }
 
     clearTmp() {
-        require('del').sync([nps.join(this.tmpPath, `*${this.id}*`)], {force: true});
+        !isDebug &&
+            require('del').sync([nps.join(this.tmpPath, `*${this.id}*`)], {force: true});
     }
 
     build(callback) {
@@ -363,7 +365,6 @@ class Picidae extends EventEmitter {
                 libraryTarget: 'commonjs',
             });
 
-            const isDebug = !!process.env.PICIDAE_DEBUG;
             const ignorePluginsType = isDebug
                 ? [webpack.optimize.CommonsChunkPlugin, webpack.DefinePlugin, webpack.optimize.UglifyJsPlugin]
                 : [webpack.optimize.CommonsChunkPlugin]
@@ -380,6 +381,31 @@ class Picidae extends EventEmitter {
                         'process.env.NODE_ENV': '"development"'
                     })
                 )
+            }
+
+            let themeSSR = null
+            try {
+                themeSSR = require(resolve(this.themeSSRPath))
+                console.log('Found ssr module of theme:\n   ', nps.relative(process.cwd(), this.themeSSRPath))
+            } catch (ex) {
+                this.themeSSRPath = null
+            }
+
+            ssrWebpackConfig.externals = ssrWebpackConfig.externals || []
+            if (!Array.isArray(ssrWebpackConfig.externals)) {
+                ssrWebpackConfig.externals = [ssrWebpackConfig.externals]
+            }
+
+            const configExternals = ssrWebpackConfig.externals
+            const externals = themeSSR && themeSSR.externals
+            if (externals) {
+                configExternals.push(externals)
+
+                if (isDebug) {
+                    console.debug('webpack.externals', ssrWebpackConfig.externals)
+                } else {
+                    console.log('theme ssr\'s externals: ', externals)
+                }
             }
 
             const buildMethod = this.opts.ssr ? build : (config, callback) => callback(null);
@@ -415,15 +441,26 @@ class Picidae extends EventEmitter {
                             let absoluteHtml = nps.join(dirRoot, html.replace(/^\/+/, ''));
                             sync(nps.dirname(absoluteHtml));
                             return new Promise((resolve, reject) => {
-                                method('/' + path.replace(/^\/+/, ''), content => {
+                                method('/' + path.replace(/^\/+/, ''), async (content, renderProps) => {
                                     if (content == null) {
                                         resolve()
                                     }
                                     else {
                                         let opts = {path: absoluteHtml, pathname: path, spider: true};
+                                        let actualTemplateData = {}
+                                        // try {
+                                            let inputArg = {...renderProps}
+                                            actualTemplateData = typeof templateData === 'function' ? await templateData(inputArg) : templateData;
+                                            actualTemplateData = {...actualTemplateData} || {}
+
+                                            if (themeSSR && typeof themeSSR === 'function') {
+                                                let themeTemplateData = await themeSSR(inputArg, 'prod');
+                                                actualTemplateData.themeData = themeTemplateData || {}
+                                            }
+                                        // } catch (e) {console.error(e)}
                                         boss.queue({
                                             type: 'renderHtml',
-                                            args: [tpl, {content, root: publicPath, ...templateData}, opts],
+                                            args: [tpl, {content, root: publicPath, ...actualTemplateData}, opts],
                                             callback(err, obj) {
                                                 if (err || !obj) resolve();
                                                 else {
@@ -524,6 +561,10 @@ class Picidae extends EventEmitter {
         let themePath = resolve.isNodeModule(this.opts.theme)
             ? resolve(theme) : nps.join(resolve(this.opts.theme), 'index.js');
 
+        this.themeSSRPath = resolve.isNodeModule(theme)
+            ? parseQuery.injectJoin(theme, 'ssr.js')
+            : parseQuery.injectJoin(resolve(theme), 'ssr.js')
+
         let themeConfigsRoot = nps.resolve(this.opts.themeConfigsRoot);
         let themeConfigFile = nps.join(themeConfigsRoot, themeKey);
         let themeConfigFiles = [themePath, themeConfigFile];
@@ -595,8 +636,14 @@ class Picidae extends EventEmitter {
         if (typeof this.opts.expressSetup === 'function') {
             this.opts.expressSetup(this.wpServer.app);
         }
-        this.wpServer.inject((req, res) => {
+        this.wpServer.inject(async (req, res) => {
             res.type('html');
+
+            let templateData = this.opts.templateData || {}
+            templateData = typeof templateData === 'function' ? await templateData({}, 'dev') : {...templateData};
+            // Fake ThemeData
+            templateData.themeData = {}
+
             if (this.opts.ssr) {
                 let gen = require(nps.join(this.tmpPath, `routes-generator.${this.id}.ssr.js`));
                 let routes = gen(require(this.themeDataPath));
@@ -604,7 +651,7 @@ class Picidae extends EventEmitter {
                     res.send(renderTemplate(this.htmlTempate, {
                         content,
                         root: this.opts.publicPath,
-                        ...this.opts.templateData
+                        ...templateData
                     }))
                 });
                 return;
@@ -613,7 +660,7 @@ class Picidae extends EventEmitter {
             res.send(renderTemplate(this.htmlTempate, {
                 content: '',
                 root: this.opts.publicPath,
-                ...this.opts.templateData
+                ...templateData
             }))
         });
     }

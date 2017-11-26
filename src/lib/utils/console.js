@@ -12,5 +12,8 @@ export default {
     },
     error(...args) {
         console.error.call(console, error('Error!'), ...args)
+    },
+    debug(...args) {
+        console.log.call(console, chalk.orange('@DEBUG'), ...args)
     }
 }

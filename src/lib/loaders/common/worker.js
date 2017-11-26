@@ -4,6 +4,9 @@ const {chain, split} = require('../../utils/transformerUtils');
 const stringify = require('../../utils/stringify');
 const YFM = require('../../utils/loadFront');
 
+const console = require('../../utils/console').default;
+
+process.on('uncaughtException', console.error)
 
 process.on('message', (task) => {
     let {

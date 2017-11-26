@@ -8,9 +8,9 @@ export default function ssr(routes, isStatic = true, basename) {
     return function (url, callback) {
         match({ routes: routes, location: url, basename }, function (error, redirectLocation, renderProps) {
             if (error) {
-                callback('');
+                callback('', renderProps);
             } else if (redirectLocation) {
-                callback('');
+                callback('', renderProps);
             } else if (renderProps) {
                 let method = isStatic ? ReactDOMServer.renderToStaticMarkup : ReactDOMServer.renderToString
                 const content = method(
@@ -19,9 +19,9 @@ export default function ssr(routes, isStatic = true, basename) {
                         // createElement={createElement}
                     />
                 );
-                callback(content);
+                callback(content, renderProps);
             } else {
-                callback('');
+                callback('', null);
             }
         });
     }
