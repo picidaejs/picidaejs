@@ -6,7 +6,7 @@
   "scripts": {
     "link": "ln -sf ./ node_modules/picidae",
     "test": "mocha",
-    "build": "rm -rf lib/lib/tmp/* babel src --out-dir lib -D",
+    "build": "rm -rf lib/lib/tmp/*; babel src --out-dir lib -D",
     "prepublish": "npm run build",
     "gh-pages": "cd docs && NODE_DEBUG=gh-pages picidae gh-pages",
     "bd": "cd docs && picidae build -f",
