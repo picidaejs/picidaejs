@@ -176,7 +176,6 @@ class Picidae extends EventEmitter {
         });
 
 
-
         this.opts.transformers = this.opts.transformers || [];
 
         function getTransformers(transformers, suffix) {
@@ -194,7 +193,8 @@ class Picidae extends EventEmitter {
                     } catch (ex) {
                         console.warn(`\`${moduleName}/${suffix}\` transformer is not found.`);
                         return false;
-                    };
+                    }
+                    ;
                     return parseQuery(
                         parseQuery.injectJoin(str, suffix), 'picidae-transformer-', {allowNotExists: true}
                     )
@@ -327,7 +327,7 @@ class Picidae extends EventEmitter {
 
     clearTmp() {
         !isDebug &&
-            require('del').sync([nps.join(this.tmpPath, `*${this.id}*`)], {force: true});
+        require('del').sync([nps.join(this.tmpPath, `*${this.id}*`)], {force: true});
     }
 
     build(callback) {
@@ -397,6 +397,22 @@ class Picidae extends EventEmitter {
             }
 
             const configExternals = ssrWebpackConfig.externals
+            configExternals.push([
+                function (context, request, callback) {
+                    if (/^\s*picidae-/.test(request)) {
+                        return callback();
+                    }
+                    if (/^\s*!/.test(request)) {
+                        return callback();
+                    }
+                    if (resolve.isNodeModule(request)) {
+                        // external!
+                        return callback(null, 'commonjs ' + request);
+                    }
+                    callback()
+                }
+            ])
+
             const externals = themeSSR && themeSSR.externals
             if (externals) {
                 configExternals.push(externals)
@@ -406,6 +422,10 @@ class Picidae extends EventEmitter {
                 } else {
                     console.log('theme ssr\'s externals: ', externals)
                 }
+            }
+
+            if (typeof this.opts.ssrWebpackConfigUpdater === 'function') {
+                ssrWebpackConfig = this.opts.ssrWebpackConfigUpdater(ssrWebpackConfig)
             }
 
             const buildMethod = this.opts.ssr ? build : (config, callback) => callback(null);
@@ -429,7 +449,7 @@ class Picidae extends EventEmitter {
 
                 function logPath(path) {
                     count++;
-                    console.log(chalk.green(' `'+ nps.relative(process.cwd(), path) +'`'), 'File Created successfully.')
+                    console.log(chalk.green(' `' + nps.relative(process.cwd(), path) + '`'), 'File Created successfully.')
                 }
 
                 const createProm = (sites, ctxData, opt = {}) => {
@@ -449,14 +469,14 @@ class Picidae extends EventEmitter {
                                         let opts = {path: absoluteHtml, pathname: path, spider: true};
                                         let actualTemplateData = {}
                                         // try {
-                                            let inputArg = {...renderProps}
-                                            actualTemplateData = typeof templateData === 'function' ? await templateData(inputArg) : templateData;
-                                            actualTemplateData = {...actualTemplateData} || {}
+                                        let inputArg = {...renderProps}
+                                        actualTemplateData = typeof templateData === 'function' ? await templateData(inputArg) : templateData;
+                                        actualTemplateData = {...actualTemplateData} || {}
 
-                                            if (themeSSR && typeof themeSSR === 'function') {
-                                                let themeTemplateData = await themeSSR(inputArg, 'prod');
-                                                actualTemplateData.themeData = themeTemplateData || {}
-                                            }
+                                        if (themeSSR && typeof themeSSR === 'function') {
+                                            let themeTemplateData = await themeSSR(inputArg, 'prod');
+                                            actualTemplateData.themeData = themeTemplateData || {}
+                                        }
                                         // } catch (e) {console.error(e)}
                                         boss.queue({
                                             type: 'renderHtml',
@@ -492,12 +512,16 @@ class Picidae extends EventEmitter {
                                     }
                                 })
                             })
-                            .catch(console.error);
+                                .catch(console.error);
                         })
                     )
                 };
 
-                const ctxData = {dirRoot: this.distRoot, publicPath: this.opts.publicPath, templateData: this.opts.templateData};
+                const ctxData = {
+                    dirRoot: this.distRoot,
+                    publicPath: this.opts.publicPath,
+                    templateData: this.opts.templateData
+                };
                 createProm(sites, ctxData, {noSpider: this.opts.noSpider})
                     .then(() => {
                         boss.jobDone();

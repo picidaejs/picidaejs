@@ -1,6 +1,7 @@
 import chalk from 'chalk'
 
 const warn = chalk.keyword('orange');
+const debug = chalk.keyword('pink');
 const error = chalk.bold.red;
 
 export default {
@@ -14,6 +15,6 @@ export default {
         console.error.call(console, error('Error!'), ...args)
     },
     debug(...args) {
-        console.log.call(console, chalk.orange('@DEBUG'), ...args)
+        console.log.call(console, debug('@DEBUG'), ...args)
     }
 }
