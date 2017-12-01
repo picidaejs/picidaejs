@@ -481,12 +481,11 @@ class Picidae extends EventEmitter {
                                         let actualTemplateData = {}
                                         // try {
                                         let inputArg = {...renderProps}
-                                        actualTemplateData = {};
                                         let themeTemplateData = null;
                                         if (themeSSR && typeof themeSSR === 'function') {
                                             themeTemplateData = themeSSR(inputArg)
                                         }
-                                        actualTemplateData = typeof templateData === 'function' ? await templateData(inputArg, 'prod') : templateData;
+                                        actualTemplateData = typeof templateData === 'function' ? templateData(inputArg, 'prod') : templateData;
                                         actualTemplateData = {...actualTemplateData} || {}
                                         actualTemplateData.themeData = themeTemplateData || {}
                                         boss.queue({
