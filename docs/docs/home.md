@@ -5,6 +5,9 @@ title: 你好, Picidae!
 
 **Picidae**，译为**啄木鸟**，一个易扩展，自定义，优体验的自动文档生成工具。
 
+:smile:
+
+
 >  ---  本文档就是Picidae的杰作！
 
 [:+1: GitHub](https://github.com/picidaejs/picidaejs)
