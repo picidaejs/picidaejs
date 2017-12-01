@@ -439,6 +439,17 @@ class Picidae extends EventEmitter {
                     method = ssr(routes, false, this.opts.publicPath);
                 }
 
+                const methodProm = function (path) {
+                    return new Promise((resolve, reject) => {
+                        method(path, (content, props) => {
+                            if (content == null) {
+                                resolve()
+                            }
+                            resolve(content)
+                        })
+                    })
+                }
+
                 let sites = sitemap(routes, this.docsEntry);
                 let tpl = fs.readFileSync(this.htmlTempate).toString();
 
@@ -470,14 +481,14 @@ class Picidae extends EventEmitter {
                                         let actualTemplateData = {}
                                         // try {
                                         let inputArg = {...renderProps}
+                                        actualTemplateData = {};
+                                        let themeTemplateData = null;
+                                        if (themeSSR && typeof themeSSR === 'function') {
+                                            themeTemplateData = themeSSR(inputArg)
+                                        }
                                         actualTemplateData = typeof templateData === 'function' ? await templateData(inputArg, 'prod') : templateData;
                                         actualTemplateData = {...actualTemplateData} || {}
-
-                                        if (themeSSR && typeof themeSSR === 'function') {
-                                            let themeTemplateData = await themeSSR(inputArg, 'prod');
-                                            actualTemplateData.themeData = themeTemplateData || {}
-                                        }
-                                        // } catch (e) {console.error(e)}
+                                        actualTemplateData.themeData = themeTemplateData || {}
                                         boss.queue({
                                             type: 'renderHtml',
                                             args: [tpl, {content, root: publicPath, ...actualTemplateData}, opts],
@@ -512,7 +523,7 @@ class Picidae extends EventEmitter {
                                     }
                                 })
                             })
-                                .catch(console.error);
+                            .catch(console.error);
                         })
                     )
                 };
