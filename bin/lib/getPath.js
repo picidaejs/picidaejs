@@ -16,6 +16,8 @@ module.exports = function (path) {
         configPath = nps.resolve(path)
         if(!fs.isFile(configPath)) {
             throw new Error('Not found `' + path + '`')
+        } else {
+            cwd = nps.dirname(configPath)
         }
     } else {
         cwd = find('picidae.config.js')
