@@ -2,7 +2,7 @@
  * @file: getPath
  * @author: Cuttle Cong
  * @date: 2017/11/9
- * @description: 
+ * @description:
  */
 
 var nps = require('path');
@@ -28,6 +28,7 @@ module.exports = function (path) {
     }
 
     console.log('config in:', configPath)
+    console.log('cwd is:', cwd)
 
     return {
         configPath: configPath,

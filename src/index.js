@@ -22,30 +22,23 @@ import boss from './lib/loaders/common/boss'
 import summary from './lib/loaders/data-loader/summary-generator'
 import ssr from './lib/utils/ssr'
 import checkThemeConfig from './lib/utils/check-theme-config-file'
+// import createGlobalRequire from './lib/utils/createGlobalRequire'
+import * as over from './lib/utils/overwrite-require'
 import context from './lib/context'
 import {value as defaultConfig, type as picidaeConfigType} from './lib/default-config'
 import chokidar from 'chokidar'
 import PropTypes from 'prop-types'
 import url from 'url'
-import chalk from 'chalk';
+import chalk from 'chalk'
 
 const isDebug = !!process.env.PICIDAE_DEBUG;
 const logoText = fs.readFileSync(nps.join(__dirname, 'lib/logo')).toString();
+// const require = createGlobalRequire(__dirname)
 
 process.on('uncaughtException', console.error)
+over.register()
 
 function webpackConfigGetter(config = {}) {
-
-    // if (config.module && config.module.loaders) {
-    //     config.module.loaders.push({
-    //         test: filename => {
-    //             return /\.(md|markdown)\.js/.test(filename) || fileIsMarkdown(filename)
-    //         },
-    //         excludes: [/(node_modules|bower_components)/],
-    //         loader: ,
-    //         // query: JSON.stringify({transformers, filesMap})
-    //     })
-    // }
     return config;
 }
 
@@ -194,7 +187,6 @@ class Picidae extends EventEmitter {
                         console.warn(`\`${moduleName}/${suffix}\` transformer is not found.`);
                         return false;
                     }
-                    ;
                     return parseQuery(
                         parseQuery.injectJoin(str, suffix), 'picidae-transformer-', {allowNotExists: true}
                     )
@@ -356,9 +348,17 @@ class Picidae extends EventEmitter {
 
             ssrWebpackConfig.devtool = null;
             ssrWebpackConfig.entry = {
-                [ssrEntryName]: nps.join(this.tmpPath, `routes-generator.${this.id}.ssr.js`)
+                [ssrEntryName]: [
+                    nps.join(__dirname, 'lib/browser-tools/node-polyfill.js'),
+                    nps.join(this.tmpPath, `routes-generator.${this.id}.ssr.js`)
+                ]
             };
             ssrWebpackConfig.target = 'node';
+            // https://github.com/webpack/webpack/issues/1599
+            ssrWebpackConfig.node = {
+                __dirname: false,
+                __filename: false
+            };
             ssrWebpackConfig.output = Object.assign({}, ssrWebpackConfig.output, {
                 path: this.tmpPath,
                 library: 'ssr',
@@ -434,8 +434,10 @@ class Picidae extends EventEmitter {
                 let method = (url, callback) => callback('');
                 let sitemap = require('./lib/utils/sitemap-generator')
                 if (this.opts.ssr) {
+                    over.register()
                     let gen = require(nps.join(this.tmpPath, ssrEntryName)).ssr
                     routes = gen(require(this.themeDataPath));
+                    over.logout()
                     method = ssr(routes, false, this.opts.publicPath);
                 }
 
@@ -591,10 +593,9 @@ class Picidae extends EventEmitter {
     initialThemeConfig() {
         let theme = parseQuery.autoPrefix(this.opts.theme, 'picidae-theme-')
         let themeKey = resolve.isNodeModule(this.opts.theme)
-            ? theme : 'default';
+            ? theme : 'default'
         let themePath = resolve.isNodeModule(this.opts.theme)
             ? resolve(theme) : nps.join(resolve(this.opts.theme), 'index.js');
-
         this.themeSSRPath = resolve.isNodeModule(theme)
             ? parseQuery.injectJoin(theme, 'ssr.js')
             : parseQuery.injectJoin(resolve(theme), 'ssr.js')

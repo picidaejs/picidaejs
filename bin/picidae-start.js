@@ -15,7 +15,6 @@ module.exports = function (commander) {
     config.watch = true;
     config.ssr = false;
 
-    process.chdir(cwd)
     var picidae = new Picidae(config)
     picidae.start();
 

@@ -1,4 +1,6 @@
+
 const nps = require('path')
+// const globalRequire = require('./createGlobalRequire')(__dirname)
 
 function resolve(path, ...paths /*, paths*/) {
     assertPath(path);
@@ -11,7 +13,6 @@ function resolve(path, ...paths /*, paths*/) {
     if (nps.isAbsolute(path)) {
         return path;
     }
-
     return require.resolve(path);
 }
 const Resolve = resolve

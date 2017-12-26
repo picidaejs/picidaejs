@@ -4,7 +4,6 @@ import ReactDOM from 'react-dom'
 import {Router, useRouterHistory, match} from 'react-router'
 import {createHistory} from 'history'
 import {AppContainer} from 'react-hot-loader'
-
 const {pathname, search, hash} = window.location;
 const basename = '{{ root }}';
 

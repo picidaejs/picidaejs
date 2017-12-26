@@ -1,10 +1,12 @@
-const summary = require('../data-loader/summary-generator');
+const over = require('../../utils/overwrite-require');
 const marked = require('../markdown-loader/generate');
 const {chain, split} = require('../../utils/transformerUtils');
 const stringify = require('../../utils/stringify');
 const YFM = require('../../utils/loadFront');
-
 const console = require('../../utils/console').default;
+
+// Child Process
+over.register()
 
 process.on('uncaughtException', console.error)
 

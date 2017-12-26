@@ -14,7 +14,7 @@
     "dev": "babel src --out-dir lib -Dw"
   },
   "bin": {
-    "picidae": "./bin/picidae"
+    "picidae": "./bin/picidae.js"
   },
   "files": [
     "lib",
@@ -83,6 +83,7 @@
     "remark-highlight.js": "^5.0.0",
     "remark-html": "^6.0.1",
     "remark-slug": "^4.2.3",
+    "resolve": "^1.5.0",
     "style-loader": "^0.19.0",
     "unist-util-visit": "^1.1.3",
     "url-loader": "^0.5.9",

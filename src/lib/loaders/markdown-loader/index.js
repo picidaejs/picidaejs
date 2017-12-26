@@ -16,7 +16,6 @@ module.exports = function mdLoader(content, sourceMap) {
     const {nodeTransformers: transformers, docsEntry: filesMap} = context.picidae;
     let path = Object.keys(filesMap).find(path => filesMap[path] === filename);
 
-
     boss.queue({
         content,
         path,

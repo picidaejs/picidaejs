@@ -1,14 +1,21 @@
 #!/usr/bin/env node
-
+var over = require('../lib/lib/utils/overwrite-require');
+over.register()
 var commander = require('commander');
 var nps = require('path')
-
 var pkg = require('../package.json')
 var parsePkg = require('../lib/lib/utils/parse-query');
 var Picidae = require('../lib');
 
 commander
     .version(pkg.version)
+
+commander
+    .command('init [path]')
+    .description('The first step of picidae')
+    .action(function (path) {
+        require('./picidae-init')(path)
+    })
 
 commander
     .command('start')
