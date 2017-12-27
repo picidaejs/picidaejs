@@ -14,6 +14,17 @@ As shown below
 
 [Picidae Video](https://picidaejs.github.io/picidaejs/public)
 
+## Starter
+
+```bash
+npm install picidae -g
+
+picidae init [blog]
+cd [blog]
+npm install picidae-theme-grass --save
+picidae start
+```
+
 ## Theme
 
 We can write customized Theme using React.  
