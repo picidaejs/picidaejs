@@ -15,7 +15,6 @@ function install(pkg) {
 }
 
 module.exports = function use(pkg) {
-    _console.log('xxxx')
     if (info.type === 'local') {
         console.log(
             chalk.read.bold('  ERROR: Picidae is in local position, you should run `npm install ' + pkg + ' --save`!\n')
