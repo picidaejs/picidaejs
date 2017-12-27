@@ -1,11 +1,15 @@
 // for overwrite ssr require
 
 const resolvePath = require('resolve')
+const { escapeWinPath } = require('./resolve-path')
 const chalk = require('chalk')
 
 const Module = require('module')
 const nps = require('path')
-const _resolveFilename = Module._resolveFilename
+const _originResolveFilename = Module._resolveFilename
+const _resolveFilename = Module._resolveFilename = function () {
+    return escapeWinPath(_originResolveFilename.apply(this, arguments))
+}
 const originRequire = Module.prototype.require
 
 
