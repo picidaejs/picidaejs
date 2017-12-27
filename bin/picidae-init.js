@@ -34,7 +34,7 @@ module.exports = function (path) {
         process.exit(1)
     }
 
-    console.log('running: ', chalk.yellow.bold('npm init -y'))
+    console.log('  running: ', chalk.yellow.bold('npm init -y'))
     child.execSync('npm init -y', { cwd: path })
 
     cp.sync(resPath, path)
@@ -48,7 +48,7 @@ module.exports = function (path) {
     console.log([
         chalk.cyan('\n  Thanks for you using picidae 🐦\n'),
         '    We recommend using the theme `picidae-theme-grass`',
-        '    By running ' + chalk.green.bold('`' + preappend +  'npm install picidae-theme-grass --save`'),
+        '    By running ' + chalk.green.bold('`' + preappend +  'npm install picidae-theme-grass --save && picidae start`'),
         '    And some vendor likes ' + chalk.green.bold('`npm install picidae-commander-gh-pages --save`')
     ].join('\n'))
 

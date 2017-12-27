@@ -347,16 +347,15 @@ class Picidae extends EventEmitter {
             ssrWebpackConfig.devtool = null;
             ssrWebpackConfig.entry = {
                 [ssrEntryName]: [
-                    nps.join(__dirname, 'lib/browser-tools/node-polyfill.js'),
                     nps.join(this.tmpPath, `routes-generator.${this.id}.ssr.js`)
                 ]
             };
             ssrWebpackConfig.target = 'node';
-            // https://github.com/webpack/webpack/issues/1599
-            ssrWebpackConfig.node = {
-                __dirname: false,
-                __filename: false
-            };
+            // // https://github.com/webpack/webpack/issues/1599
+            // ssrWebpackConfig.node = {
+            //     __dirname: false,
+            //     __filename: false
+            // };
             ssrWebpackConfig.output = Object.assign({}, ssrWebpackConfig.output, {
                 path: this.tmpPath,
                 library: 'ssr',
