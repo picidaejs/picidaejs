@@ -1,6 +1,15 @@
 
 const nps = require('path')
+const os = require('os')
+
 // const globalRequire = require('./createGlobalRequire')(__dirname)
+
+function toUriPath(path) {
+    if (os.platform() === 'win32') {
+        return path.replace(/\\/g, '/')
+    }
+    return path
+}
 
 function resolve(path, ...paths /*, paths*/) {
     assertPath(path);
@@ -16,7 +25,7 @@ function resolve(path, ...paths /*, paths*/) {
     return require.resolve(path);
 }
 const Resolve = resolve
-
+Resolve.toUriPath = toUriPath
 Resolve.isNodeModule = isNodeModule;
 function isNodeModule (path) {
     assertPath(path);

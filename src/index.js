@@ -201,7 +201,7 @@ class Picidae extends EventEmitter {
         // Write Files for Webpack
         renderTemplate(
             nps.join(templatePath, 'entry.template.js'),
-            {root: this.opts.publicPath, themeDataPath: tmpThemeDataPath, dataSuffix: this.id},
+            {root: this.opts.publicPath, themeDataPath: resolve.toUriPath(tmpThemeDataPath), dataSuffix: this.id},
             entryFile
         );
 
@@ -298,13 +298,13 @@ class Picidae extends EventEmitter {
         this.opts.ssr
         && renderTemplate(
             nps.join(templatePath, 'routes-generator.template.js'),
-            {root, /*routesMap: JSON.stringify(routesMap), */dataSuffix: `${this.id}.ssr`},
+            {root: resolve.toUriPath(root), /*routesMap: JSON.stringify(routesMap), */dataSuffix: `${this.id}.ssr`},
             nps.join(this.tmpPath, `routes-generator.${this.id}.ssr.js`),
         );
 
         renderTemplate(
             nps.join(templatePath, 'routes-generator.template.js'),
-            {root, /*routesMap: JSON.stringify(routesMap), */dataSuffix: this.id},
+            {root: resolve.toUriPath(root), /*routesMap: JSON.stringify(routesMap), */dataSuffix: this.id},
             nps.join(this.tmpPath, `routes-generator.${this.id}.js`),
         );
         try {

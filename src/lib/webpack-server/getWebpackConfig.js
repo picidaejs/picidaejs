@@ -61,7 +61,7 @@ export default function getWebpackCommonConfig(args = {}) {
         return obj
     }, {})
 
-    const cwdRoot = findParent('node_modules', process.cwd(), false)
+    const cwdRoot = findParent('node_modules', process.cwd(), false) || ''
 
     let context
     let root
