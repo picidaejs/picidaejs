@@ -8,7 +8,7 @@ import autoprefixer from 'autoprefixer'
 import FriendlyErrorsWebpackPlugin from 'friendly-errors-webpack-plugin'
 import notifier from 'node-notifier'
 import getBabelCommonConfig from './getBabelCommonConfig'
-const over = require('../lib/lib/utils/overwrite-require');
+const over = require('../utils/overwrite-require');
 const {type} = over.getInfo()
 /* eslint quotes:0 */
 
