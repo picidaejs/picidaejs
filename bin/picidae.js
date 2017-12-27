@@ -39,6 +39,14 @@ commander
         require('./picidae-build')(opts)
     });
 
+commander
+    .command('use <package>')
+    .description('install <package>, we recommend use the command in global')
+    .action(function (pkg) {
+        if (!pkg) return
+        require('./picidae-use')(pkg)
+    })
+
 var config = {}
 try {
     var defaultConfigPath = nps.resolve('./picidae.config.js')

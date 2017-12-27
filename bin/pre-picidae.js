@@ -16,9 +16,12 @@ var opts = {
     stdio: 'inherit'
 }
 console.log('')
+try {
 if (info.type === 'local') {
     cp.execFileSync(require.resolve(nps.join(info.path.workRoot, '../../bin/picidae')), argv, opts)
 }
 else {
     cp.execFileSync(require.resolve(nps.join(info.path.localRoot, '../../bin/picidae')), argv, opts)
 }
+} catch (ex) {}
+
