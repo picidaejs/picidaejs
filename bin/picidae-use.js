@@ -11,7 +11,7 @@ var info = over.getInfo()
 function install(pkg) {
     var cmd = 'npm install ' + pkg
     console.log('  running: ', chalk.yellow.bold(cmd))
-    child.execSync(cmd, { cwd: info.rootPath })
+    child.execSync(cmd, { cwd: info.path.rootPath })
 }
 
 module.exports = function use(pkg) {

@@ -48,8 +48,9 @@ module.exports = function (path) {
     console.log([
         chalk.cyan('\n  Thanks for you using picidae 🐦\n'),
         '    We recommend using the theme `picidae-theme-grass`',
-        '    By running ' + chalk.green.bold('`' + preappend +  'npm install picidae-theme-grass --save && picidae start`'),
-        '    And some vendor likes ' + chalk.green.bold('`npm install picidae-commander-gh-pages --save`')
+        '    By running: ',
+        '          ' + chalk.green.bold('`' + preappend +  'picidae use picidae-theme-grass && picidae start`'),
+        '    And some other vendor likes ' + chalk.green.bold('`picidae use picidae-commander-gh-pages`')
     ].join('\n'))
 
     process.exit()
