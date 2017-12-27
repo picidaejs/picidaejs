@@ -21,7 +21,7 @@ npm install picidae -g
 
 picidae init [blog]
 cd [blog]
-npm install picidae-theme-grass --save
+picidae use picidae-theme-grass
 picidae start
 ```
 
