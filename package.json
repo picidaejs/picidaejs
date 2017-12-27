@@ -14,7 +14,7 @@
     "dev": "babel src --out-dir lib -Dw"
   },
   "bin": {
-    "picidae": "./bin/picidae.js"
+    "picidae": "./bin/pre-picidae.js"
   },
   "files": [
     "lib",

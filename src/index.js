@@ -32,7 +32,6 @@ import url from 'url'
 import chalk from 'chalk'
 
 const isDebug = !!process.env.PICIDAE_DEBUG;
-const logoText = fs.readFileSync(nps.join(__dirname, 'lib/logo')).toString();
 // const require = createGlobalRequire(__dirname)
 
 process.on('uncaughtException', console.error)
@@ -129,8 +128,7 @@ class Picidae extends EventEmitter {
         this.opts = assignOption(opts);
         this.id = this.opts.id || 'ID';
 
-        process.stdout.write(chalk.yellow(logoText));
-
+        // process.stdout.write(chalk.yellow(logoText));
         this.tmpPath = nps.join(tmpPath); //, '..', require('md5')(Date.now()).substr(0, 15))
         sync(this.tmpPath);
         let entryFile = nps.join(this.tmpPath, `entry.${this.id}.js`);

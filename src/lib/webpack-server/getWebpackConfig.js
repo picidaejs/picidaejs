@@ -7,8 +7,9 @@ import findParent from '../utils/find-parent-dir'
 import autoprefixer from 'autoprefixer'
 import FriendlyErrorsWebpackPlugin from 'friendly-errors-webpack-plugin'
 import notifier from 'node-notifier'
-
 import getBabelCommonConfig from './getBabelCommonConfig'
+const over = require('../lib/lib/utils/overwrite-require');
+const {type} = over.getInfo()
 /* eslint quotes:0 */
 
 export default function getWebpackCommonConfig(args = {}) {
@@ -60,8 +61,19 @@ export default function getWebpackCommonConfig(args = {}) {
         return obj
     }, {})
 
-    const context = join(__dirname, '../../..')
     const cwdRoot = findParent('node_modules', process.cwd(), false)
+
+    let context
+    let root
+    let alias
+    if (type === 'global') {
+        context = join(__dirname, '../../..')
+        root = [join(cwdRoot, 'node_modules'), join(context, 'node_modules')]
+        alias = {
+            'picidae': context,
+        }
+    }
+
     const config = {
         babel: babelOptions,
         cache: true,
@@ -77,20 +89,12 @@ export default function getWebpackCommonConfig(args = {}) {
         context,
 
         resolveLoader: {
-            root: [
-                join(cwdRoot, 'node_modules'),
-                join(context, 'node_modules')
-            ],
+            root,
         },
 
         resolve: {
-            alias: {
-                'picidae': context,
-            },
-            root: [
-                join(cwdRoot, 'node_modules'),
-                join(context, 'node_modules'),
-            ]
+            alias,
+            root
         },
 
         entry: pkg.entry,
