@@ -38,6 +38,7 @@ process.on('uncaughtException', console.error)
 over.register()
 
 function webpackConfigGetter(config = {}) {
+   // console.log(config.module.loaders)
     return config;
 }
 
@@ -290,7 +291,7 @@ class Picidae extends EventEmitter {
         this.routesMap = routesMap;
         renderTemplate(
             nps.join(templatePath, 'commonjs.template.js'),
-            {body: JSON.stringify({root, notFound, routes, themeConfig: config})},
+            {body: JSON.stringify({root: resolve.toUriPath(root), notFound, routes, themeConfig: config})},
             this.themeDataPath
         );
 

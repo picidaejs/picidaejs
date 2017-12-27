@@ -35,7 +35,8 @@ module.exports = function routesGenerator({routes, root, notFound, themeConfig, 
 
     function getComp(template) {
         if (typeof template === 'string') {
-            let Comp = require('{{root}}/' + template.replace(/^[\/\.]+/, ''))
+            let suffix = template.replace(/^[\/\.]+/, '')
+            let Comp = require(`{{root}}/${suffix}`)
             return Comp.default || Comp;
         }
         return template

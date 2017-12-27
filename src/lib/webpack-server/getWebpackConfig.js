@@ -121,11 +121,11 @@ export default function getWebpackCommonConfig(args = {}) {
                     loader: 'babel-loader',
                     exclude: [
                         function (name) {
-                            return !/\/picidae-(plugin|transformer|theme|commander)/.test(name)
-                                   && !/(node_modules|bower_components)\/picidae/.test(name)
-                                   && /(node_modules|bower_components)/.test(name)
+                            return !/[\/\\]picidae-(plugin|transformer|theme|commander)/.test(name)
+                               && !/([\/\\])(node_modules|bower_components)\1picidae/.test(name)
+                               && /([\/\\])(node_modules|bower_components)\1/.test(name)
                         },
-                        /\/node_modules\/(core-js|babel-runtime)\//
+                        /([\/\\])node_modules\1(core-js|babel-runtime)\1/
                     ],
                     options: babelOptions,
                     query: babelOptions

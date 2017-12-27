@@ -11,6 +11,7 @@ const generate = require('../markdown-loader/generate')
 const context = require('../../context')
 const {chain, split} = require('../../utils/transformerUtils');
 const stringify = require('../../utils/stringify');
+const { escapeWinPath, toUriPath } = require('../../utils/resolve-path');
 
 const mdLoaderPath = require.resolve('../markdown-loader')
 
@@ -25,13 +26,13 @@ function generateLazyLoad(filesMap, lazy) {
     ${JSON.stringify(name)}: function () {
         return new Promise(function (resolve) {
             require.ensure([], function (require) {
-                resolve(require(${JSON.stringify('!!' + mdLoaderPath + '!' + require)}));
+                resolve(require(${JSON.stringify('!!' + toUriPath(mdLoaderPath) + '!' + toUriPath(require) )}));
             }, ${JSON.stringify(name)})
         })
     },` : `
     ${JSON.stringify(name)}: function() {
         return new Promise(function (resolve) {
-            resolve(require(${JSON.stringify('!!' + mdLoaderPath + '!' + require)}));
+            resolve(require(${JSON.stringify('!!' + toUriPath(mdLoaderPath) + '!' + toUriPath(require) )}));
         })    
     },`
     }
@@ -87,7 +88,7 @@ async function generatePickedMeta(filesMap, {
 }
 
 function pluginsStr (plugins = []) {
-    return plugins.map(({path, opt}) => `require('${path}')(${JSON.stringify(opt)})`).join(',')
+    return plugins.map(({path, opt}) => `require('${toUriPath(path)}')(${JSON.stringify(opt)})`).join(',')
 }
 
 async function summaryGenerate(filesMap, {plugins = [], nodeTransformers, transformers = [], picker, docRoot}, lazyload = true) {
