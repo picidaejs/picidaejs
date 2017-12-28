@@ -344,11 +344,11 @@ class Picidae extends EventEmitter {
             // let
             let ssrWebpackConfig = webpackConfig;
             let ssrEntryName = `node-routes-generator.${this.id}`;
-
+            let ssrEntryPath = nps.join(this.tmpPath, `routes-generator.${this.id}.ssr.js`)
             ssrWebpackConfig.devtool = null;
             ssrWebpackConfig.entry = {
                 [ssrEntryName]: [
-                    nps.join(this.tmpPath, `routes-generator.${this.id}.ssr.js`)
+                    ssrEntryPath
                 ]
             };
             ssrWebpackConfig.target = 'node';
@@ -365,7 +365,7 @@ class Picidae extends EventEmitter {
 
             const ignorePluginsType = isDebug
                 ? [webpack.optimize.CommonsChunkPlugin, webpack.DefinePlugin, webpack.optimize.UglifyJsPlugin]
-                : [webpack.optimize.CommonsChunkPlugin]
+                : [webpack.optimize.CommonsChunkPlugin, webpack.optimize.UglifyJsPlugin]
 
             ssrWebpackConfig.plugins = ssrWebpackConfig.plugins
                 .filter(plugin =>

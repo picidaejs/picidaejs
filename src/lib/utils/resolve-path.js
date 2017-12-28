@@ -1,9 +1,10 @@
 
 const nps = require('path')
 const os = require('os')
+const isWin = os.platform() === 'win32'
 
-const escapeWinPath = os.platform() === 'win32' ? path => path.replace(/\\/g, '\\\\') : path => path
-const toUriPath = os.platform() === 'win32' ? path => path.replace(/\\/g, '/') : path => path
+const escapeWinPath = isWin ? path => path.replace(/\\/g, '\\\\') : path => path
+const toUriPath = isWin ? path => path.replace(/\\/g, '/') : path => path
 
 function resolve(path, ...paths /*, paths*/) {
     assertPath(path);
@@ -35,7 +36,8 @@ function isRelative (path) {
 Resolve.isRelative = isAbsolute;
 function isAbsolute(path) {
     assertPath(path);
-    return path.trim().startsWith('/')
+    path = path.trim()
+    return path.startsWith('/') || ( isWin && /^[a-z]:/i.test(path) )
 }
 
 
