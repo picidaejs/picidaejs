@@ -39,7 +39,7 @@ Search open/closed issues before submitting since someone might have asked the s
 
 | Software         | Version(s)
 | ---------------- | ----------
-| Parcel           |  
+| Picidae          |  
 | Node             | 
 | npm/Yarn         | 
 | Operating System | 
