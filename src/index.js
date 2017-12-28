@@ -430,6 +430,22 @@ class Picidae extends EventEmitter {
                 ssrWebpackConfig = this.opts.ssrWebpackConfigUpdater(ssrWebpackConfig)
             }
 
+            const themeNodeModulePath = nps.join(nps.dirname(this.themePath), 'node_modules')
+            if (!!ssrWebpackConfig.resolve && !!ssrWebpackConfig.resolve.root) {
+                if (!Array.isArray(ssrWebpackConfig.resolve.root)) {
+                    ssrWebpackConfig.resolve.root = [ssrWebpackConfig.resolve.root]
+                }
+                !ssrWebpackConfig.resolve.root.includes(themeNodeModulePath)
+                    && ssrWebpackConfig.resolve.root.push(themeNodeModulePath)
+            }
+            if (!!ssrWebpackConfig.resolveLoader && !!ssrWebpackConfig.resolveLoader.root) {
+                if (!Array.isArray(ssrWebpackConfig.resolveLoader.root)) {
+                    ssrWebpackConfig.resolveLoader.root = [ssrWebpackConfig.resolveLoader.root]
+                }
+                !ssrWebpackConfig.resolveLoader.root.includes(themeNodeModulePath)
+                    && ssrWebpackConfig.resolveLoader.root.push(themeNodeModulePath)
+            }
+
             const buildMethod = this.opts.ssr ? build : (config, callback) => callback(null);
             buildMethod(ssrWebpackConfig, () => {
                 let routes = require(this.themeDataPath).routes;
@@ -596,7 +612,7 @@ class Picidae extends EventEmitter {
         let theme = parseQuery.autoPrefix(this.opts.theme, 'picidae-theme-')
         let themeKey = resolve.isNodeModule(this.opts.theme)
             ? theme : 'default'
-        let themePath = resolve.isNodeModule(this.opts.theme)
+        let themePath = this.themePath = resolve.isNodeModule(this.opts.theme)
             ? resolve(theme) : nps.join(resolve(this.opts.theme), 'index.js');
         this.themeSSRPath = resolve.isNodeModule(theme)
             ? parseQuery.injectJoin(theme, 'ssr.js')

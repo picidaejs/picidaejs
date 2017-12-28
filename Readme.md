@@ -21,8 +21,15 @@ npm install picidae -g
 
 picidae init [blog]
 cd [blog]
+# install Globally
 picidae use picidae-theme-grass
+# or install Locally
+npm install picidae picidae-theme-grass --save
+
 picidae start
+open http://localhost:8989
+# build the site for deploy
+picidae build
 ```
 
 ## Theme
