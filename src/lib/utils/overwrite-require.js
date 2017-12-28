@@ -1,14 +1,14 @@
 // for overwrite ssr require
 
 const resolvePath = require('resolve')
-const { escapeWinPath } = require('./resolve-path')
+const rlv = require('./resolve-path')
 const chalk = require('chalk')
 
 const Module = require('module')
 const nps = require('path')
 const _originResolveFilename = Module._resolveFilename
 const _resolveFilename = Module._resolveFilename = function () {
-    return escapeWinPath(_originResolveFilename.apply(this, arguments))
+    return rlv.escapeWinPath(_originResolveFilename.apply(this, arguments))
 }
 const originRequire = Module.prototype.require
 
@@ -48,7 +48,7 @@ module.exports = {
             }
         }
     },
-    register() {
+    register(picidaInnerBaseDir) {
         if (pkgIsInGlobal && _resolveFilename === Module._resolveFilename) {
             Module.prototype.require = function (modulePath) {
                 if (modulePath.startsWith('.')) {
@@ -76,10 +76,18 @@ module.exports = {
                     if (from.startsWith(rootPath) && !dependencies.hasOwnProperty(req)) {
                         try {
                             path = resolvePath.sync(req, { basedir: process.cwd() })
-                        } catch (ex) {}
+                        } catch (ex) {
+                            // react-document-title in theme ssr
+                            if (picidaInnerBaseDir) {
+                                path = resolvePath.sync(req, { basedir: picidaInnerBaseDir });
+                            }
+                        }
                     }
                     if (!path) {
                         path = resolvePath.sync(req, { basedir: from })
+                    }
+                    if (req === 'react-document-title') {
+                        console.log(from, path)
                     }
                 } catch (e) {
                     error = e
@@ -88,9 +96,14 @@ module.exports = {
                     } catch (ex) {
                         error = ex
                         try {
-                            path = _resolveFilename.apply(this, arguments)
+                            path = resolvePath.sync(req, { basedir: workRoot })
                         } catch (exx) {
                             error = exx
+                            try {
+                                path = _resolveFilename.apply(this, arguments)
+                            } catch (exxx) {
+                                error =exxx
+                            }
                         }
                     }
                 }

@@ -382,10 +382,15 @@ class Picidae extends EventEmitter {
             }
 
             let themeSSR = null
+
             try {
-                themeSSR = require(resolve(this.themeSSRPath))
+                this.themeSSRPath = resolve(this.themeSSRPath)
+                themeSSR = require(this.themeSSRPath)
                 console.log('Found ssr module of theme:\n   ', nps.relative(process.cwd(), this.themeSSRPath))
             } catch (ex) {
+                if (ex.code !== 'MODULE_NOT_FOUND') {
+                    console.error(ex)
+                }
                 this.themeSSRPath = null
             }
 
@@ -432,10 +437,10 @@ class Picidae extends EventEmitter {
                 let method = (url, callback) => callback('');
                 let sitemap = require('./lib/utils/sitemap-generator')
                 if (this.opts.ssr) {
-                    over.register()
+                    over.logout()
+                    over.register(this.themeSSRPath || void 0)
                     let gen = require(nps.join(this.tmpPath, ssrEntryName)).ssr
                     routes = gen(require(this.themeDataPath));
-                    over.logout()
                     method = ssr(routes, false, this.opts.publicPath);
                 }
 
@@ -478,14 +483,13 @@ class Picidae extends EventEmitter {
                                     }
                                     else {
                                         let opts = {path: absoluteHtml, pathname: path, spider: true};
-                                        let actualTemplateData = {}
                                         // try {
                                         let inputArg = {...renderProps}
                                         let themeTemplateData = null;
                                         if (themeSSR && typeof themeSSR === 'function') {
                                             themeTemplateData = themeSSR(inputArg)
                                         }
-                                        actualTemplateData = typeof templateData === 'function' ? templateData(inputArg, 'prod') : templateData;
+                                        let actualTemplateData = typeof templateData === 'function' ? templateData(inputArg, 'prod') : templateData;
                                         actualTemplateData = {...actualTemplateData} || {}
                                         actualTemplateData.themeData = themeTemplateData || {}
                                         boss.queue({
@@ -534,6 +538,7 @@ class Picidae extends EventEmitter {
                 };
                 createProm(sites, ctxData, {noSpider: this.opts.noSpider})
                     .then(() => {
+                        over.logout()
                         boss.jobDone();
                         let src = nps.resolve(this.opts.extraRoot);
                         let target = nps.join(this.distRoot);
@@ -596,7 +601,7 @@ class Picidae extends EventEmitter {
             ? resolve(theme) : nps.join(resolve(this.opts.theme), 'index.js');
         this.themeSSRPath = resolve.isNodeModule(theme)
             ? parseQuery.injectJoin(theme, 'ssr.js')
-            : parseQuery.injectJoin(resolve(theme), 'ssr.js')
+            : parseQuery.injectJoin(theme, 'ssr.js')
 
         let themeConfigsRoot = nps.resolve(this.opts.themeConfigsRoot);
         let themeConfigFile = nps.join(themeConfigsRoot, themeKey);

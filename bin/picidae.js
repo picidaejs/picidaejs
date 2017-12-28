@@ -47,6 +47,14 @@ commander
         require('./picidae-use')(pkg)
     })
 
+commander
+    .command('unuse <package>')
+    .description('uninstall <package>, we recommend use the command in global')
+    .action(function (pkg) {
+        if (!pkg) return
+        require('./picidae-unuse')(pkg)
+    })
+
 var config = {}
 try {
     var defaultConfigPath = nps.resolve('./picidae.config.js')
