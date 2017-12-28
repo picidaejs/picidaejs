@@ -9,7 +9,7 @@ var info = over.getInfo()
 
 
 function install(pkg) {
-    var cmd = 'npm install ' + pkg
+    var cmd = 'npm install ' + pkg + ' --save-optional'
     console.log('  running: ', chalk.yellow.bold(cmd))
     var output = child.execSync(cmd, { cwd: info.path.rootPath })
     console.log(output.toString())
