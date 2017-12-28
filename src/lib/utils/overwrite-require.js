@@ -77,10 +77,12 @@ module.exports = {
                         try {
                             path = resolvePath.sync(req, { basedir: process.cwd() })
                         } catch (ex) {
-                            // react-document-title in theme ssr
-                            if (picidaInnerBaseDir) {
-                                path = resolvePath.sync(req, { basedir: picidaInnerBaseDir });
-                            }
+                            try {
+                                // react-document-title in theme ssr
+                                if (picidaInnerBaseDir) {
+                                    path = resolvePath.sync(req, { basedir: picidaInnerBaseDir });
+                                }
+                            } catch (ex) {}
                         }
                     }
                     if (!path) {
