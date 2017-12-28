@@ -88,9 +88,6 @@ module.exports = {
                     if (!path) {
                         path = resolvePath.sync(req, { basedir: from })
                     }
-                    if (req === 'react-document-title') {
-                        console.log(from, path)
-                    }
                 } catch (e) {
                     error = e
                     try {

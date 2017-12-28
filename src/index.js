@@ -382,7 +382,6 @@ class Picidae extends EventEmitter {
             }
 
             let themeSSR = null
-
             try {
                 this.themeSSRPath = resolve(this.themeSSRPath)
                 themeSSR = require(this.themeSSRPath)
@@ -412,7 +411,7 @@ class Picidae extends EventEmitter {
                         // external!
                         return callback(null, 'commonjs ' + request);
                     }
-                    callback()
+                    return callback()
                 }
             ])
 
