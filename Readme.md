@@ -16,7 +16,7 @@ As shown below
 
 ## Starter
 
-```bash
+````bash
 npm install picidae -g
 
 picidae init [blog]
@@ -30,7 +30,20 @@ picidae start
 open http://localhost:8989
 # build the site for deploy
 picidae build
-```
+
+# install Globally
+picidae use picidae-commander-gh-pages
+# or install Locally
+npm install picidae-commander-gh-pages --save
+
+# ```
+# // append the configuration.
+# commanders: [
+#   'gh-pages?repo=git@github.com:[username]/[username].github.io.git&branch=master&remote=origin'
+# ]
+# ```
+picidae gh-pages # deploy the static assets to the github
+````
 
 ## Theme
 
