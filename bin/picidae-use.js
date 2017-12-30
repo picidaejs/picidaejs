@@ -15,14 +15,14 @@ function install(pkg) {
     console.log(output.toString())
 }
 
-module.exports = function use(pkg) {
+module.exports = function use(pkgs) {
     if (info.type === 'local') {
         console.log(
-            chalk.read.bold('  ERROR: Picidae is in local position, you should run `npm install ' + pkg + ' --save`!\n')
+            chalk.read.bold('  ERROR: Picidae is in local position, you should run `npm install ' + pkgs.join(' ') + ' --save`!\n')
         )
     }
     else {
-        install(pkg)
+        pkgs.forEach(install)
     }
     process.exit()
 }

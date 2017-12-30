@@ -12,7 +12,7 @@ function uninstall(pkg) {
     var arr = pkg.split(/(?=@)/)
     arr.length > 1 && arr.pop()
     if (!optionalDependencies[arr.join('')]) {
-        console.warn(chalk.red.bold('  Warn: '), '`' + arr.join('') + '`', 'is not be installed')
+        console.warn(chalk.red.bold('  Error: '), '`' + arr.join('') + '`', 'is not be installed')
         return
     }
     var cmd = 'npm uninstall ' + pkg + ' --save-optional'
@@ -21,14 +21,14 @@ function uninstall(pkg) {
     console.log(output.toString())
 }
 
-module.exports = function use(pkg) {
+module.exports = function use(pkgs) {
     if (info.type === 'local') {
         console.log(
-            chalk.read.bold('  ERROR: Picidae is in local position, you should run `npm uninstall ' + pkg + ' --save`!\n')
+            chalk.read.bold('  ERROR: Picidae is in local position, you should run `npm uninstall ' + pkgs.join(' ') + ' --save`!\n')
         )
     }
     else {
-        uninstall(pkg)
+        pkgs.forEach(uninstall)
     }
     process.exit()
 }

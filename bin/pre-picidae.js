@@ -7,7 +7,7 @@ var over = require('../lib/lib/utils/overwrite-require');
 
 var argv = process.argv.slice(2)
 if (!argv.length) {
-    console.error('  ' + chalk.red.bold('`picidae -h`') + ' for help ')
+    console.error('\n  ' + chalk.red.bold('`picidae -h`') + ' for help ')
     process.exit(1)
 }
 

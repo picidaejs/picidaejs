@@ -40,19 +40,26 @@ commander
     });
 
 commander
-    .command('use <package>')
+    .command('use <package...>')
     .description('install <package>, we recommend use the command in global')
-    .action(function (pkg) {
-        if (!pkg) return
-        require('./picidae-use')(pkg)
+    .action(function (pkgs) {
+        if (!pkgs.length) return
+        require('./picidae-use')(pkgs)
     })
 
 commander
-    .command('unuse <package>')
+    .command('unuse <package...>')
     .description('uninstall <package>, we recommend use the command in global')
-    .action(function (pkg) {
-        if (!pkg) return
-        require('./picidae-unuse')(pkg)
+    .action(function (pkgs) {
+        if (!pkgs.length) return
+        require('./picidae-unuse')(pkgs)
+    })
+
+commander
+    .command('list')
+    .description('list the packages which you are installed by `picidae use`')
+    .action(function () {
+        require('./picidae-list')()
     })
 
 var config = {}
