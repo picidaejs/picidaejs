@@ -36,5 +36,7 @@ if (info.type === 'local') {
 else {
     execSync(require.resolve(nps.join(info.path.localRoot, '../../bin/picidae')), argv, opts)
 }
-} catch (ex) {}
+} catch (ex) {
+    process.exit(1)
+}
 
