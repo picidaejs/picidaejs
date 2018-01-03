@@ -15,7 +15,7 @@ As shown below
 [Picidae Video](https://picidaejs.github.io/picidaejs/public)
 
 ## Where use it
-- [Myself own Blog](https://be-fe.github.io/picidae-theme-eux-blog/)
+- [Myself own Blog](https://imcuttle.github.io/)
 - [Baidu EUX](https://be-fe.github.io/picidae-theme-eux-blog/)
 - [Picidae Document](https://picidaejs.github.io/picidaejs/)
 
