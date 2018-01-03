@@ -14,6 +14,11 @@ As shown below
 
 [Picidae Video](https://picidaejs.github.io/picidaejs/public)
 
+## Where use it
+- [Myself own Blog](https://be-fe.github.io/picidae-theme-eux-blog/)
+- [Baidu EUX](https://be-fe.github.io/picidae-theme-eux-blog/)
+- [Picidae Document](https://picidaejs.github.io/picidaejs/)
+
 ## Starter
 
 ````bash
@@ -67,34 +72,3 @@ As shown below
 - [picidae-transformer-file-syntax](https://github.com/picidaejs/picidae-transformer-file-syntax)  
 - ...
 
-## Dev Record
-
-1. [remark](https://github.com/wooorm/remark/tree/master/packages/remark)  
-    A markdown processor
-2. [yaml-front-matter](https://github.com/dworthen/js-yaml-front-matter)  
-    Parses yaml or json at the front of a file
-
-
-## Thinking
-
-use remark convert markdown to html with: 
-1. [remark-align](https://github.com/zestedesavoir/zmarkdown/tree/master/packages/remark-align)
-2. remark-html
-3. remark-babel-core.js
-4. remark-slug
-5. remark-gemoji-to-emoji
-6. remark-auto-heading
-
-    
-## Todo
-
-1. [x] SSR Demo
-2. [x] data-loader Demo
-3. [x] posts/api posts/doc ... -> multiply directory
-4. [x] routes supports Object/Array
-5. [x] **mdast -> remark transformer -> markdown -> markdown transformer -> markdown -> html -> html transformer -> html -> browser transformer (converter) -> html-to-react **
-6. [x] markdown-loader -> meta/content
-7. [x] ssr build
-8. [x] utils / tools
-9. [x] transformers -> react render + file link
-10. [x] spider for better seo.
