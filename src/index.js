@@ -524,7 +524,7 @@ class Picidae extends EventEmitter {
                                                                 return href
                                                             })
                                                             .filter(href => {
-                                                                return !pool.find(x => x.path === href)
+                                                                return !pool.find(x => x.path === decodeURIComponent(href))
                                                             });
                                                         newSites = newSites.map(sitemap.transform);
                                                         if (newSites && newSites.length) {
