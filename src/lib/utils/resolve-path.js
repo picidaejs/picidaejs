@@ -3,7 +3,10 @@ const nps = require('path')
 const os = require('os')
 const isWin = os.platform() === 'win32'
 
-const escapeWinPath = isWin ? path => path.replace(/\\/g, '\\\\') : path => path
+// Pass the path 'C:\abc' -> 'C:\\abc'
+// Needed in webpack code require
+const escapeWinPath = path => path.replace(/\\/g, '\\\\')
+
 const toUriPath = isWin ? path => path.replace(/\\/g, '/') : path => path
 
 function resolve(path, ...paths /*, paths*/) {

@@ -8,7 +8,7 @@ const Module = require('module')
 const nps = require('path')
 const _originResolveFilename = Module._resolveFilename
 const _resolveFilename = Module._resolveFilename = function () {
-    return rlv.escapeWinPath(_originResolveFilename.apply(this, arguments))
+    return _originResolveFilename.apply(this, arguments)
 }
 const originRequire = Module.prototype.require
 
