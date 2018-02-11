@@ -6,12 +6,7 @@ const chalk = require('chalk')
 
 const Module = require('module')
 const nps = require('path')
-const _originResolveFilename = Module._resolveFilename
-const _resolveFilename = Module._resolveFilename = function () {
-    return _originResolveFilename.apply(this, arguments)
-}
-const originRequire = Module.prototype.require
-
+const _resolveFilename = Module._resolveFilename
 
 let pkgIsInGlobal = false
 const rootPath = nps.join(__dirname, '../../..')
@@ -50,17 +45,6 @@ module.exports = {
     },
     register(picidaInnerBaseDir) {
         if (pkgIsInGlobal && _resolveFilename === Module._resolveFilename) {
-            Module.prototype.require = function (modulePath) {
-                if (modulePath.startsWith('.')) {
-                    return originRequire.apply(this, arguments)
-                }
-                try {
-                    return originRequire.apply(this, arguments)
-                } catch (ex) {
-                    arguments[0] = require.resolve(modulePath)
-                }
-                return originRequire.apply(this, arguments)
-            }
             Module._resolveFilename = function (req, parent, isMain, opts) {
                 let path
                 let error
@@ -121,7 +105,6 @@ module.exports = {
         }
     },
     logout() {
-        Module.prototype.require = originRequire
         Module._resolveFilename = _resolveFilename
     }
 }

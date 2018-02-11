@@ -16,6 +16,7 @@ export default function getWebpackCommonConfig(args = {}) {
     const pkgPath = join(args.cwd || '.', 'package.json')
     const pkg = existsSync(pkgPath) ? require(pkgPath) : {}
 
+    const publicPath = args.publicPath || ''
     const jsFileName = args.hash ? '[name]-[chunkhash].js' : '[name].js'
     const cssFileName = args.hash ? '[name]-[chunkhash].css' : '[name].css'
     const commonName = args.hash ? 'PICIDAE_COMMON-[chunkhash].js' : 'PICIDAE_COMMON.js'
@@ -81,22 +82,18 @@ export default function getWebpackCommonConfig(args = {}) {
         output: {
             path: join(process.cwd(), './dist/'),
             filename: jsFileName,
-            chunkFilename: chunkFilename
+            chunkFilename: chunkFilename,
+            publicPath
         },
-
         devtool: dev && 'source-map',
-
         context,
-
         resolveLoader: {
             root,
         },
-
         resolve: {
             alias,
             root
         },
-
         entry: pkg.entry,
 
         node,
@@ -172,9 +169,9 @@ export default function getWebpackCommonConfig(args = {}) {
                 },
                 {
                     test: /\.(png|jpg|jpeg|gif)(\?v=\d+\.\d+\.\d+)?$/i,
-                    loader: 'url-loader',
+                    loader: 'file-loader',
                     options: {
-                        limit: 10000
+                        name: '[path][name].[ext]'
                     }
                 },
                 {
@@ -204,7 +201,7 @@ export default function getWebpackCommonConfig(args = {}) {
                     console.log(require('chalk').cyan('webpack: bundle build is now finished.'))
                 }
             }),
-            /*args.hash && */new webpack.optimize.CommonsChunkPlugin('common', commonName),
+            new webpack.optimize.CommonsChunkPlugin('common', commonName),
             new ExtractTextPlugin('style.css', {
                 // filename: cssFileName,
                 disable: false,

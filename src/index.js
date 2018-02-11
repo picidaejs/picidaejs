@@ -202,7 +202,11 @@ class Picidae extends EventEmitter {
         // Write Files for Webpack
         renderTemplate(
             nps.join(templatePath, 'entry.template.js'),
-            {root: this.opts.publicPath, themeDataPath: resolve.toUriPath(tmpThemeDataPath), dataSuffix: this.id},
+            {
+                root: this.opts.publicPath,
+                themeDataPath: resolve.toUriPath(tmpThemeDataPath),
+                dataSuffix: this.id
+            },
             entryFile
         );
 
@@ -552,7 +556,7 @@ class Picidae extends EventEmitter {
                     templateData: this.opts.templateData
                 };
                 createProm(sites, ctxData, {noSpider: this.opts.noSpider})
-                    .then(() => {
+                    .then(async () => {
                         over.logout()
                         boss.jobDone();
                         let src = nps.resolve(this.opts.extraRoot);
@@ -560,6 +564,18 @@ class Picidae extends EventEmitter {
 
                         console.log('');
                         console.log(chalk.green(` ${count}`), 'Files Created successfully\n');
+
+                        // precache services-worker.js
+                        await require('sw-precache').write(nps.join(this.distRoot, 'service-worker.js'), {
+                            staticFileGlobs: [nps.join(this.distRoot, '/**/*.{js,html,css,png,jpg,gif,svg,eot,ttf,woff}')],
+                            stripPrefix: this.distRoot,
+                            navigateFallback: nps.join(this.opts.publicPath, 'index.html'),
+                            replacePrefix: this.opts.publicPath.replace(/\/+$/, ''),
+                            logger: message => {
+                                console.log(message)
+                            },
+                            maximumFileSizeToCacheInBytes: 4194304 // 4MB
+                        })
 
                         if (this.opts.ssr && this.opts.host) {
                             if (this.docsEntityEntry['index']) {
