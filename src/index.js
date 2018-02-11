@@ -571,6 +571,7 @@ class Picidae extends EventEmitter {
                             stripPrefix: this.distRoot,
                             navigateFallback: nps.join(this.opts.publicPath, 'index.html'),
                             replacePrefix: this.opts.publicPath.replace(/\/+$/, ''),
+                            templateFilePath: nps.join(templatePath, 'service-worker.tmpl'),
                             logger: message => {
                                 console.log(message)
                             },
