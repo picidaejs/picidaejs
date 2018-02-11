@@ -147,6 +147,19 @@ self.addEventListener('fetch', function(event) {
       shouldRespond = urlsToCacheKeys.has(url);
     }
 
+    if (!shouldRespond) {
+      shouldRespond = [
+        url.replace(/\/*$/, '.html'),
+        url.replace(/\/*$/, '/index.html'),
+        url
+      ].some(function (maybeUrl) {
+        if (urlsToCacheKeys.has(maybeUrl)) {
+          url = maybeUrl
+          return true
+        }
+      })
+    }
+
     // If shouldRespond is still false, check to see if this is a navigation
     // request, and if so, whether the URL matches navigateFallbackWhitelist.
     var navigateFallback = '<%= navigateFallback %>';
