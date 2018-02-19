@@ -57,7 +57,7 @@ function toHTML(md, info = {}, transformers = []) {
     }
 
     remarkAlign.options = alignClass;
-    const presetTransformers = [toEmoji, remarkHtml, slug, headings, remarkAlign, middleForThis]
+    const presetTransformers = [toEmoji, remarkAlign, remarkHtml, slug, headings, middleForThis]
     let source = remark();
 
     transformers = presetTransformers.concat(transformers, highlight);
