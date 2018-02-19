@@ -670,6 +670,9 @@ class Picidae extends EventEmitter {
         try {
             themeConfig = require(themeConfigFile)
         } catch (ex) {
+            if (ex && 'MODULE_NOT_FOUND' !== ex.code) {
+                console.error(ex)
+            }
             themeConfigFile = themePath;
         }
         console.log(chalk.gray('Theme Configuration In File: '))
