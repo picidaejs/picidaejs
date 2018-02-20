@@ -1,3 +1,5 @@
+import '../browser-tools/global'
+
 import '../browser-tools/index.less'
 import React from 'react'
 import ReactDOM from 'react-dom'
