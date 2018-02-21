@@ -29,7 +29,8 @@ function render() {
                 routes={routes}
             />
         </AppContainer>,
-        document.getElementById('root')
+        // using `__root__` for reducing the hits of markdown heading named root
+        document.getElementById('__root__') || document.getElementById('root') // Compatible with old version
     )
 }
 
