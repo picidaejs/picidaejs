@@ -3,6 +3,7 @@ const marked = require('../markdown-loader/generate');
 const {chain, split} = require('../../utils/transformerUtils');
 const stringify = require('../../utils/stringify');
 const YFM = require('../../utils/loadFront');
+const u = require('url')
 const console = require('../../utils/console').default;
 
 // Child Process
@@ -83,7 +84,7 @@ process.on('message', (task) => {
                 if (href && !href.startsWith('#')) {
                     href = require('url').resolve(pathname, href).trim();
                     if (!/^(\/\/|https?:|ftp:|file:|javascript:|mailto:)/.test(href)) {
-                        hrefList.push(href)
+                        hrefList.push(u.parse(href).pathname)
                     }
                 }
             })

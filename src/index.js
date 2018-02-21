@@ -95,10 +95,10 @@ function generateEntry(fileTree, routesMap = {}) {
         }
         else {
             let key = replace(root.substring(outRoot.length + 1)).replace(/\.(md|markdown)$/i, '')
-            if (nps.basename(key) === 'index') {
-                // `api/index` -> 'api/'
-                key = key.replace(/\/index\s*$/, '/');
-            }
+            // if (nps.basename(key) === 'index') {
+            //     // `api/index` -> 'api/'
+            //     key = key.replace(/\/index\s*$/, '/');
+            // }
             container[generateKey(container, key)] = {
                 path: root,
                 lastmod: fileTree.lastmod
