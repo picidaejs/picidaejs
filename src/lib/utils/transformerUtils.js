@@ -2,32 +2,32 @@ exports.chain = function (transformers = [], beginData, extra = {}) {
     return transformers.reduce(
         (promise, transformer) =>
             promise.then(data =>
-                transformer({data, ...extra}, require)
+                transformer({ data, ...extra }, require)
             ),
         Promise.resolve(beginData)
-    );
+    )
 }
 
 exports.split = function (transformers = []) {
     let remarkTransformers = []
     let markdownTransformers = []
     let htmlTransformers = []
-    transformers.forEach(({path, opt}) => {
-        let transformer = require(path);
+    transformers.forEach(({ path, opt }) => {
+        let transformer = require(path)
         if (typeof transformer.remarkTransformer === 'function') {
-            transformer.remarkTransformer.options = opt;
-            remarkTransformers.push(transformer.remarkTransformer);
+            transformer.remarkTransformer.options = opt
+            remarkTransformers.push(transformer.remarkTransformer)
         }
         if (typeof transformer.markdownTransformer === 'function') {
-            markdownTransformers.push(transformer.markdownTransformer.bind(null, opt));
+            markdownTransformers.push(transformer.markdownTransformer.bind(null, opt))
         }
         if (typeof transformer.htmlTransformer === 'function') {
-            htmlTransformers.push(transformer.htmlTransformer.bind(null, opt));
+            htmlTransformers.push(transformer.htmlTransformer.bind(null, opt))
         }
         if (typeof transformer === 'function') {
-            htmlTransformers.push(transformer.bind(null, opt));
+            remarkTransformers.push(transformer.bind(null, opt))
         }
-    });
+    })
 
-    return {htmlTransformers, markdownTransformers, remarkTransformers}
+    return { htmlTransformers, markdownTransformers, remarkTransformers }
 }
