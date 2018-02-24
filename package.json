@@ -1,6 +1,6 @@
 {
   "name": "picidae",
-  "version": "2.1.19",
+  "version": "2.1.20",
   "description": "Picidae is a document generator which has gentle experience. :dash:",
   "main": "lib/index.js",
   "scripts": {
