@@ -173,8 +173,18 @@ class Picidae extends EventEmitter {
         function getTransformers(transformers, suffix) {
             return transformers
                 .map(str => {
-                    let moduleName = parseQuery.autoPrefix(str.replace(/\?.*?$/, ''), 'picidae-transformer-');
+                    let pureName = str.replace(/\?.*?$/, '')
+                    let moduleName = parseQuery.autoPrefix(pureName, 'picidae-transformer-');
                     let modulePath = '';
+                    if (suffix === 'node.js') {
+                        try {
+                            return parseQuery(str)
+                        } catch (ex) {
+                            if (ex.code !== 'MODULE_NOT_FOUND') {
+                                console.error(ex)
+                            }
+                        }
+                    }
                     try {
                         let name = parseQuery.injectJoin(moduleName, suffix)
                         modulePath = resolve(name);
@@ -183,9 +193,15 @@ class Picidae extends EventEmitter {
                             return false;
                         }
                     } catch (ex) {
-                        console.warn(`\`${moduleName}/${suffix}\` transformer is not found.`);
+                        if (ex.code === 'MODULE_NOT_FOUND') {
+                            console.warn(`\`${moduleName}/${suffix}\` transformer is not found.`);
+                        }
+                        else {
+                            console.error(ex)
+                        }
                         return false;
                     }
+
                     return parseQuery(
                         parseQuery.injectJoin(str, suffix), 'picidae-transformer-', {allowNotExists: true}
                     )

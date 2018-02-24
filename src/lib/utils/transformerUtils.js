@@ -25,7 +25,8 @@ exports.split = function (transformers = []) {
             htmlTransformers.push(transformer.htmlTransformer.bind(null, opt))
         }
         if (typeof transformer === 'function') {
-            remarkTransformers.push(transformer.bind(null, opt))
+            transformer.options = opt
+            remarkTransformers.push(transformer)
         }
     })
 
