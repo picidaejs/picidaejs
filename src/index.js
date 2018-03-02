@@ -178,7 +178,10 @@ class Picidae extends EventEmitter {
                     let modulePath = '';
                     if (suffix === 'node.js') {
                         try {
-                            return parseQuery(str)
+                            return {
+                                ...parseQuery(str),
+                                path: require.resolve(resolve.isNodeModule(str) ? str : nps.resolve(str))
+                            }
                         } catch (ex) {
                             if (ex.code !== 'MODULE_NOT_FOUND') {
                                 console.error(ex)
