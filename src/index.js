@@ -35,6 +35,9 @@ const isDebug = !!process.env.PICIDAE_DEBUG;
 // const require = createGlobalRequire(__dirname)
 
 process.on('uncaughtException', console.error)
+process.on('unhandledRejection', err => {
+    throw err;
+})
 over.register()
 
 function webpackConfigGetter(config = {}) {
