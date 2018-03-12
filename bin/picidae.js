@@ -34,6 +34,7 @@ commander
     .option('-f --force', 'force build Mode: will EMPTY previous build files.')
     .option('--no-spider', 'disable smart spider mode')
     .option('--no-ssr', 'disable Server Side Render mode')
+    .option('--no-sw', 'disable Service Worker(Offline) mode')
     .option('--source-map', 'enable source map')
     .action(function (opts) {
         require('./picidae-build')(opts)

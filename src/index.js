@@ -588,17 +588,19 @@ class Picidae extends EventEmitter {
                         console.log(chalk.green(` ${count}`), 'Files Created successfully\n');
 
                         // precache services-worker.js
-                        await require('sw-precache').write(nps.join(this.distRoot, 'service-worker.js'), {
-                            staticFileGlobs: [nps.join(this.distRoot, '/**/*.{js,html,css,png,jpg,gif,svg,eot,ttf,woff}')],
-                            stripPrefix: this.distRoot,
-                            navigateFallback: nps.join(this.opts.publicPath, 'index.html'),
-                            replacePrefix: this.opts.publicPath.replace(/\/+$/, ''),
-                            templateFilePath: nps.join(templatePath, 'service-worker.tmpl'),
-                            logger: message => {
-                                console.log(message)
-                            },
-                            maximumFileSizeToCacheInBytes: 4194304 // 4MB
-                        })
+                        if (!this.opts.noSw) {
+                            await require('sw-precache').write(nps.join(this.distRoot, 'service-worker.js'), {
+                                staticFileGlobs: [nps.join(this.distRoot, '/**/*.{js,html,css,png,jpg,gif,svg,eot,ttf,woff}')],
+                                stripPrefix: this.distRoot,
+                                navigateFallback: nps.join(this.opts.publicPath, 'index.html'),
+                                replacePrefix: this.opts.publicPath.replace(/\/+$/, ''),
+                                templateFilePath: nps.join(templatePath, 'service-worker.tmpl'),
+                                logger: message => {
+                                    console.log(message)
+                                },
+                                maximumFileSizeToCacheInBytes: 4194304 // 4MB
+                            })
+                        }
 
                         if (this.opts.ssr && this.opts.host) {
                             if (this.docsEntityEntry['index']) {

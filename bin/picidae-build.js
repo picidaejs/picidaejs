@@ -12,6 +12,7 @@ module.exports = function (commander) {
 
     config.force = commander.force;
     config.noSpider = !commander.spider;
+    config.noSw = !commander.sw;
     config.sourceMap = commander.sourceMap;
     config.id = require('md5')(configPath).substr(2, 8)
     config.watch = false;
