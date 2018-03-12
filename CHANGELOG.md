@@ -1,3 +1,13 @@
+<a name="2.1.26"></a>
+## [2.1.26](https://github.com/picidaejs/picidae/compare/v2.1.25...v2.1.26) (2018-03-12)
+
+
+### Features
+
+* build entry.js exclude sw if disabled ([1623b7e](https://github.com/picidaejs/picidae/commit/1623b7e))
+
+
+
 <a name="2.1.25"></a>
 ## [2.1.25](https://github.com/picidaejs/picidae/compare/v2.1.23...v2.1.25) (2018-03-12)
 
