@@ -6,12 +6,12 @@ import ReactDOM from 'react-dom'
 import { Router, useRouterHistory, match } from 'react-router'
 import { createHistory } from 'history'
 import { AppContainer } from 'react-hot-loader'
+{% if sw %}
 import registerServiceWorker from '../browser-tools/registerServiceWorker'
-
+registerServiceWorker(basename)
+{% endif %}
 const { pathname, search, hash } = window.location
 const basename = '{{ root }}'
-
-registerServiceWorker(basename)
 
 let counter = 0
 const history = useRouterHistory(createHistory)({ basename })

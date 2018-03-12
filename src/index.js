@@ -227,7 +227,8 @@ class Picidae extends EventEmitter {
             {
                 root: this.opts.publicPath,
                 themeDataPath: resolve.toUriPath(tmpThemeDataPath),
-                dataSuffix: this.id
+                dataSuffix: this.id,
+                sw: !this.opts.noSw
             },
             entryFile
         );
