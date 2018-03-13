@@ -1,3 +1,18 @@
+<a name="2.1.27"></a>
+## [2.1.27](https://github.com/picidaejs/picidae/compare/v2.1.26...v2.1.27) (2018-03-13)
+
+
+### Bug Fixes
+
+* theme configuration file error thrown ([2549189](https://github.com/picidaejs/picidae/commit/2549189))
+
+
+### Features
+
+* transformer on node.js supports exports.use = ['use-name'] ([e2bc22c](https://github.com/picidaejs/picidae/commit/e2bc22c))
+
+
+
 <a name="2.1.26"></a>
 ## [2.1.26](https://github.com/picidaejs/picidae/compare/v2.1.25...v2.1.26) (2018-03-12)
 
