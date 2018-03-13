@@ -1,3 +1,13 @@
+<a name="2.2.0"></a>
+# [2.2.0](https://github.com/picidaejs/picidae/compare/v2.1.27...v2.2.0) (2018-03-13)
+
+
+### Features
+
+* picidae-cli inject production/development env ([68adb5b](https://github.com/picidaejs/picidae/commit/68adb5b))
+
+
+
 <a name="2.1.27"></a>
 ## [2.1.27](https://github.com/picidaejs/picidae/compare/v2.1.26...v2.1.27) (2018-03-13)
 
