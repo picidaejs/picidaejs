@@ -4,6 +4,10 @@ var getPath = require('./lib/getPath');
 
 
 module.exports = function (commander) {
+    if (!process.env.NODE_ENV) {
+        process.env.NODE_ENV = 'production'
+    }
+
     var p = getPath(commander.config)
     var configPath = p.configPath, cwd = p.cwd
     var config = require(configPath)
