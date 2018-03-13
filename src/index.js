@@ -22,6 +22,7 @@ import boss from './lib/loaders/common/boss'
 import summary from './lib/loaders/data-loader/summary-generator'
 import ssr from './lib/utils/ssr'
 import checkThemeConfig from './lib/utils/check-theme-config-file'
+import externalExports from './lib/utils/externalExports'
 // import createGlobalRequire from './lib/utils/createGlobalRequire'
 import * as over from './lib/utils/overwrite-require'
 import context from './lib/context'
@@ -175,8 +176,8 @@ class Picidae extends EventEmitter {
         this.opts.transformers = this.opts.transformers || []
 
         function getTransformers(transformers, suffix) {
-            return transformers
-                .map(str => {
+            transformers = transformers
+                .map((str, index) => {
                     let pureName = str.replace(/\?.*?$/, '')
                     let moduleName = parseQuery.autoPrefix(pureName, 'picidae-transformer-')
                     let modulePath = ''
@@ -184,7 +185,8 @@ class Picidae extends EventEmitter {
                         try {
                             return {
                                 ...parseQuery(str),
-                                path: require.resolve(resolve.isNodeModule(str) ? str : nps.resolve(str))
+                                path: require.resolve(resolve.isNodeModule(str) ? str : nps.resolve(str)),
+                                index
                             }
                         } catch (ex) {
                             if (ex.code !== 'MODULE_NOT_FOUND') {
@@ -209,15 +211,36 @@ class Picidae extends EventEmitter {
                         return false
                     }
 
-                    return parseQuery(
-                        parseQuery.injectJoin(str, suffix), 'picidae-transformer-', { allowNotExists: true }
-                    )
+                    return {
+                        ...parseQuery(
+                            parseQuery.injectJoin(str, suffix), 'picidae-transformer-', { allowNotExists: true }
+                        ),
+                        index
+                    }
                 })
                 .filter(Boolean)
+
+            const map = {}
+            const uniques = []
+            transformers.forEach(t => {
+                if (!map[t.path]) {
+                    uniques.push(t)
+                }
+                map[t.path] = true
+            })
+            return uniques
         }
 
-        this.nodeTransformers = getTransformers(this.opts.transformers, 'node.js')
-        this.browserTransformers = getTransformers(this.opts.transformers, 'browser.js')
+        const transformers = this.opts.transformers.slice()
+        this.nodeTransformers = getTransformers(transformers, 'node.js')
+        externalExports(this.nodeTransformers, transformers)
+        this.nodeTransformers = getTransformers(transformers, 'node.js')
+        this.browserTransformers = getTransformers(transformers, 'browser.js')
+
+        if (isDebug) {
+            console.debug('nodeTransformers', this.nodeTransformers)
+            console.debug('browserTransformers', this.browserTransformers)
+        }
 
         this.watchTheme()
             .then(() => this.watchSummary())
