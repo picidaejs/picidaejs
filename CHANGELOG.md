@@ -1,3 +1,13 @@
+<a name="2.2.1"></a>
+## [2.2.1](https://github.com/picidaejs/picidae/compare/v2.2.0...v2.2.1) (2018-03-14)
+
+
+### Features
+
+* support rehypeTransformer on nodeTransformer ([ae3da39](https://github.com/picidaejs/picidae/commit/ae3da39))
+
+
+
 <a name="2.2.0"></a>
 # [2.2.0](https://github.com/picidaejs/picidae/compare/v2.1.27...v2.2.0) (2018-03-13)
 
