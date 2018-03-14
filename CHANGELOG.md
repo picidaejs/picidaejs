@@ -1,3 +1,13 @@
+<a name="2.2.2"></a>
+## [2.2.2](https://github.com/picidaejs/picidae/compare/v2.2.1...v2.2.2) (2018-03-14)
+
+
+### Features
+
+* supports image-loader default ([48fb758](https://github.com/picidaejs/picidae/commit/48fb758))
+
+
+
 <a name="2.2.1"></a>
 ## [2.2.1](https://github.com/picidaejs/picidae/compare/v2.2.0...v2.2.1) (2018-03-14)
 
