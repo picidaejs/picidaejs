@@ -1,3 +1,4 @@
+
 function stringify(obj) {
     let str = JSON.stringify(obj, function (key, value) {
         if (value && value.PICIDAE_EVAL_CODE === true) {
@@ -8,7 +9,10 @@ function stringify(obj) {
         return value;
     }, 2);
 
-    return str.replace(/(['"])PICIDAE_EVAL_CODE([^]+?)PICIDAE_EVAL_CODE\1/g, '$2')
+    return str.replace(/(['"])PICIDAE_EVAL_CODE([^]+?)PICIDAE_EVAL_CODE\1/g, function (_, $1, $2) {
+        // require(\"adssd\") -> require('adssd')
+        return $2.replace(/\\"/g, "\"")
+    })
 }
 
 module.exports = stringify

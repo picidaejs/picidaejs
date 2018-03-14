@@ -130,7 +130,7 @@ export default function getWebpackCommonConfig(args = {}) {
                 {
                     test: /\.woff(\?v=\d+\.\d+\.\d+)?$/,
                     loader: 'url-loader',
-                    options: {
+                    query: {
                         limit: 10000,
                         minetype: 'application/font-woff'
                     }
@@ -138,7 +138,7 @@ export default function getWebpackCommonConfig(args = {}) {
                 {
                     test: /\.woff2(\?v=\d+\.\d+\.\d+)?$/,
                     loader: 'url-loader',
-                    options: {
+                    query: {
                         limit: 10000,
                         minetype: 'application/font-woff'
                     }
@@ -146,7 +146,7 @@ export default function getWebpackCommonConfig(args = {}) {
                 {
                     test: /\.ttf(\?v=\d+\.\d+\.\d+)?$/,
                     loader: 'url-loader',
-                    options: {
+                    query: {
                         limit: 10000,
                         minetype: 'application/octet-stream'
                     }
@@ -154,7 +154,7 @@ export default function getWebpackCommonConfig(args = {}) {
                 {
                     test: /\.eot(\?v=\d+\.\d+\.\d+)?$/,
                     loader: 'url-loader',
-                    options: {
+                    query: {
                         limit: 10000,
                         minetype: 'application/vnd.ms-fontobject'
                     }
@@ -162,7 +162,7 @@ export default function getWebpackCommonConfig(args = {}) {
                 {
                     test: /\.svg(\?v=\d+\.\d+\.\d+)?$/,
                     loader: 'url-loader',
-                    options: {
+                    query: {
                         limit: 10000,
                         minetype: 'image/svg+xml'
                     }
@@ -170,19 +170,21 @@ export default function getWebpackCommonConfig(args = {}) {
                 {
                     test: /\.(png|jpg|jpeg|gif)(\?v=\d+\.\d+\.\d+)?$/i,
                     loader: 'file-loader',
-                    options: {
+                    query: {
                         name: '[path][name].[ext]'
                     }
                 },
                 {
                     test: /\.html?$/,
                     loader: 'file-loader',
-                    options: {}
+                    query: {
+                        name: '[path][name].[ext]'
+                    }
                 },
                 {
                     test: /\.json$/,
                     loader: 'json-loader',
-                    options: {
+                    query: {
                         name: '[path][name].[ext]'
                     }
                 }

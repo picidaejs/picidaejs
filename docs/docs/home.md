@@ -3,6 +3,7 @@ title: 你好, Picidae!
 # datetime: 2016-09-12 11:20
 ---
 
+![home](../../logo/picidae-1x.png)
 **Picidae**，译为**啄木鸟**，一个易扩展，自定义，优体验的自动文档生成工具。
 
 :smile:
