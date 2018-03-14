@@ -1,14 +1,17 @@
 import remark from 'remark'
-import remarkHtml from 'remark-html'
 import remarkAlign from 'remark-align'
 import toEmoji from 'remark-gemoji-to-emoji'
 import slug from 'remark-slug'
 import highlight from 'remark-highlight.js'
 import yamlFront from '../../utils/loadFront'
 import headings from 'remark-autolink-headings'
+import remark2rehype from 'remark-rehype'
+import raw from 'rehype-raw'
+import mini from 'rehype-preset-minify'
+import rehypeStringify from 'rehype-stringify'
 
-import visit from 'unist-util-visit';
-import loaderUtils from 'loader-utils';
+import visit from 'unist-util-visit'
+import loaderUtils from 'loader-utils'
 
 export const alignClass = {
     left: 'align-left',
@@ -16,65 +19,70 @@ export const alignClass = {
     right: 'align-right'
 }
 
-function generate(content, info, callback, transformers = []) {
-    const {__content, ...meta} = yamlFront.loadFront(content);
+function generate(content, info, callback, remarkTransformers = [], rehypeTransformers = []) {
+    const { __content, ...meta } = yamlFront.loadFront(content)
 
-    toHTML(__content, info, transformers)
+    toHTML(__content, info, remarkTransformers, rehypeTransformers)
         .then(data =>
             callback(null, meta, data)
         )
         .catch(err => callback(err))
 }
 
-generate.toHTML = toHTML;
-function toHTML(md, info = {}, transformers = []) {
-    const extra = {};
+generate.toHTML = toHTML
+
+function toHTML(md, info = {}, remarkTransformers, rehypeTransformers) {
+    const extra = {}
+
     function middleForThis() {
-        this.picidae = () => ({
-            info,
-            inject(key, value) {
-                extra[key] = value;
+        this.picidae = () => (
+            {
+                info,
+                inject(key, value) {
+                    extra[key] = value
+                }
             }
-        });
+        )
 
         return (node) => {
             visit(node, 'code', (codeNode) => {
-                let lang = codeNode.lang || '';
+                let lang = codeNode.lang || ''
 
-                let i = lang.lastIndexOf('?');
-                let query = {};
+                let i = lang.lastIndexOf('?')
+                let query = {}
                 if (i >= 0) {
-                    query = loaderUtils.parseQuery(lang.substr(i));
-                    lang = lang.substring(0, i);
+                    query = loaderUtils.parseQuery(lang.substr(i))
+                    lang = lang.substring(0, i)
                 }
-                codeNode.lang = lang;
-                codeNode.data = codeNode.data || {};
-                codeNode.data.hProperties = codeNode.data.hProperties || {};
-                codeNode.data.hProperties['data-query'] = JSON.stringify(query);
-                codeNode.data.hProperties['data-lang'] = lang;
-            });
+                codeNode.lang = lang
+                codeNode.data = codeNode.data || {}
+                codeNode.data.hProperties = codeNode.data.hProperties || {}
+                codeNode.data.hProperties['data-query'] = JSON.stringify(query)
+                codeNode.data.hProperties['data-lang'] = lang
+            })
         }
     }
 
-    remarkAlign.options = alignClass;
-    const presetTransformers = [toEmoji, remarkAlign, remarkHtml, slug, headings, middleForThis]
-    let source = remark();
-
-    transformers = presetTransformers.concat(transformers, highlight);
+    remarkAlign.options = alignClass
+    const presetTransformers = [toEmoji, remarkAlign, slug, headings, middleForThis]
+    remark2rehype.options = { allowDangerousHTML: true }
+    let appended = [remark2rehype, raw].concat(rehypeTransformers).concat([mini, rehypeStringify])
+    let source = remark()
+    let transformers = presetTransformers.concat(remarkTransformers, highlight, appended)
     return new Promise((resolve, reject) => {
-        source = transformers.reduce((source, transformer) => source.use(transformer, transformer.options || {}), source);
+        source = transformers.reduce((source, transformer) => source.use(transformer, transformer.options || {}), source)
         source.process(md, function (err, file) {
-                if (err) {
-                    reject(err);
-                }
-                else {
-                    resolve({
-                        content: file.contents,
-                        extra
-                    })
-                }
-            });
+            if (err) {
+                reject(err)
+            }
+            else {
+                resolve({
+                    content: file.contents,
+                    extra
+                })
+            }
+        })
     })
 }
 
-module.exports = generate;
+module.exports = generate

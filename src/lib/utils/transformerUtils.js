@@ -10,6 +10,7 @@ exports.chain = function (transformers = [], beginData, extra = {}) {
 
 exports.split = function (transformers = []) {
     let remarkTransformers = []
+    let rehypeTransformers = []
     let markdownTransformers = []
     let htmlTransformers = []
     transformers.forEach(({ path, opt }) => {
@@ -17,6 +18,10 @@ exports.split = function (transformers = []) {
         if (typeof transformer.remarkTransformer === 'function') {
             transformer.remarkTransformer.options = opt
             remarkTransformers.push(transformer.remarkTransformer)
+        }
+        if (typeof transformer.rehypeTransformer === 'function') {
+            transformer.rehypeTransformer.options = opt
+            rehypeTransformers.push(transformer.rehypeTransformer)
         }
         if (typeof transformer.markdownTransformer === 'function') {
             markdownTransformers.push(transformer.markdownTransformer.bind(null, opt))
@@ -30,5 +35,5 @@ exports.split = function (transformers = []) {
         }
     })
 
-    return { htmlTransformers, markdownTransformers, remarkTransformers }
+    return { htmlTransformers, rehypeTransformers, markdownTransformers, remarkTransformers }
 }
