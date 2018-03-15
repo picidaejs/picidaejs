@@ -1,3 +1,13 @@
+<a name="2.2.4"></a>
+## [2.2.4](https://github.com/picidaejs/picidae/compare/v2.2.3...v2.2.4) (2018-03-15)
+
+
+### Bug Fixes
+
+* adaptor es6 module for transformer/plugin ([064a353](https://github.com/picidaejs/picidae/commit/064a353))
+
+
+
 <a name="2.2.3"></a>
 ## [2.2.3](https://github.com/picidaejs/picidae/compare/v2.2.2...v2.2.3) (2018-03-15)
 
