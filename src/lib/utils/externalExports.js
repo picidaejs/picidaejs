@@ -11,6 +11,9 @@ export default function externalExports(computedTransformers, transformers) {
         let {
             use = []
         } = require(path)
+        if (typeof use === 'function') {
+            use = use(opt)
+        }
         if (!Array.isArray(use)) {
             use = [use]
         }
