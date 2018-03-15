@@ -1,3 +1,13 @@
+<a name="2.2.6"></a>
+## [2.2.6](https://github.com/picidaejs/picidae/compare/v2.2.5...v2.2.6) (2018-03-15)
+
+
+### Features
+
+* transformer's use supports function ([ff2b4f2](https://github.com/picidaejs/picidae/commit/ff2b4f2))
+
+
+
 <a name="2.2.5"></a>
 ## [2.2.5](https://github.com/picidaejs/picidae/compare/v2.2.4...v2.2.5) (2018-03-15)
 
