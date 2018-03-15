@@ -1,3 +1,4 @@
+import '../browser-tools/global'
 import Error from '../utils/Error'
 import hoc from '../browser-tools/hoc'
 import renderUtil from '../browser-tools/renderUtil'

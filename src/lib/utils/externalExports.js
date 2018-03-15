@@ -12,7 +12,7 @@ export default function externalExports(computedTransformers, transformers) {
             use = []
         } = require(path)
         if (typeof use === 'function') {
-            use = use(opt)
+            use = use(opt || {})
         }
         if (!Array.isArray(use)) {
             use = [use]
