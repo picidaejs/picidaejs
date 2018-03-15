@@ -21,6 +21,7 @@ module.exports = function (opt) {
                 processNode: function (node, children = [], index) {
                     const i = parseInt(node.attribs['data-image-loader'])
                     node.attribs['src'] = array[i]
+                    global.__picidae__emitter.emit('after-img-loader-replace-src', node, children)
                     // pageData
                     return utils.createElement(node, index, node.data, children)
                 }
