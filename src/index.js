@@ -234,6 +234,8 @@ class Picidae extends EventEmitter {
         let transformers = this.opts.transformers.slice()
         transformers = [nps.join(__dirname, 'transformers', 'img-loader')].concat(transformers)
 
+
+        // recursively exports.use
         let len
         do {
             len = transformers.length
