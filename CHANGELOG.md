@@ -1,3 +1,13 @@
+<a name="2.2.8"></a>
+## [2.2.8](https://github.com/picidaejs/picidae/compare/v2.2.7...v2.2.8) (2018-03-15)
+
+
+### Bug Fixes
+
+* recursive transformer exports.use ([2ec62e6](https://github.com/picidaejs/picidae/commit/2ec62e6))
+
+
+
 <a name="2.2.7"></a>
 ## [2.2.7](https://github.com/picidaejs/picidae/compare/v2.2.6...v2.2.7) (2018-03-15)
 
