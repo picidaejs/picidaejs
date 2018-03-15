@@ -18,6 +18,7 @@ export default function externalExports(computedTransformers, transformers) {
             use = [use]
         }
         use = use.filter(item => typeof item === 'string')
+        use = use.filter(u => !transformers.includes(u))
         transformers.splice(index, 0, ...use)
     })
 }

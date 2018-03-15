@@ -233,9 +233,13 @@ class Picidae extends EventEmitter {
 
         let transformers = this.opts.transformers.slice()
         transformers = [nps.join(__dirname, 'transformers', 'img-loader')].concat(transformers)
-        this.nodeTransformers = getTransformers(transformers, 'node.js')
-        externalExports(this.nodeTransformers, transformers)
-        this.nodeTransformers = getTransformers(transformers, 'node.js')
+
+        let len
+        do {
+            len = transformers.length
+            this.nodeTransformers = getTransformers(transformers, 'node.js')
+            externalExports(this.nodeTransformers, transformers)
+        } while(transformers.length !== len)
         this.browserTransformers = getTransformers(transformers, 'browser.js')
 
         if (isDebug) {
