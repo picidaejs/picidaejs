@@ -94,7 +94,7 @@ async function generatePickedMeta(filesMap, {
 }
 
 function pluginsStr(plugins = []) {
-    return plugins.map(({ path, opt }) => `require('${toUriPath(path)}')(${JSON.stringify(opt)})`).join(',')
+    return plugins.map(({ path, opt }) => `(require('${toUriPath(path)}').default || require('${toUriPath(path)}'))(${JSON.stringify(opt)})`).join(',')
 }
 
 async function summaryGenerate(filesMap, { plugins = [], nodeTransformers, transformers = [], picker, docRoot }, lazyload = true) {
