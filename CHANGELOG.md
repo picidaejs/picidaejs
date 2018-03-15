@@ -1,3 +1,13 @@
+<a name="2.2.7"></a>
+## [2.2.7](https://github.com/picidaejs/picidae/compare/v2.2.6...v2.2.7) (2018-03-15)
+
+
+### Bug Fixes
+
+* picidae emitter ssr not found ([1559a94](https://github.com/picidaejs/picidae/commit/1559a94))
+
+
+
 <a name="2.2.6"></a>
 ## [2.2.6](https://github.com/picidaejs/picidae/compare/v2.2.5...v2.2.6) (2018-03-15)
 
