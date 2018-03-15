@@ -203,7 +203,7 @@ class Picidae extends EventEmitter {
                         }
                     } catch (ex) {
                         if (ex.code === 'MODULE_NOT_FOUND') {
-                            console.warn(`\`${moduleName}/${suffix}\` transformer is not found.`)
+                            isDebug && console.warn(`\`${moduleName}/${suffix}\` transformer is not found.`)
                         }
                         else {
                             console.error(ex)
@@ -231,8 +231,8 @@ class Picidae extends EventEmitter {
             return uniques
         }
 
-        const transformers = this.opts.transformers.slice()
-                                 .concat([nps.join(__dirname, 'transformers', 'img-loader')])
+        let transformers = this.opts.transformers.slice()
+        transformers = transformers.concat([nps.join(__dirname, 'transformers', 'img-loader')])
         this.nodeTransformers = getTransformers(transformers, 'node.js')
         externalExports(this.nodeTransformers, transformers)
         this.nodeTransformers = getTransformers(transformers, 'node.js')

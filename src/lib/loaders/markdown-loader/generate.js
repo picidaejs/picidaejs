@@ -7,7 +7,7 @@ import yamlFront from '../../utils/loadFront'
 import headings from 'remark-autolink-headings'
 import remark2rehype from 'remark-rehype'
 import raw from 'rehype-raw'
-import mini from 'rehype-preset-minify'
+import mini from './safe-preset-minify'
 import rehypeStringify from 'rehype-stringify'
 
 import visit from 'unist-util-visit'
