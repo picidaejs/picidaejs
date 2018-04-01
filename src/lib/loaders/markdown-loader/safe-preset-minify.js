@@ -7,7 +7,8 @@ exports.settings = {
     },
     quoteSmart: true,
     preferUnquoted: true,
-    omitOptionalTags: true,
+    // Fix table minified
+    omitOptionalTags: false,
     collapseEmptyAttributes: true,
     tightCommaSeparatedLists: true,
     tightAttributes: true,
