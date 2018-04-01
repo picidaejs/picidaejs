@@ -1,3 +1,13 @@
+<a name="2.2.10"></a>
+## [2.2.10](https://github.com/picidaejs/picidae/compare/v2.2.9...v2.2.10) (2018-04-01)
+
+
+### Bug Fixes
+
+* table minified ([707f873](https://github.com/picidaejs/picidae/commit/707f873))
+
+
+
 <a name="2.2.9"></a>
 ## [2.2.9](https://github.com/picidaejs/picidae/compare/v2.2.8...v2.2.9) (2018-03-15)
 
