@@ -67,6 +67,7 @@
     "less": "^2.7.2",
     "less-loader": "^4.0.5",
     "loader-utils": "^1.1.0",
+    "lodash.isequal": "^4.5.0",
     "md5": "^2.2.1",
     "mkdirp": "^0.5.1",
     "moment": "^2.18.1",

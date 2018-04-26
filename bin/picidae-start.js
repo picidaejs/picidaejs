@@ -17,7 +17,7 @@ module.exports = function (commander) {
     config.id = require('md5')(configPath).substr(0, 8);
     config.watch = true;
     config.ssr = false;
-    config.quickHot = commander.quickHot;
+    // config.quickHot = commander.quickHot;
 
     var picidae = new Picidae(config)
     picidae.start();

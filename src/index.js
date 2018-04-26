@@ -6,6 +6,7 @@ import webpack from 'webpack'
 import build from './lib/webpack-server/build'
 import fs from './lib/utils/fs'
 import Error from './lib/utils/Error'
+import { loadFront } from './lib/utils/loadFront'
 import assign from './lib/utils/array-append-assign'
 import { fileIsMarkdown, renderTemplate } from './lib/utils'
 import { tmpPath, templatePath } from './lib/utils/context'
@@ -31,6 +32,8 @@ import chokidar from 'chokidar'
 import PropTypes from 'prop-types'
 import url from 'url'
 import chalk from 'chalk'
+
+const isEqual = require('lodash.isequal');
 
 const isDebug = !!process.env.PICIDAE_DEBUG
 // const require = createGlobalRequire(__dirname)
@@ -280,6 +283,7 @@ class Picidae extends EventEmitter {
         })
 
         let opt = {
+            docsEntityEntry: this.docsEntityEntry,
             plugins,
             transformers: this.browserTransformers,
             nodeTransformers: this.nodeTransformers,
@@ -327,24 +331,24 @@ class Picidae extends EventEmitter {
                 if (match(this.opts.hotReloadTests, path)) {
                     console.log('Detect File ' + event + ' :', nps.relative(this.docPath, path))
 
-                    if (this.opts.quickHot) {
-                        switch (event) {
-                            case 'add':
-                            case 'unlink':
-                                // File content replace by webpack!!!
-                                // Could be detected change by webpack reasonably
+                    const foundPathKey = Object.keys(this.docsEntry).find(key => this.docsEntry[key] === path)
+                    if (foundPathKey != null && this.docsEntityEntry[foundPathKey]) {
+                        let meta = this.docsEntityEntry[foundPathKey].meta
+                        if (fs.isFile(path) && /\.(md|markdown)$/i.test(path)) {
+                            const { __content, ...realMeta } = loadFront(fs.readFileSync(path).toString())
+                            isDebug && console.debug('newMeta:', realMeta, ', oldMeta:', meta)
+                            // updated meta
+                            if (!isEqual(realMeta, meta)) {
+                                isDebug && console.debug('updated meta')
                                 await generateSummary()
-                                break
-                            default:
-                                // inner
-                                !path.startsWith(this.docPath) && await generateSummary()
-                                break
+                            }
                         }
                     }
                     else {
+                        // not found
                         await generateSummary()
                     }
-                    // quick
+
                 }
             })
         }
