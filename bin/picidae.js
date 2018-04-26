@@ -21,6 +21,7 @@ commander
     .command('start')
     .description('start a webpack server for development.')
     .option('-c --config [file]', 'set config path. (default `./picidae.config.js`)')
+    .option('--quick-hot', 'enable quick hot mode. (NOTE: maybe cause the meta data such as `title` can\'t be updated.)')
     // .option('--ssr', 'turn on ssr')
     .action(function (opts) {
         require('./picidae-start')(opts)

@@ -306,15 +306,45 @@ class Picidae extends EventEmitter {
         if (this.opts.watch) {
             this.summaryLock = false
             this.summaryWatcher = chokidar.watch(this.docPath, { ignoreInitial: true })
+
+
             this.summaryWatcher.on('all', async (event, path) => {
-                if (match(this.opts.hotReloadTests, path)) {
-                    console.log('Detect File ' + event + ' :', nps.relative(this.docPath, path))
+                // change
+                // add
+                // remove
+                // ...
+
+                // TODO
+                // this.docsEntry -> should fill assets firstly
+                const generateSummary = async () => {
                     try {
                         await this.generateSummary()
                     } catch (ex) {
                         console.error(ex)
                     }
-                    this.summaryLock = true
+                }
+
+                if (match(this.opts.hotReloadTests, path)) {
+                    console.log('Detect File ' + event + ' :', nps.relative(this.docPath, path))
+
+                    if (this.opts.quickHot) {
+                        switch (event) {
+                            case 'add':
+                            case 'unlink':
+                                // File content replace by webpack!!!
+                                // Could be detected change by webpack reasonably
+                                await generateSummary()
+                                break
+                            default:
+                                // inner
+                                !path.startsWith(this.docPath) && await generateSummary()
+                                break
+                        }
+                    }
+                    else {
+                        await generateSummary()
+                    }
+                    // quick
                 }
             })
         }
@@ -775,6 +805,13 @@ class Picidae extends EventEmitter {
         }
 
         this.wpServer.start(callback)
+        Object.defineProperty(this, 'compiler', {
+            enumerable: true,
+            configurable: false,
+            get: () => {
+                return this.wpServer.app.compiler
+            }
+        })
         if (typeof this.opts.expressSetup === 'function') {
             this.opts.expressSetup(this.wpServer.app)
         }

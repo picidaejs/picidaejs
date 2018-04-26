@@ -36,8 +36,12 @@ render()
 
 if (module.hot) {
     module.hot.accept(
-        ['./routes-generator.{{dataSuffix}}', '{{ themeDataPath }}', './data.{{dataSuffix}}'],
-        () => {
+        [
+            './routes-generator.{{dataSuffix}}',
+            '{{ themeDataPath }}',
+            './data.{{dataSuffix}}'
+        ],
+        (updatedModule, data, r) => {
             render()
         }
     )

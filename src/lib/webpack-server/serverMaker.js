@@ -28,6 +28,7 @@ export default function maker({webpackConfig, static: staticPath, verbose, callb
             console.log(' WebpackServer run on', chalk.underline.red(`${'http://localhost:' + port + '/'}`) );
         }
         const compiler = webpack(webpackConfig);
+        app.compiler = compiler;
         app.use(webpackDevMiddleware(compiler, {
             noInfo: !verbose,
             stats: {

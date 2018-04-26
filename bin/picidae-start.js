@@ -14,9 +14,10 @@ module.exports = function (commander) {
 
     process.chdir(cwd)
 
-    config.id = require('md5')(configPath).substr(0, 8)
+    config.id = require('md5')(configPath).substr(0, 8);
     config.watch = true;
     config.ssr = false;
+    config.quickHot = commander.quickHot;
 
     var picidae = new Picidae(config)
     picidae.start();
