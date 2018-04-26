@@ -1,3 +1,13 @@
+<a name="2.3.0-0"></a>
+# [2.3.0-0](https://github.com/picidaejs/picidae/compare/v2.2.10...v2.3.0-0) (2018-04-26)
+
+
+### Performance Improvements
+
+* add quickHot ([69339b5](https://github.com/picidaejs/picidae/commit/69339b5))
+
+
+
 <a name="2.2.10"></a>
 ## [2.2.10](https://github.com/picidaejs/picidae/compare/v2.2.9...v2.2.10) (2018-04-01)
 
