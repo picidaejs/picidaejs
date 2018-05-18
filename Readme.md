@@ -1,5 +1,7 @@
 # Picidae
 
+**Note: `develop` branch is main workspace for picidae v3.**
+
 ![](./logo/picidae-2x.png)
 
 <!--[![build status](https://img.shields.io/travis/picidaejs/picidae/master.svg?style=flat-square)](https://travis-ci.org/picidaejs/picidae)-->

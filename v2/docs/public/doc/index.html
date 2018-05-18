@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title> Picidae </title>
+    <link rel="stylesheet" href="/style.css">
+</head>
+<body>
+<div id="__root__">
+    <div data-reactroot="" data-reactid="1" data-react-checksum="-990167476"><nav class="nav" data-reactid="2"><div class="nav-container" data-reactid="3"><a href="/" data-reactid="4"><h2 class="nav-title" data-reactid="5">Picidae</h2></a><ul data-reactid="6"><li data-reactid="7"><a href="/guide" data-reactid="8">Guide</a></li><li data-reactid="9"><a href="/docs/1" data-reactid="10">Document</a></li><li data-reactid="11"><a href="/changelog" data-reactid="12">ChangeLog</a></li><li data-reactid="13"><a href="/about" data-reactid="14">About Me</a></li></ul></div></nav><main data-reactid="15"><div class="post" data-reactid="16"><div class="post-info" data-reactid="17"><div class="post-info" data-reactid="18"><span data-reactid="19">Written </span><br data-reactid="20"/><span data-reactid="21">on </span><time datetime="2017-10-10T10:00:00+08:00" data-reactid="22">Oct 10, 2017 10:00 AM</time></div></div><h1 class="post-title" data-reactid="23">Picidae？</h1><div class="post-line" data-reactid="24"></div><article data-reactid="25"><p data-reactid="26">Picidae 做的事情：</p><pre data-reactid="27"><code data-query="{}" data-lang="data-lang" data-reactid="28">               (webpack/react)
+document files -&gt; picidae &lt;- theme(react)
+                     |
+                     |
+                     |
+                static pages
+                 (spa/ssr)
+</code></pre><p data-reactid="29">我说 Picidae，易扩展，自定义，优体验，那么下面就来具体说说都体现在哪里</p><ol data-reactid="30"><li data-reactid="31">易扩展、自定义</li></ol><p data-reactid="32">Picidae 中包括 commander/transformer/plugin/theme 四种可配置扩展的概念。</p><ul data-reactid="33"><li data-reactid="34"><!-- react-text: 35 -->commander (命令)<!-- /react-text --><br data-reactid="36"/><!-- react-text: 37 -->Picidae 中可自定义或者选择，自己想要的commander. Picidae 命令行工具基于第三方包 <!-- /react-text --><a href="https://github.com/tj/commander.js/" data-reactid="38">commander</a></li></ul><p data-reactid="39"><!-- react-text: 40 -->在 <!-- /react-text --><code data-reactid="41">picidae.config.js</code><!-- react-text: 42 --> 中加入 <!-- /react-text --><code data-reactid="43">commanders</code><!-- react-text: 44 --> 配置<!-- /react-text --></p><pre data-reactid="45"><code class="hljs language-js" data-query="{}" data-lang="js" data-reactid="46"><!-- react-text: 47 -->{
+    <!-- /react-text --><span class="hljs-attr" data-reactid="48">commanders</span><!-- react-text: 49 -->: [<!-- /react-text --><span class="hljs-string" data-reactid="50">&#x27;./path/to/your/commander?query&#x27;</span><!-- react-text: 51 -->]
+}<!-- /react-text --></code></pre><pre data-reactid="52"><code class="hljs language-js" data-query="{}" data-lang="js" data-reactid="53"><span class="hljs-comment" data-reactid="54">// `./path/to/your/commander`</span><!-- react-text: 55 -->
+
+<!-- /react-text --><span class="hljs-built_in" data-reactid="56">module</span><!-- react-text: 57 -->.exports = <!-- /react-text --><span class="hljs-function" data-reactid="58"><span class="hljs-keyword" data-reactid="59">function</span><!-- react-text: 60 --> (<!-- /react-text --><span class="hljs-params" data-reactid="61">commander, opt, config, require</span><!-- react-text: 62 -->) <!-- /react-text --></span><!-- react-text: 63 -->{
+    <!-- /react-text --><span class="hljs-keyword" data-reactid="64">return</span><!-- react-text: 65 --> commander
+        .command(<!-- /react-text --><span class="hljs-string" data-reactid="66">&#x27;new [title]&#x27;</span><!-- react-text: 67 -->)
+        .description(<!-- /react-text --><span class="hljs-string" data-reactid="68">&#x27;create a new markdown&#x27;</span><!-- react-text: 69 -->)
+        .action(<!-- /react-text --><span class="hljs-function" data-reactid="70"><span class="hljs-keyword" data-reactid="71">function</span><!-- react-text: 72 --> (<!-- /react-text --><span class="hljs-params" data-reactid="73">title</span><!-- react-text: 74 -->) <!-- /react-text --></span><!-- react-text: 75 -->{
+            <!-- /react-text --><span class="hljs-built_in" data-reactid="76">console</span><!-- react-text: 77 -->.log(title)
+        })
+}<!-- /react-text --></code></pre><ol start="2" data-reactid="78"><li data-reactid="79">优体验</li></ol></article><div class="pagination" data-reactid="80"><a href="#" class="top" data-reactid="81">Top</a></div></div></main><footer data-reactid="82"><span data-reactid="83"><!-- react-text: 84 -->© <!-- /react-text --><time data-reactid="85">2017</time><!-- react-text: 86 -->. Powered By <!-- /react-text --><a href="https://github.com/picidaejs/picidae" data-reactid="87">Picidae</a><!-- react-text: 88 --> .<!-- /react-text --></span></footer></div>
+</div>
+<script src="/PICIDAE_COMMON.js"></script>
+<script src="/PICIDAE_ENTRY.js"></script>
+</body>
+</html>

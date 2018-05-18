@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title> Picidae </title>
+    <link rel="stylesheet" href="/style.css">
+</head>
+<body>
+<div id="__root__">
+    <div data-reactroot="" data-reactid="1" data-react-checksum="-473316539"><nav class="nav" data-reactid="2"><div class="nav-container" data-reactid="3"><a href="/" data-reactid="4"><h2 class="nav-title" data-reactid="5">Picidae</h2></a><ul data-reactid="6"><li data-reactid="7"><a href="/guide" class="active-header" data-reactid="8">Guide</a></li><li data-reactid="9"><a href="/docs/1" data-reactid="10">Document</a></li><li data-reactid="11"><a href="/changelog" data-reactid="12">ChangeLog</a></li><li data-reactid="13"><a href="/about" data-reactid="14">About Me</a></li></ul></div></nav><main data-reactid="15"><div class="post" data-reactid="16"><div class="post-info" data-reactid="17"><div class="post-info" data-reactid="18"><span data-reactid="19">Written </span><span data-reactid="20">on </span><time datetime="2017-12-11T10:10:07+08:00" data-reactid="21">Dec 11, 2017</time></div></div><h1 class="post-title" data-reactid="22">粗心的向导</h1><div class="post-line" data-reactid="23"></div><article data-reactid="24"><p data-reactid="25">come on，put your hand up！✋</p><h2 id="安装使用" data-reactid="26"><a href="#%E5%AE%89%E8%A3%85%E4%BD%BF%E7%94%A8" aria-hidden="true" data-reactid="27"><span class="icon icon-link" data-reactid="28"></span></a><!-- react-text: 29 -->安装/使用<!-- /react-text --></h2><iframe width="854" height="480" src="https://www.youtube.com/embed/zHrFPTQ-2v0" frameborder="0" allowfullscreen="" data-reactid="30"></iframe><h2 id="transformer-的使用" data-reactid="31"><a href="#transformer-%E7%9A%84%E4%BD%BF%E7%94%A8" aria-hidden="true" data-reactid="32"><span class="icon icon-link" data-reactid="33"></span></a><!-- react-text: 34 -->Transformer 的使用<!-- /react-text --></h2><iframe width="854" height="480" src="https://www.youtube.com/embed/cnLSxesDt1U" frameborder="0" allowfullscreen="" data-reactid="35"></iframe><h2 id="picidae-build" data-reactid="36"><a href="#picidae-build" aria-hidden="true" data-reactid="37"><span class="icon icon-link" data-reactid="38"></span></a><!-- react-text: 39 -->Picidae Build<!-- /react-text --></h2><iframe width="854" height="480" src="https://www.youtube.com/embed/AmX3L9oh9tk" frameborder="0" allowfullscreen="" data-reactid="40"></iframe><h3 id="picidae-配置" data-reactid="41"><a href="#picidae-%E9%85%8D%E7%BD%AE" aria-hidden="true" data-reactid="42"><span class="icon icon-link" data-reactid="43"></span></a><!-- react-text: 44 -->Picidae 配置<!-- /react-text --></h3><pre data-reactid="45"><code class="hljs language-js" data-query="{}" data-lang="js" data-reactid="46"><span class="hljs-built_in" data-reactid="47">module</span><!-- react-text: 48 -->.exports = {
+    <!-- /react-text --><span class="hljs-comment" data-reactid="49">// 更新webpack的配置</span><!-- react-text: 50 -->
+    webpackConfigUpdater(config, webpack) {
+        <!-- /react-text --><span class="hljs-keyword" data-reactid="51">return</span><!-- react-text: 52 --> config;
+    },
+    <!-- /react-text --><span class="hljs-comment" data-reactid="53">// picidae start 服务的端口</span><!-- react-text: 54 -->
+    port: <!-- /react-text --><span class="hljs-number" data-reactid="55">9999</span><!-- react-text: 56 -->,
+    <!-- /react-text --><span class="hljs-comment" data-reactid="57">// 与webpack中publicPath概念相同</span><!-- react-text: 58 -->
+    publicPath: <!-- /react-text --><span class="hljs-string" data-reactid="59">&#x27;/picidaejs/public/&#x27;</span><!-- react-text: 60 -->,
+    <!-- /react-text --><span class="hljs-comment" data-reactid="61">// 配置的主题</span><!-- react-text: 62 -->
+    theme: <!-- /react-text --><span class="hljs-string" data-reactid="63">&#x27;../theme&#x27;</span><!-- react-text: 64 -->,
+    <!-- /react-text --><span class="hljs-comment" data-reactid="65">// 文档的根目录</span><!-- react-text: 66 -->
+    docRoot: <!-- /react-text --><span class="hljs-string" data-reactid="67">&#x27;./docs&#x27;</span><!-- react-text: 68 -->,
+    <!-- /react-text --><span class="hljs-comment" data-reactid="69">// build后资源放置的根目录</span><!-- react-text: 70 -->
+    distRoot: <!-- /react-text --><span class="hljs-string" data-reactid="71">&#x27;./public&#x27;</span><!-- react-text: 72 -->,
+    <!-- /react-text --><span class="hljs-comment" data-reactid="73">// 模板的根目录，其中html模板为 templateRoot 下的index.html</span><!-- react-text: 74 -->
+    templateRoot: <!-- /react-text --><span class="hljs-string" data-reactid="75">&#x27;./templates&#x27;</span><!-- react-text: 76 -->,
+    <!-- /react-text --><span class="hljs-comment" data-reactid="77">// build过程中额外的资源，将会被复制到distRoot</span><!-- react-text: 78 -->
+    extraRoot: <!-- /react-text --><span class="hljs-string" data-reactid="79">&#x27;./extra&#x27;</span><!-- react-text: 80 -->,
+    <!-- /react-text --><span class="hljs-comment" data-reactid="81">// 主题的配置根目录</span><!-- react-text: 82 -->
+    themeConfigsRoot: <!-- /react-text --><span class="hljs-string" data-reactid="83">&#x27;./theme-configs&#x27;</span><!-- react-text: 84 -->,
+    <!-- /react-text --><span class="hljs-comment" data-reactid="85">// docRoot中被排除的规则，可以是 RegExp | String | (filename) =&gt; exclude</span><!-- react-text: 86 -->
+    excludes: [<!-- /react-text --><span class="hljs-regexp" data-reactid="87">/example/</span><!-- react-text: 88 -->, /api/, /\/refs\<!-- /react-text --><span class="hljs-comment" data-reactid="89">//],</span><!-- react-text: 90 -->
+
+    transformers: [
+        <!-- /react-text --><span class="hljs-string" data-reactid="91">&#x27;picidae-transformer-react-render?lang=render-jsx&#x27;</span><!-- react-text: 92 -->, <!-- /react-text --><span class="hljs-string" data-reactid="93">&#x27;picidae-transformer-file-syntax&#x27;</span><!-- react-text: 94 -->,
+        <!-- /react-text --><span class="hljs-string" data-reactid="95">&#x27;./test/style-loader?lang=style&#x27;</span><!-- react-text: 96 -->
+    ],
+
+    <!-- /react-text --><span class="hljs-attr" data-reactid="97">commanders</span><!-- react-text: 98 -->: [
+        <!-- /react-text --><span class="hljs-string" data-reactid="99">&#x27;../commanders/new?title=abc&#x27;</span><!-- react-text: 100 -->,
+        <!-- /react-text --><span class="hljs-string" data-reactid="101">&#x27;../commanders/preview&#x27;</span><!-- react-text: 102 -->,
+        <!-- /react-text --><span class="hljs-comment" data-reactid="103">// &#x27;gh-pages?repo=&#x27;,</span><!-- react-text: 104 -->
+        <!-- /react-text --><span class="hljs-comment" data-reactid="105">// &#x27;deploy&#x27;</span><!-- react-text: 106 -->
+    ]
+}<!-- /react-text --></code></pre><h3 id="主题配置" data-reactid="107"><a href="#%E4%B8%BB%E9%A2%98%E9%85%8D%E7%BD%AE" aria-hidden="true" data-reactid="108"><span class="icon icon-link" data-reactid="109"></span></a><!-- react-text: 110 -->主题配置<!-- /react-text --></h3></article><div class="pagination" data-reactid="111"><a href="#" class="top" data-reactid="112">Top</a></div></div></main><footer data-reactid="113"><span data-reactid="114"><!-- react-text: 115 -->© <!-- /react-text --><time data-reactid="116">2017</time><!-- react-text: 117 -->. Powered By <!-- /react-text --><a href="https://github.com/picidaejs/picidae" data-reactid="118">Picidae</a><!-- react-text: 119 --> .<!-- /react-text --></span></footer></div>
+</div>
+<script src="/PICIDAE_COMMON.js"></script>
+<script src="/PICIDAE_ENTRY.js"></script>
+</body>
+</html>
