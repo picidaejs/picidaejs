@@ -369,15 +369,16 @@ class Picidae extends EventEmitter {
         } catch (ex) {
         }
 
+        const hotRequire = require('hot-module-require')(__dirname)
+
         // initial Watcher
         if (this.opts.watch && themeConfigFiles.length) {
-            this.themeWatcher = chokidar.watch(themeConfigFiles, { persistent: true, ignoreInitial: true })
-            this.themeWatcher.on('all', (event, path, stat) => {
-                console.log(path, ':', event)
-                this.themeWatcher.close()
-                this.themeWatcher = null
+            hotRequire.accept(themeConfigFiles, (module, path) => {
+                console.log(path, ':', 'change')
+                hotRequire.close()
                 this.watchTheme()
             })
+
         }
 
         // Write Routes/ThemeConfig to file
@@ -853,8 +854,8 @@ class Picidae extends EventEmitter {
             // throw new Error('WebpackServer is NOT running currently!')
         }
         this.clearTmp()
-        this.themeWatcher && this.themeWatcher.close()
-        this.themeWatcher = null
+        // this.themeWatcher && this.themeWatcher.close()
+        // this.themeWatcher = null
         this.summaryWatcher && this.summaryWatcher.close()
         this.summaryWatcher = null
         this.wpServer && this.wpServer.stop(callback)
