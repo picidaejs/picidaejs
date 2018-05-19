@@ -110,7 +110,10 @@ async function generatePickedMeta(
       meta.datetime || fs.statSync(filename).mtime
     ).format()
     meta.filename = meta.filename || nps.relative(fromPath, filename)
-      const data = { content, filename, getMarkdownData, path, filesMap }
+    const data = {
+        content, filename, getMarkdownData, path, filesMap,
+        docsEntityEntry
+    }
     meta = await picker(
       meta,
       data,
