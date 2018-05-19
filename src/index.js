@@ -294,12 +294,12 @@ class Picidae extends EventEmitter {
         }
 
         if (this.opts.ssr) {
-            let result = await summary({ ...this.docsEntry }, opt, false)
+            let result = await summary(this.docsEntry, opt, false)
             let str = fs.readFileSync(nps.join(templatePath, 'data-ssr.template.js')).toString()
             fs.writeFileSync(this.summarySSrPath, str + '\nmodule.exports = ' + result)
         }
 
-        let lazyresult = await summary({ ...this.docsEntry }, opt, true)
+        let lazyresult = await summary(this.docsEntry, opt, true)
 
         // console.log(`\`${nps.resolve(process.cwd(), this.summaryPath)}\` Updated.`)
         fs.writeFileSync(this.summaryPath, 'module.exports = ' + lazyresult)
