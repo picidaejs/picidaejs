@@ -1,3 +1,8 @@
+<a name="2.3.4"></a>
+## [2.3.4](https://github.com/picidaejs/picidae/compare/v2.3.3...v2.3.4) (2018-05-19)
+
+
+
 <a name="2.3.3"></a>
 ## [2.3.3](https://github.com/picidaejs/picidae/compare/v2.3.2...v2.3.3) (2018-05-19)
 
