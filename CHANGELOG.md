@@ -1,3 +1,13 @@
+<a name="2.3.6"></a>
+## [2.3.6](https://github.com/picidaejs/picidae/compare/v2.3.5...v2.3.6) (2018-05-19)
+
+
+### Performance Improvements
+
+* picker add docsEntityEntry argument ([aabd33c](https://github.com/picidaejs/picidae/commit/aabd33c))
+
+
+
 <a name="2.3.5"></a>
 ## [2.3.5](https://github.com/picidaejs/picidae/compare/v2.3.4...v2.3.5) (2018-05-19)
 
