@@ -1,3 +1,13 @@
+<a name="2.3.3"></a>
+## [2.3.3](https://github.com/picidaejs/picidae/compare/v2.3.2...v2.3.3) (2018-05-19)
+
+
+### Bug Fixes
+
+* clone the filesMap when ssr build ([0159473](https://github.com/picidaejs/picidae/commit/0159473))
+
+
+
 <a name="2.3.2"></a>
 ## [2.3.2](https://github.com/picidaejs/picidae/compare/v2.3.1...v2.3.2) (2018-05-19)
 
