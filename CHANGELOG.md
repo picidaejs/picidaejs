@@ -1,3 +1,13 @@
+<a name="2.3.2"></a>
+## [2.3.2](https://github.com/picidaejs/picidae/compare/v2.3.1...v2.3.2) (2018-05-19)
+
+
+### Performance Improvements
+
+* use hot module require to hot update theme configuration ([f90f3a8](https://github.com/picidaejs/picidae/commit/f90f3a8))
+
+
+
 <a name="2.3.1"></a>
 ## [2.3.1](https://github.com/picidaejs/picidae/compare/v2.3.0...v2.3.1) (2018-04-26)
 
