@@ -378,7 +378,6 @@ class Picidae extends EventEmitter {
                 hotRequire.close()
                 this.watchTheme()
             })
-
         }
 
         // Write Routes/ThemeConfig to file
