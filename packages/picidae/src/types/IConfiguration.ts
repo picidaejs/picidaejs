@@ -8,43 +8,45 @@
 export type Glob = string
 export type Mather = RegExp | Glob | Function
 
+// markdown
 export type NodeTransformer = {
-    markdownTransformer?: Function
-    remarkTransformer?: Function
-    rehypeTransformer?: Function
+  markdownTransformer?: Function
+  remarkTransformer?: Function
+  rehypeTransformer?: Function
 }
 
-export type BrowserTransformer = {
-    markdownTransformer?: Function
-    remarkTransformer?: Function
-    rehypeTransformer?: Function
-}
+// TODO
+export type BrowserTransformer = Function
+
+export type Plugin = string | Function | [string | Function, any]
+export type Transformer = string | [string, any]
 
 export default interface IConfiguration {
-    verbose?: boolean
+  verbose?: boolean
 
-    id: string
-    host?: string
-    publicPath?: string
-    theme?: string
-    port?: number
-    expressSetup?: Function
-    webpackConfigUpdater?: Function
-    ssrWebpackConfigUpdater?: Function
+  id: string
+  host?: string
+  publicPath?: string
+  theme?: string
+  port?: number
+  expressSetup?: Function
+  webpackConfigUpdater?: Function
+  ssrWebpackConfigUpdater?: Function
 
-    docRoot?: string
-    distRoot?: string
-    template?: string
-    extraAssetsRoot?: string
+  docRoot?: string
+  distRoot?: string
+  template?: string
+  extraAssetsRoot?: string
 
-    themeConfigsRoot?: string
-    // External hot reload
-    hotReloadTests?: Mather[]
+  themeConfigsRoot?: string
+  // External hot reload
+  hotReloadTests?: Mather[]
 
-    // `excludes` renames to `ignores`
-    ignores: Mather[]
+  // `excludes` renames to `ignores`
+  ignores: Mather[]
 
-    transformers: string[]
-    // `commanders` is used in cli
-    commanders: []
+  transformers: Transformer[]
+  // `commanders` is used in cli
+  commanders: Plugin[]
+  plugins: Plugin[]
 }
