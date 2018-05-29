@@ -1,3 +1,13 @@
+<a name="2.3.7"></a>
+## [2.3.7](https://github.com/picidaejs/picidae/compare/v2.3.6...v2.3.7) (2018-05-29)
+
+
+### Bug Fixes
+
+* image loader decodeURIComponent ([ecb2374](https://github.com/picidaejs/picidae/commit/ecb2374))
+
+
+
 <a name="2.3.6"></a>
 ## [2.3.6](https://github.com/picidaejs/picidae/compare/v2.3.5...v2.3.6) (2018-05-19)
 
