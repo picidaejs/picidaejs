@@ -35,7 +35,7 @@ exports.rehypeTransformer = function rehypeTransformer(option) {
             }
             const properties = node.properties
             if (properties.src && !isUrlString(properties.src)) {
-                const imgFilePath = nps.resolve(dirname, properties.src)
+                const imgFilePath = nps.resolve(dirname, decodeURIComponent(properties.src))
                 if (fs.isFile(imgFilePath)) {
                     properties['data-image-loader'] = index++
                     array.push({
