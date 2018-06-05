@@ -1,3 +1,13 @@
+<a name="2.3.8"></a>
+## [2.3.8](https://github.com/picidaejs/picidae/compare/v2.3.7...v2.3.8) (2018-06-05)
+
+
+### Performance Improvements
+
+* theme support staticComponent ([0c91bea](https://github.com/picidaejs/picidae/commit/0c91bea))
+
+
+
 <a name="2.3.7"></a>
 ## [2.3.7](https://github.com/picidaejs/picidae/compare/v2.3.6...v2.3.7) (2018-05-29)
 
