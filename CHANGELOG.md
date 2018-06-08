@@ -1,3 +1,13 @@
+<a name="2.3.9"></a>
+## [2.3.9](https://github.com/picidaejs/picidae/compare/v2.3.8...v2.3.9) (2018-06-08)
+
+
+### Bug Fixes
+
+* routeType ([a60c378](https://github.com/picidaejs/picidae/commit/a60c378))
+
+
+
 <a name="2.3.8"></a>
 ## [2.3.8](https://github.com/picidaejs/picidae/compare/v2.3.7...v2.3.8) (2018-06-05)
 
