@@ -2,22 +2,25 @@
  * @file: check-theme-config-file
  * @author: Cuttle Cong
  * @date: 2017/11/23
- * @description: 
+ * @description:
  */
 
 const PropTypes = require('prop-types')
 
 
 const routeType = PropTypes.shape({
-    path: PropTypes.string.isRequired,
-    component: PropTypes.string.isRequired,
+    path: PropTypes.string,
+    component: PropTypes.string,
+    staticComponent: PropTypes.string,
     indexRoute: PropTypes.shape({
-       component: PropTypes.string,
+        component: PropTypes.string,
+        staticComponent: PropTypes.string
     }),
     childRoutes: PropTypes.arrayOf(
         PropTypes.shape({
             path: PropTypes.string.isRequired,
-            component: PropTypes.string.isRequired,
+            component: PropTypes.string,
+            staticComponent: PropTypes.string
         })
     )
 })
