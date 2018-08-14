@@ -17,10 +17,10 @@ As shown below
 ## Why?
 There are a lot of document generator now, why I choose Picidae?
 
-|             | Picidae | Hexo | GitBook   | VuePress    |
-| ----------- | ------- | ---- | --------  | ----------- |
-| SPA         | ✅      | ❌   | ❌(pjpx) | ✅         |
-| Transformer | ✅      | ❌   | ❌       | ✅**(partial)** |
+|             | Picidae | Hexo | GitBook   |
+| ----------- | ------- | ---- | --------  |
+| SPA         | ✅      | ❌   | ❌(pjpx) |
+| Transformer | ✅      | ❌   | ❌       |
 
 Why I consider VuePress had supportted transformer partially?   
 VuePress has markdown transformer by [markdown-it](https://github.com/markdown-it/markdown-it).
