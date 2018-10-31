@@ -14,7 +14,8 @@ const basename = '{{ root }}'
 let counter = 0
 const history = useRouterHistory(createHistory)({ basename })
 
-function render() {
+const rootDom = document.getElementById('__root__') || document.getElementById('root')
+function render(callback) {
     const routesGenerator = require('./routes-generator.{{dataSuffix}}')
     let themeData = require('{{ themeDataPath }}')
     let routes = routesGenerator(themeData)
@@ -28,13 +29,15 @@ function render() {
             />
         </AppContainer>,
         // using `__root__` for reducing the hits of markdown heading named root
-        document.getElementById('__root__') || document.getElementById('root') // Compatible with old version
+         // Compatible with old version
+        rootDom,
+        callback
     )
 }
 
 render()
 
-if (module.hot) {
+if (module.hot && process.env.NODE_ENV !== 'production') {
     module.hot.accept(
         [
             './routes-generator.{{dataSuffix}}',
@@ -42,7 +45,22 @@ if (module.hot) {
             './data.{{dataSuffix}}'
         ],
         (updatedModule, data, r) => {
-            render()
+            const highlight = () => {
+                const node = rootDom.querySelector('.detected-updated')
+                if (node) {
+                    // Scroll to updated node
+                    node.scrollIntoView({ /*behavior: 'smooth'*/ })
+                    return true
+                }
+            }
+            render(() => {
+                require('!style-loader!css-loader!detect-one-changed/style.css')
+                if (!highlight()) {
+                    setTimeout(() => {
+                        highlight()
+                    }, 500)
+                }
+            })
         }
     )
 }

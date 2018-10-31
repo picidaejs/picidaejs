@@ -4,7 +4,7 @@ datetime: 2017-11-07 19:15:56
 ---
 
 无论你是博客发烧友，还是项目开发小组，或是造轮子达人。  
-只要你需要写文档（markdown），而且需要产生出一套漂亮的页面。那么Picidae再适合不过了...
+只要你需要写文档（markdown），而且需要产生出一套漂亮的页面。那么Picidae再适合不过了... 
 
 大家伙现在看到的页面就是出自Picidae之手。
 
@@ -14,7 +14,8 @@ datetime: 2017-11-07 19:15:56
 
 - 万恶之源  
     还得回到百度面试的时候，当时一面面试官建议我多写写个人（技术）博客，当时我就被忽悠到了，说完就用Hexo造了一个博客。  
-    从此便一发不可收拾，啥破事小事鸟事都喜欢往上面BB。  
+    从此便一发不可收拾，啥破事小事鸟事都喜欢往上面BB。
+    
     ![](https://i.loli.net/2017/11/07/5a01ae6932978.jpg)
     
 - 自我的挣扎  
@@ -78,7 +79,7 @@ Picidae 继承了 Hexo 的自动化构建，插件化的定制设计；同时学
         与webpack中publicPath概念相同
     - docRoot (String)    
         文档的根目录
-    - distRoot (String)    
+    - distRoot (String)  
         picidae build 后资源放置的目录
     - templateRoot (String: './templates')   
         模板的根目录，其中html模板为 templateRoot 下的index.html
@@ -87,7 +88,7 @@ Picidae 继承了 Hexo 的自动化构建，插件化的定制设计；同时学
     - host (String)    
         ssr build 需要根据 host 自动生成 `robots.txt` 和 `sitemap.xml`
         
-- 扩展配置
+- 扩展配置 
     - excludes (Array: Function/RegExp/String)   
         docRoot中被排除的规则
     - hotReloadTests (Array: Function/RegExp/String)    

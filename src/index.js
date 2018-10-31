@@ -416,6 +416,7 @@ class Picidae extends EventEmitter {
     }
 
     build(callback) {
+        process.env.PICIDAE_ENV = 'production'
         console.log(chalk.green('Building...'))
         if (this.opts.force) {
             console.log(chalk.red(' FORCE Mode is OPEN'))
@@ -804,6 +805,7 @@ class Picidae extends EventEmitter {
     }
 
     start(callback) {
+        process.env.PICIDAE_ENV = 'development'
         if (this.opts.ssr) {
             console.log(chalk.underline.blue('Server Side Render Model is OPEN.'))
         }
