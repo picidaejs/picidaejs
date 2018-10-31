@@ -1,3 +1,13 @@
+<a name="2.4.0"></a>
+# [2.4.0](https://github.com/picidaejs/picidae/compare/v2.3.9...v2.4.0) (2018-10-31)
+
+
+### Features
+
+* access detect-one-changed ([d506103](https://github.com/picidaejs/picidae/commit/d506103))
+
+
+
 <a name="2.3.9"></a>
 ## [2.3.9](https://github.com/picidaejs/picidae/compare/v2.3.8...v2.3.9) (2018-06-08)
 
