@@ -14,6 +14,18 @@ As shown below
 
 [Picidae Video](https://picidaejs.github.io/picidaejs/public)
 
+## Why?
+There are a lot of document generator now, why I choose Picidae?
+
+|             | Picidae | Hexo | GitBook   |
+| ----------- | ------- | ---- | --------  |
+| SPA         | ✅      | ❌   | ❌(pjpx) |
+| Transformer | ✅      | ❌   | ❌       |
+
+Why I consider VuePress had supportted transformer partially?   
+VuePress has markdown transformer by [markdown-it](https://github.com/markdown-it/markdown-it).
+However, Picidae has more than it which includes **browser transformer**. the browser transformer could do lots of magic, eg. [react-render](https://github.com/picidaejs/picidae-transformer-react-render)
+
 ## Where use it
 - [Myself own Blog](https://imcuttle.github.io/)
 - [Baidu EUX](https://be-fe.github.io/picidae-theme-eux-blog/)
