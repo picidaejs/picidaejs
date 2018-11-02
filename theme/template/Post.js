@@ -6,8 +6,8 @@ import {Link} from 'react-router'
 const View = (props) => {
     let render = props.render;
     let publicPath = props.publicPath;
-    let utils = props.pluginData.utils;
-    let pagination = utils.pagination('post')
+    let utils = props.pluginData && props.pluginData.utils;
+    let pagination = utils && utils.pagination('post') || {}
 
     return (
         <div className="post">

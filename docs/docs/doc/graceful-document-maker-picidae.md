@@ -6,11 +6,12 @@ datetime: 2017-11-07 19:15:56
 无论你是博客发烧友，还是项目开发小组，或是造轮子达人。  
 只要你需要写文档（markdown），而且需要产生出一套漂亮的页面。那么Picidae再适合不过了... 
 
-大家伙现在看到的页面就是出自Picidae之手。
+大家伙现在看到的页面就是出自 Picidae 之手。
 
 ## Picidae 的前世
 
-![](https://i.loli.net/2017/11/07/5a01cf65f08b3.jpg)
+![](https://i.loli.net/2017/11/07/5a01cf65f08b3.jpg) 
+
 
 - 万恶之源  
     还得回到百度面试的时候，当时一面面试官建议我多写写个人（技术）博客，当时我就被忽悠到了，说完就用Hexo造了一个博客。  
@@ -36,7 +37,7 @@ datetime: 2017-11-07 19:15:56
 ## Picidae 的今生
 
 Picidae 继承了 Hexo 的自动化构建，插件化的定制设计；同时学习了 Moka 的单页特性。  
-不仅如此，Picidae 保证了 code split 和 SEO 的优质体验。
+不仅如此，Picidae 保证了 code split 和 SEO 的优质体验。 
 
 ### Picidae 能做什么
 

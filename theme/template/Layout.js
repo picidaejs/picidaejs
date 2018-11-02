@@ -8,7 +8,7 @@ import Footer from './Comps/Footer'
 class Layout extends React.Component {
 
     render() {
-        const {publicPath, pluginData: {utils}} = this.props;
+        const {publicPath} = this.props;
         return (
             <div>
                 <Header publicPath={publicPath}/>

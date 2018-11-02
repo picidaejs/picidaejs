@@ -4,7 +4,7 @@ var getPickerUtils = require('picidae-tools/node/getPickerUtils');
 module.exports = {
     routes: [{
         path: '/',
-        component: './Layout',
+        staticComponent: './Layout',
         indexRoute: {
             component: './PureMD',
             data: {
