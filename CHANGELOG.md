@@ -1,3 +1,13 @@
+<a name="2.4.1"></a>
+## [2.4.1](https://github.com/picidaejs/picidae/compare/v2.4.0...v2.4.1) (2018-12-20)
+
+
+### Bug Fixes
+
+* lock remark-highlight.js@5.0.0 ([6c51c6d](https://github.com/picidaejs/picidae/commit/6c51c6d))
+
+
+
 <a name="2.4.0"></a>
 # [2.4.0](https://github.com/picidaejs/picidae/compare/v2.3.9...v2.4.0) (2018-10-31)
 
